@@ -20,79 +20,79 @@
             padding: 20px;
             min-height: 100vh;
         }
-        /* الهيدر */
+        /* الهيدر العلوي */
         header {
             width: 100%;
             max-width: 450px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
-        .logo-text {
+        .logo-azm {
             color: #00ff66;
             font-size: 26px;
             font-weight: bold;
-            letter-spacing: 1px;
-            text-shadow: 0 0 10px rgba(0,255,102,0.5);
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0,255,102,0.6);
         }
         .menu-btn {
             background: transparent;
             border: 2px solid #00ff66;
             color: #00ff66;
-            padding: 8px 12px;
+            padding: 6px 12px;
             border-radius: 12px;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 20px;
             box-shadow: 0 0 10px rgba(0,255,102,0.2);
         }
         .divider {
             width: 100%;
             max-width: 450px;
             height: 1px;
-            background-color: #1a3322;
+            background-color: #143320;
             margin-bottom: 20px;
         }
-        /* الشعار الرئيسي والدائرة المضيئة */
+        /* شعار القطاع الدائري الأخضر */
         .main-emblem-container {
-            position: relative;
-            width: 140px;
-            height: 140px;
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             box-shadow: 0 0 25px #00ff66, inset 0 0 15px #00ff66;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             background: #081a10;
+            overflow: hidden;
         }
         .main-emblem-container img {
-            width: 125px;
-            height: 125px;
-            border-radius: 50%;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
         }
         /* العنوان والوصف */
         h1 {
             color: #00ff66;
-            font-size: 28px;
-            margin-bottom: 12px;
-            text-shadow: 0 0 12px rgba(0,255,102,0.6);
+            font-size: 26px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 12px rgba(0,255,102,0.5);
+            text-align: center;
         }
         .description {
             text-align: center;
-            color: #b0c4b8;
+            color: #a8c4b0;
             font-size: 13px;
             line-height: 1.6;
             max-width: 400px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
-        /* تنبيه */
+        /* التنبيه */
         .alert-box {
             border: 1px dashed #00ff66;
-            background: rgba(0, 255, 102, 0.03);
+            background: rgba(0, 255, 102, 0.04);
             color: #00ff66;
-            padding: 10px 15px;
+            padding: 10px 14px;
             border-radius: 10px;
             font-size: 12px;
             text-align: center;
@@ -100,7 +100,7 @@
             max-width: 420px;
             margin-bottom: 20px;
         }
-        /* أزرار التواصل */
+        /* الأزرار (ديسكورد و X) */
         .btn-group {
             display: flex;
             gap: 12px;
@@ -117,7 +117,6 @@
             font-weight: bold;
             font-size: 14px;
             cursor: pointer;
-            transition: 0.3s;
         }
         .btn-discord {
             background-color: #00ff66;
@@ -129,7 +128,7 @@
             border: 2px solid #00ff66;
             color: #00ff66;
         }
-        /* البطاقات السفلية (الشخصيات) */
+        /* بطاقات الشخصيات السفلية */
         .cards-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -166,19 +165,20 @@
             color: #9cb8a4;
             font-size: 11px;
         }
-        /* القائمة المنسدلة الجانبية للأقسام والرتب */
+
+        /* القائمة المنسدلة الجانبية (تصميم فاخر ومنسق) */
         .sidebar {
             position: fixed;
             top: 0;
-            right: -300px;
-            width: 280px;
+            right: -320px;
+            width: 300px;
             height: 100%;
             background: #06140b;
             border-left: 2px solid #00ff66;
-            box-shadow: -5px 0 25px rgba(0,0,0,0.8);
+            box-shadow: -5px 0 30px rgba(0,0,0,0.9);
             transition: 0.4s ease-in-out;
             z-index: 1000;
-            padding: 25px 15px;
+            padding: 20px 15px;
             overflow-y: auto;
         }
         .sidebar.active {
@@ -194,7 +194,7 @@
         }
         .sidebar-header h3 {
             color: #00ff66;
-            font-size: 18px;
+            font-size: 16px;
         }
         .close-sidebar {
             background: none;
@@ -204,14 +204,14 @@
             cursor: pointer;
         }
         .dropdown-section {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         .dropdown-btn {
             width: 100%;
             background: #0a1f13;
             border: 1px solid #1a4d2c;
             color: #00ff66;
-            padding: 12px;
+            padding: 10px 14px;
             border-radius: 10px;
             text-align: right;
             font-weight: bold;
@@ -227,11 +227,12 @@
             transition: max-height 0.3s ease-out;
             background: #040d07;
             border-radius: 0 0 10px 10px;
-            padding: 0 10px;
+            padding: 0 12px;
+            border: 1px solid transparent;
         }
         .dropdown-content ul {
             list-style: none;
-            padding: 10px 0;
+            padding: 8px 0;
         }
         .dropdown-content li {
             color: #b0c4b8;
@@ -242,13 +243,27 @@
         .dropdown-content li:last-child {
             border-bottom: none;
         }
+        /* طبقة خلفية مظلمة عند فتح القائمة */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            z-index: 999;
+        }
+        .overlay.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
 
     <!-- الهيدر العلوي -->
     <header>
-        <div class="logo-text">azm</div>
+        <div class="logo-azm">azm</div>
         <button class="menu-btn" onclick="toggleSidebar()">☰</button>
     </header>
 
@@ -256,8 +271,8 @@
 
     <!-- الشعار الدائري الأخضر المضيء -->
     <div class="main-emblem-container">
-        <!-- ضع رابط شعار قطاع العزم الأمني هنا -->
-        <img src="image_14.png" alt="شعار قطاع العزم الأمني">
+        <!-- ضع اسم أو رابط شعار القطاع هنا (مثال: logo.png) -->
+        <img src="logo.png" alt="شعار القطاع" onerror="this.src='https://i.ibb.co/6R34v42/placeholder.png'">
     </div>
 
     <!-- العنوان والوصف -->
@@ -269,30 +284,35 @@
         ⚠️ تنبيه: بعض الأقسام والخدمات تحت التحديث والتطوير المستمر
     </div>
 
-    <!-- أزرار الديسكورد وتويتر/X -->
+    <!-- أزرار التواصل -->
     <div class="btn-group">
         <a href="#" class="btn btn-discord">سيرفر الديسكورد</a>
         <a href="#" class="btn btn-x">حسابنا في X</a>
     </div>
 
-    <!-- البطاقات السفلية (مؤسس القطاع وقائد القطاع) -->
+    <!-- البطاقات السفلية -->
     <div class="cards-grid">
         <!-- بطاقة أحمد المعشني -->
         <div class="profile-card">
-            <img src="image_15.png" alt="أحمد المعشني">
+            <!-- ضع رابط صورتك الشخصية هنا -->
+            <img src="ahmed.png" alt="أحمد المعشني" onerror="this.src='https://i.ibb.co/6R34v42/placeholder.png'">
             <div class="name">أحمد المعشني</div>
             <div class="title">ملازم أول ومؤسس</div>
         </div>
 
-        <!-- بطاقة قائد القطاع (اللواء ركن سعد العتيبي) -->
+        <!-- بطاقة قائد القطاع -->
         <div class="profile-card">
-            <img src="image_16.png" alt="اللواء ركن سعد العتيبي">
+            <!-- ضع رابط صورة قائد القطاع هنا -->
+            <img src="leader.png" alt="قائد القطاع" onerror="this.src='https://i.ibb.co/6R34v42/placeholder.png'">
             <div class="name">قائد القطاع</div>
             <div class="title">قائد قطاع عزم الأمنـي</div>
         </div>
     </div>
 
-    <!-- القائمة الجانبية المنسدلة (الأقسام والرتب العسكرية) -->
+    <!-- الخلفية المظلمة عند فتح القائمة -->
+    <div class="overlay" id="myOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- القائمة الجانبية المنسدلة -->
     <div class="sidebar" id="mySidebar">
         <div class="sidebar-header">
             <h3>قائمة الأقسام والرتب</h3>
@@ -327,7 +347,7 @@
             <button class="dropdown-btn" onclick="toggleDropdown(this)">الرتب العسكرية والأفراد <span>▼</span></button>
             <div class="dropdown-content">
                 <ul>
-                    <li>رئـيس رقبة</li>
+                    <li>رئيـس رقبة</li>
                     <li>رقيب أول</li>
                     <li>عريف</li>
                     <li>جندي مطنش</li>
@@ -335,7 +355,7 @@
             </div>
         </div>
 
-        <!-- قسم الدوريات والقطاعات -->
+        <!-- قسم الدوريات الميدانية -->
         <div class="dropdown-section">
             <button class="dropdown-btn" onclick="toggleDropdown(this)">قسم الدوريات الميدانية <span>▼</span></button>
             <div class="dropdown-content">
@@ -351,15 +371,19 @@
     <script>
         function toggleSidebar() {
             const sidebar = document.getElementById('mySidebar');
+            const overlay = document.getElementById('myOverlay');
             sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
         }
 
         function toggleDropdown(btn) {
             const content = btn.nextElementSibling;
             if (content.style.maxHeight) {
                 content.style.maxHeight = null;
+                content.style.border = "1px solid transparent";
             } else {
                 content.style.maxHeight = content.scrollHeight + "px";
+                content.style.border = "1px solid #1a4d2c";
             }
         }
     </script>
