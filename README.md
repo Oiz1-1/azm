@@ -45,7 +45,7 @@
         .section-pane.active { display: block; }
         @keyframes fadeInPane { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- Home View (As in screenshot) --- */
+        /* --- Home View --- */
         #home-view { text-align: center; }
         .hero-emblem {
             width: 130px; height: 130px; border: 2px solid #00ff66; border-radius: 50%;
@@ -82,7 +82,6 @@
             letter-spacing: 2px; color: #00ff66; border-bottom: 2px solid #0f3d1e; display: table; margin-left: auto; margin-right: auto; padding-bottom: 8px;
         }
 
-        /* Admin & Fleet & Laws & Reports Cards */
         .admin-grid, .fleet-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; }
         .card-box { background: #08140c; border: 1px solid #0f3d1e; padding: 20px; text-align: center; border-radius: 8px; }
         .card-box .sub { color: #888; font-size: 0.85em; margin-bottom: 5px; }
