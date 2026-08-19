@@ -3,206 +3,365 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منظومة عزم الأمنية - لوحة العمليات والأرشيف</title>
+    <title>قطاع العزم الأمنـي</title>
     <style>
-        :root {
-            --bg-color: #0b0f19;
-            --card-bg: #131c2e;
-            --accent-green: #00ff66;
-            --accent-glow: rgba(0, 255, 102, 0.2);
-            --text-main: #ffffff;
-            --text-muted: #8a99ad;
-            --border-color: #1e293b;
-        }
-
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: Tahoma, sans-serif;
         }
-
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            background-color: #040d07;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
             min-height: 100vh;
-            padding: 20px;
         }
-
+        /* الهيدر */
         header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: var(--card-bg);
-            border-radius: 15px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-        }
-
-        header h1 {
-            color: var(--accent-green);
-            font-size: 24px;
-            margin-bottom: 5px;
-            text-shadow: 0 0 10px var(--accent-glow);
-        }
-
-        header p {
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            font-size: 18px;
-            margin-bottom: 15px;
-            color: var(--accent-green);
-            border-right: 4px solid var(--accent-green);
-            padding-right: 10px;
-        }
-
-        /* شبكة الدوريات والأقسام */
-        .grid-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 15px;
-            text-align: center;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-
-        .card:hover {
-            border-color: var(--accent-green);
-            box-shadow: 0 0 15px var(--accent-glow);
-            transform: translateY(-3px);
-        }
-
-        .card .icon {
-            font-size: 30px;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .card h3 {
-            font-size: 14px;
-            color: var(--text-main);
-        }
-
-        /* قسم الأرشيف وأسامي العساكر */
-        .archive-box {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .soldier-list {
-            list-style: none;
-        }
-
-        .soldier-item {
+            width: 100%;
+            max-width: 450px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 15px;
-            margin-bottom: 10px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
+            margin-bottom: 25px;
         }
-
-        .soldier-info h4 {
-            font-size: 15px;
-            color: var(--text-main);
-            margin-bottom: 3px;
-        }
-
-        .soldier-info span {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .status-badge {
-            background: var(--accent-glow);
-            color: var(--accent-green);
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 12px;
+        .logo-text {
+            color: #00ff66;
+            font-size: 26px;
             font-weight: bold;
-            border: 1px solid var(--accent-green);
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(0,255,102,0.5);
+        }
+        .menu-btn {
+            background: transparent;
+            border: 2px solid #00ff66;
+            color: #00ff66;
+            padding: 8px 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 18px;
+            box-shadow: 0 0 10px rgba(0,255,102,0.2);
+        }
+        .divider {
+            width: 100%;
+            max-width: 450px;
+            height: 1px;
+            background-color: #1a3322;
+            margin-bottom: 20px;
+        }
+        /* الشعار الرئيسي والدائرة المضيئة */
+        .main-emblem-container {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 25px #00ff66, inset 0 0 15px #00ff66;
+            margin-bottom: 25px;
+            background: #081a10;
+        }
+        .main-emblem-container img {
+            width: 125px;
+            height: 125px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        /* العنوان والوصف */
+        h1 {
+            color: #00ff66;
+            font-size: 28px;
+            margin-bottom: 12px;
+            text-shadow: 0 0 12px rgba(0,255,102,0.6);
+        }
+        .description {
+            text-align: center;
+            color: #b0c4b8;
+            font-size: 13px;
+            line-height: 1.6;
+            max-width: 400px;
+            margin-bottom: 20px;
+        }
+        /* تنبيه */
+        .alert-box {
+            border: 1px dashed #00ff66;
+            background: rgba(0, 255, 102, 0.03);
+            color: #00ff66;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 12px;
+            text-align: center;
+            width: 100%;
+            max-width: 420px;
+            margin-bottom: 20px;
+        }
+        /* أزرار التواصل */
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+            max-width: 420px;
+            margin-bottom: 25px;
+        }
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 12px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-discord {
+            background-color: #00ff66;
+            color: #040d07;
+            box-shadow: 0 0 15px rgba(0,255,102,0.4);
+        }
+        .btn-x {
+            background-color: transparent;
+            border: 2px solid #00ff66;
+            color: #00ff66;
+        }
+        /* البطاقات السفلية (الشخصيات) */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            width: 100%;
+            max-width: 420px;
+            margin-bottom: 30px;
+        }
+        .profile-card {
+            background: #08160e;
+            border: 1px solid #143820;
+            border-radius: 16px;
+            padding: 15px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .profile-card img {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #00ff66;
+            margin-bottom: 10px;
+        }
+        .profile-card .name {
+            color: #00ff66;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        .profile-card .title {
+            color: #9cb8a4;
+            font-size: 11px;
+        }
+        /* القائمة المنسدلة الجانبية للأقسام والرتب */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 280px;
+            height: 100%;
+            background: #06140b;
+            border-left: 2px solid #00ff66;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.8);
+            transition: 0.4s ease-in-out;
+            z-index: 1000;
+            padding: 25px 15px;
+            overflow-y: auto;
+        }
+        .sidebar.active {
+            right: 0;
+        }
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #143820;
+            padding-bottom: 10px;
+        }
+        .sidebar-header h3 {
+            color: #00ff66;
+            font-size: 18px;
+        }
+        .close-sidebar {
+            background: none;
+            border: none;
+            color: #00ff66;
+            font-size: 22px;
+            cursor: pointer;
+        }
+        .dropdown-section {
+            margin-bottom: 15px;
+        }
+        .dropdown-btn {
+            width: 100%;
+            background: #0a1f13;
+            border: 1px solid #1a4d2c;
+            color: #00ff66;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: right;
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background: #040d07;
+            border-radius: 0 0 10px 10px;
+            padding: 0 10px;
+        }
+        .dropdown-content ul {
+            list-style: none;
+            padding: 10px 0;
+        }
+        .dropdown-content li {
+            color: #b0c4b8;
+            font-size: 12px;
+            padding: 6px 0;
+            border-bottom: 1px solid #0a1f13;
+        }
+        .dropdown-content li:last-child {
+            border-bottom: none;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <!-- الهيدر -->
-        <header>
-            <h1>منظومة عزم الأمنية</h1>
-            <p>لوحة العمليات والتحكم المركزي - الأرشيف والدوريات</p>
-        </header>
+    <!-- الهيدر العلوي -->
+    <header>
+        <div class="logo-text">azm</div>
+        <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+    </header>
 
-        <!-- قسم الدوريات والأقسام -->
-        <div class="section-title">الأقسام والدوريات النشطة</div>
-        <div class="grid-cards">
-            <div class="card">
-                <span class="icon">🚓</span>
-                <h3>دورية أمن 1</h3>
-            </div>
-            <div class="card">
-                <span class="icon">🚙</span>
-                <h3>دورية طوارئ 2</h3>
-            </div>
-            <div class="card">
-                <span class="icon">🚨</span>
-                <h3>العمليات الخاصة</h3>
-            </div>
-            <div class="card">
-                <span class="icon">🛡️</span>
-                <h3>أمن البوابات</h3>
-            </div>
+    <div class="divider"></div>
+
+    <!-- الشعار الدائري الأخضر المضيء -->
+    <div class="main-emblem-container">
+        <!-- ضع رابط شعار قطاع العزم الأمني هنا -->
+        <img src="image_14.png" alt="شعار قطاع العزم الأمني">
+    </div>
+
+    <!-- العنوان والوصف -->
+    <h1>قطاع العزم الأمنـي</h1>
+    <p class="description">القطاع الأمنـي الرسمي والمجتمعي المتميز. انضم إلينا لبيئة احترافية، تنظيم عالٍ، وفعاليات حصرية.</p>
+
+    <!-- تنبيه -->
+    <div class="alert-box">
+        ⚠️ تنبيه: بعض الأقسام والخدمات تحت التحديث والتطوير المستمر
+    </div>
+
+    <!-- أزرار الديسكورد وتويتر/X -->
+    <div class="btn-group">
+        <a href="#" class="btn btn-discord">سيرفر الديسكورد</a>
+        <a href="#" class="btn btn-x">حسابنا في X</a>
+    </div>
+
+    <!-- البطاقات السفلية (مؤسس القطاع وقائد القطاع) -->
+    <div class="cards-grid">
+        <!-- بطاقة أحمد المعشني -->
+        <div class="profile-card">
+            <img src="image_15.png" alt="أحمد المعشني">
+            <div class="name">أحمد المعشني</div>
+            <div class="title">ملازم أول ومؤسس</div>
         </div>
 
-        <!-- قسم الأرشيف وأسامي العساكر -->
-        <div class="section-title">أرشيف القوة وأسامي العساكر</div>
-        <div class="archive-box">
-            <ul class="soldier-list">
-                <li class="soldier-item">
-                    <div class="soldier-info">
-                        <h4>الوكيل / أحمد عزم</h4>
-                        <span>القطاع الشمالي - دورية رقم 1</span>
-                    </div>
-                    <div class="status-badge">على الحراسة</div>
-                </li>
-                <li class="soldier-item">
-                    <div class="soldier-info">
-                        <h4>العريف / خالد الفيصل</h4>
-                        <span>قطاع العمليات - طوارئ</span>
-                    </div>
-                    <div class="status-badge">في الميدان</div>
-                </li>
-                <li class="soldier-item">
-                    <div class="soldier-info">
-                        <h4>الجندي / فهد السبيعي</h4>
-                        <span>بوابة رقم 3 - الرئيسية</span>
-                    </div>
-                    <div class="status-badge">استعداد</div>
-                </li>
-            </ul>
+        <!-- بطاقة قائد القطاع (اللواء ركن سعد العتيبي) -->
+        <div class="profile-card">
+            <img src="image_16.png" alt="اللواء ركن سعد العتيبي">
+            <div class="name">قائد القطاع</div>
+            <div class="title">قائد قطاع عزم الأمنـي</div>
         </div>
     </div>
 
+    <!-- القائمة الجانبية المنسدلة (الأقسام والرتب العسكرية) -->
+    <div class="sidebar" id="mySidebar">
+        <div class="sidebar-header">
+            <h3>قائمة الأقسام والرتب</h3>
+            <button class="close-sidebar" onclick="toggleSidebar()">✕</button>
+        </div>
+
+        <!-- قسم القيادة العليا -->
+        <div class="dropdown-section">
+            <button class="dropdown-btn" onclick="toggleDropdown(this)">القيادة العليا والضباط <span>▼</span></button>
+            <div class="dropdown-content">
+                <ul>
+                    <li>اللواء ركن سعد العتيبي (قائد القطاع)</li>
+                    <li>العميد ركن خالد</li>
+                    <li>العقيد بسام</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- قسم الإداريين -->
+        <div class="dropdown-section">
+            <button class="dropdown-btn" onclick="toggleDropdown(this)">الطاقم الإداري <span>▼</span></button>
+            <div class="dropdown-content">
+                <ul>
+                    <li>خالد العتيبي</li>
+                    <li>عبد العزيز محمد العتيبي</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- قسم الرتب العسكرية -->
+        <div class="dropdown-section">
+            <button class="dropdown-btn" onclick="toggleDropdown(this)">الرتب العسكرية والأفراد <span>▼</span></button>
+            <div class="dropdown-content">
+                <ul>
+                    <li>رئـيس رقبة</li>
+                    <li>رقيب أول</li>
+                    <li>عريف</li>
+                    <li>جندي مطنش</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- قسم الدوريات والقطاعات -->
+        <div class="dropdown-section">
+            <button class="dropdown-btn" onclick="toggleDropdown(this)">قسم الدوريات الميدانية <span>▼</span></button>
+            <div class="dropdown-content">
+                <ul>
+                    <li>دوريات اللكسز</li>
+                    <li>دوريات اللاندكروزر</li>
+                    <li>العمليات الخاصة</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('mySidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        function toggleDropdown(btn) {
+            const content = btn.nextElementSibling;
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        }
+    </script>
 </body>
 </html>
