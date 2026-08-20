@@ -5,288 +5,93 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>قطاع العزم الأمني</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: Tahoma, sans-serif; }
-        body { background-color: #040d07; color: #ffffff; display: flex; flex-direction: column; align-items: center; padding: 20px; min-height: 100vh; }
+        body { background-color: #040d07; color: #ffffff; font-family: 'Segoe UI', Tahoma, sans-serif; display: flex; flex-direction: column; align-items: center; padding: 15px; }
+        .logo-img { width: 150px; height: 150px; border-radius: 50%; border: 3px solid #00ff66; margin: 15px 0; object-fit: cover; }
+        h1 { color: #00ff66; font-size: 28px; margin-bottom: 20px; }
+        h2 { color: #00ff66; font-size: 20px; margin-top: 25px; margin-bottom: 15px; border-bottom: 1px solid #143820; padding-bottom: 5px; }
         
-        #main-content { display: flex; width: 100%; max-width: 450px; flex-direction: column; align-items: center; }
-        header { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .logo-azm { color: #00ff66; font-size: 26px; font-weight: bold; letter-spacing: 2px; }
-        .menu-btn { background: transparent; border: 2px solid #00ff66; color: #00ff66; padding: 6px 12px; border-radius: 12px; cursor: pointer; font-size: 20px; transition: 0.3s; }
-        .menu-btn:hover { background: #00ff66; color: #040d07; }
-        .divider { width: 100%; height: 1px; background-color: #143320; margin-bottom: 20px; }
-        
-        .main-emblem-container {
-            width: 130px; height: 130px; border-radius: 50%; display: flex;
-            justify-content: center; align-items: center; box-shadow: 0 0 25px #00ff66, inset 0 0 15px #00ff66;
-            margin-bottom: 20px; background: #081a10; overflow: hidden;
-        }
-        .main-emblem-container img { width: 100%; height: 100%; object-fit: cover; }
-        h1 { color: #00ff66; font-size: 26px; margin-bottom: 10px; text-align: center; text-shadow: 0 0 10px rgba(0,255,102,0.4); }
-        .description { text-align: center; color: #a8c4b0; font-size: 13px; line-height: 1.6; max-width: 400px; margin-bottom: 15px; }
-        
-        .alert-box { border: 1px dashed #00ff66; background: rgba(0, 255, 102, 0.04); color: #00ff66; padding: 10px 14px; border-radius: 10px; font-size: 12px; text-align: center; width: 100%; margin-bottom: 20px; }
-        .btn-group { display: flex; gap: 12px; width: 100%; margin-bottom: 25px; }
-        .btn { flex: 1; padding: 12px; border-radius: 12px; text-align: center; text-decoration: none; font-weight: bold; font-size: 14px; cursor: pointer; }
-        .btn-discord { background-color: #00ff66; color: #040d07; box-shadow: 0 0 15px rgba(0,255,102,0.4); }
-        .btn-x { background-color: transparent; border: 2px solid #00ff66; color: #00ff66; }
+        .btn-box { width: 100%; display: flex; gap: 10px; margin-bottom: 25px; }
+        .btn { flex: 1; padding: 15px; border-radius: 12px; text-align: center; background: #00ff66; color: #040d07; font-weight: bold; text-decoration: none; font-size: 16px; border: none; }
 
-        .cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; margin-bottom: 30px; }
-        .profile-card { background: #08160e; border: 1px solid #143820; border-radius: 16px; padding: 15px 10px; display: flex; flex-direction: column; align-items: center; text-align: center; }
-        .profile-card img { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; border: 2px solid #00ff66; margin-bottom: 10px; }
-        .profile-card .name { color: #00ff66; font-size: 14px; font-weight: bold; margin-bottom: 4px; }
-        .profile-card .title { color: #9cb8a4; font-size: 11px; }
+        .profile-container { display: flex; justify-content: space-around; width: 100%; margin-bottom: 25px; gap: 10px; }
+        .profile-box { text-align: center; flex: 1; background: #08160e; padding: 10px; border-radius: 12px; border: 1px solid #00ff66; }
+        .profile-box img { width: 80px; height: 80px; border-radius: 50%; border: 2px solid #00ff66; margin-bottom: 5px; object-fit: cover; }
+        .name { font-weight: bold; font-size: 14px; color: #00ff66; }
 
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85); display: flex; justify-content: center; align-items: center;
-            z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.35s ease-in-out;
-        }
-        .modal-overlay.active { opacity: 1; visibility: visible; }
-        .modal-content {
-            background: #06140b; border: 2px solid #00ff66; box-shadow: 0 0 30px rgba(0,255,102,0.3);
-            width: 90%; max-width: 420px; border-radius: 20px; padding: 20px;
-            transform: scale(0.7); transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .modal-overlay.active .modal-content { transform: scale(1); }
-        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #143820; padding-bottom: 10px; margin-bottom: 15px; }
-        .modal-header h3 { color: #00ff66; font-size: 16px; }
-        .close-modal { background: none; border: none; color: #00ff66; font-size: 22px; cursor: pointer; }
-        
-        .menu-btn-item {
-            width: 100%; background: #040d07; border: 1px solid #00ff66; color: #00ff66;
-            padding: 12px; border-radius: 10px; margin-bottom: 10px; text-align: center;
-            font-weight: bold; cursor: pointer; font-size: 14px; transition: 0.2s; text-decoration: none; display: block;
-        }
-        .menu-btn-item:hover { background: #00ff66; color: #040d07; }
+        /* الأكورديون (الأنيميشن) */
+        .section-box { width: 100%; margin-bottom: 10px; }
+        .drop-btn { width: 100%; background: #08160e; border: 1px solid #00ff66; color: #fff; padding: 20px; border-radius: 10px; text-align: right; font-size: 17px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .drop-content { display: none; background: #0c2012; padding: 15px; border-radius: 0 0 10px 10px; border: 1px solid #00ff66; border-top: none; font-size: 16px; color: #ddd; line-height: 1.8; }
+        .active { display: block; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .page-section { display: none; width: 100%; max-width: 450px; flex-direction: column; }
-        .page-section.active { display: flex; }
-        .back-btn { background: #08160e; border: 1px solid #00ff66; color: #00ff66; padding: 8px 15px; border-radius: 8px; cursor: pointer; margin-bottom: 15px; font-weight: bold; width: fit-content; }
-        .content-card { background: #08160e; border: 1px solid #143820; border-radius: 12px; padding: 15px; margin-bottom: 12px; }
-        .content-card h3 { color: #00ff66; font-size: 15px; margin-bottom: 8px; border-bottom: 1px solid #143820; padding-bottom: 5px; }
-        .content-card p, .content-card div { color: #b0c4b8; font-size: 13px; line-height: 1.6; margin-bottom: 6px; }
+        /* قسم الدوريات */
+        .patrol-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; }
+        .patrol-card { background: #08160e; border: 1px solid #143820; padding: 15px; border-radius: 10px; text-align: center; }
+        .patrol-card b { color: #00ff66; font-size: 14px; }
+        .patrol-card p { font-size: 12px; color: #aaa; margin-top: 5px; }
 
-        .field-form input, .field-form select, .field-form textarea {
-            width: 100%; background: #040d07; border: 1px solid #143820; color: #fff;
-            padding: 10px; border-radius: 8px; margin-bottom: 10px; font-size: 13px;
-        }
-        .field-form button {
-            width: 100%; background: #00ff66; color: #040d07; border: none;
-            padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px;
-        }
-        .archive-box { background: #040d07; border: 1px solid #00ff66; border-radius: 8px; padding: 10px; margin-top: 10px; font-size: 12px; }
+        /* الأرشيف */
+        .field-form { background: #08160e; border: 1px solid #00ff66; padding: 15px; border-radius: 10px; width: 100%; }
+        input, textarea { width: 100%; background: #040d07; border: 1px solid #00ff66; color: #fff; padding: 10px; margin-bottom: 10px; border-radius: 5px; box-sizing: border-box; }
+        .archive-list { margin-top: 15px; padding: 10px; border-top: 1px solid #00ff66; color: #00ff66; font-size: 14px; }
     </style>
 </head>
 <body>
 
-    <div id="home-page" class="page-section active">
-        <header>
-            <div class="logo-azm">azm</div>
-            <button class="menu-btn" onclick="toggleModal()">☰</button>
-        </header>
+    <img src="IMG_0347.jpeg" class="logo-img" alt="الشعار">
+    <h1>قطاع العزم الأمني</h1>
 
-        <div class="divider"></div>
+    <div class="btn-box">
+        <a href="https://www.tiktok.com/@ssoh022" class="btn">تيك توك</a>
+        <a href="https://discord.gg/KT9aYRC9y" class="btn">ديسكورد</a>
+    </div>
 
-        <div class="main-emblem-container">
-            <img src="IMG_0347.jpeg" alt="شعار القطاع">
+    <div class="profile-container">
+        <div class="profile-box">
+            <img src="IMG_0349.jpeg" alt="القائد">
+            <div class="name">اللواء ركن سعد</div>
         </div>
-
-        <h1>قطاع العزم الأمني</h1>
-        <p class="description">القطاع الأمني الرسمي والمجتمعي المتميز. انضم إلينا لبيئة احترافية، تنظيم عالٍ، وفعاليات حصرية.</p>
-
-        <div class="alert-box">
-            ⚠️ تنبيه: يُشترط أن يكون عمر المتقدم أو العسكري أكثر من 14 عاماً تماماً.
-        </div>
-
-        <div class="btn-group">
-            <a href="#" class="btn btn-discord">سيرفر الديسكورد</a>
-            <a href="#" class="btn btn-x">حسابنا في X</a>
-        </div>
-
-        <div class="cards-grid">
-            <div class="profile-card">
-                <img src="ahmed.jpeg" onerror="this.src='IMG_0347.jpeg'" alt="أحمد المعشني">
-                <div class="name">أحمد المعشني</div>
-                <div class="title">ملازم أول ومؤسس</div>
-            </div>
-
-            <div class="profile-card">
-                <img src="leader.jpeg" onerror="this.src='IMG_0347.jpeg'" alt="قائد القطاع">
-                <div class="name">اللواء ركن سعد</div>
-                <div class="title">قائد قطاع عزم الأمني</div>
-            </div>
+        <div class="profile-box">
+            <img src="IMG_8649.jpeg" alt="أحمد">
+            <div class="name">أحمد المعشني</div>
         </div>
     </div>
 
-    <div id="laws-page" class="page-section">
-        <button class="back-btn" onclick="goHome()">← الرجوع للرئيسية</button>
-        <div class="content-card">
-            <h3>قسم القوانين والتعليمات</h3>
-            <p>• الشرط الأساسي: يُسمح بانضمام من هم فوق سن 14 عاماً فقط.</p>
-            <p>• الالتزام التام بالتعليمات الميدانية والاحترام المتبادل بين كافة الرتب العسكرية.</p>
-            <p>• منع استخدام الآليات في غير مهامها الرسمية المحددة.</p>
-        </div>
+    <h2>السلك العسكري</h2>
+    <div class="section-box"><button class="drop-btn" onclick="toggle('c1')">⭐ القادات العليا</button><div id="c1" class="drop-content">اللواء ركن: سعد العتيبي<br>العميد ركن: خالد القحطاني<br>العقيد: بسام</div></div>
+    <div class="section-box"><button class="drop-btn" onclick="toggle('c2')">⭐ الضباط</button><div id="c2" class="drop-content">ملازم أول: أحمد المعشني (المؤسس)<br>ملازم: عبد العزيز العتيبي</div></div>
+    <div class="section-box"><button class="drop-btn" onclick="toggle('c3')">⭐ رؤساء الرقباء</button><div id="c3" class="drop-content">رئيس رقباء: Aa100200<br>رئيس رقباء: عفان عرفان<br>رئيس رقباء: عمر العتيبي</div></div>
+    <div class="section-box"><button class="drop-btn" onclick="toggle('c4')">⭐ الرقباء الأوائل والرقباء</button><div id="c4" class="drop-content">رقيب أول: Aa1234512345<br>رقيب أول: ياسر ريس<br>رقيب: ثامر البقمي<br>رقيب: Eg294</div></div>
+    <div class="section-box"><button class="drop-btn" onclick="toggle('c5')">⭐ وكلاء الرقباء والعرفاء</button><div id="c5" class="drop-content">وكيل رقيب: mKruKp1122<br>وكيل رقيب: NAsr hamd<br>عريف: Saeeddddd<br>عريف: تركي كدوس</div></div>
+    <div class="section-box"><button class="drop-btn" onclick="toggle('c6')">⭐ الأفراد والجنود</button><div id="c6" class="drop-content">جندي أول: zeyad507 / رياض العامري / هاشم حمزة الشنقيطي<br>جندي: بدر العتيبي / سعود العتيبي / تركي كدوس / فهيد ابن محمد / خالد العتيبي / مطنش</div></div>
+
+    <h2>قسم الدوريات العسكرية</h2>
+    <div class="patrol-grid">
+        <div class="patrol-card"><b>تاهو</b><p>للضباط (ملازم، ملازم أول)</p></div>
+        <div class="patrol-card"><b>ربع</b><p>للجنود (جندي، جندي أول)</p></div>
+        <div class="patrol-card"><b>أف جي</b><p>للعرفاء</p></div>
+        <div class="patrol-card"><b>تورس</b><p>للطوارئ</p></div>
     </div>
 
-    <div id="military-page" class="page-section">
-        <button class="back-btn" onclick="goHome()">← الرجوع للرئيسية</button>
-        <div class="content-card">
-            <h3>السلم العسكري والرتـب</h3>
-            <div style="margin-bottom: 12px;">
-                <b style="color:#00ff66;">القيادة العليا:</b>
-                <p>• اللواء ركن: سعد</p>
-                <p>• العميد ركن: خالد</p>
-                <p>• العقيد: بسام (درع القطاع)</p>
-            </div>
-            <div style="margin-bottom: 12px;">
-                <b style="color:#00ff66;">قسم الضباط:</b>
-                <p>• الملازم أول / أحمد المعشني (المؤسس)</p>
-                <p>• الملازم / عبد العزيز العتيبي</p>
-            </div>
-            <div style="margin-bottom: 12px;">
-                <b style="color:#00ff66;">رؤساء الرقباء والرقباء:</b>
-                <p>• رؤساء الرقباء: Aa100200، عفان عرفان، عمر العتيبي</p>
-                <p>• الرقباء الأوائل: Aa1234512345، ياسر ريس</p>
-                <p>• الرقباء: ثامر البقمي، Eg294</p>
-            </div>
-            <div>
-                <b style="color:#00ff66;">الأفراد والجنود:</b>
-                <p>• العرفاء: Saeeddddd، تركي كدوس</p>
-                <p>• الجنود الأوائل: zeyad507، رياض العامري، هاشم حمزة الشنقيطي</p>
-                <p>• الجنود: بدر العتيبي، سعود العتيبي، فهيد ابن محمد، خالد العتيبي</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="field-page" class="page-section">
-        <button class="back-btn" onclick="goHome()">← الرجوع للرئيسية</button>
-        <div class="content-card field-form">
-            <h3>الحالة الميدانية وتسجيل البلاغات</h3>
-            <input type="text" id="fieldName" placeholder="اسم العسكري...">
-            <select id="fieldRank">
-                <option value="">اختر الرتبة (اختياري)...</option>
-                <option>جندي / جندي أول</option>
-                <option>عريف / وكيل رقيب</option>
-                <option>رقيب / رقيب أول / رئيس رقيب</option>
-                <option>ملازم / ملازم أول</option>
-                <option>قيادة عليا</option>
-            </select>
-            <select id="fieldType" onchange="checkOther()">
-                <option value="">اختر الحالة (اختياري)...</option>
-                <option>مطاردة</option>
-                <option>إيقاف مروري</option>
-                <option>بلاغ تهريب</option>
-                <option value="أخرى">أخرى (اكتبها يدوياً)</option>
-            </select>
-            <input type="text" id="customType" placeholder="اكتب تفاصيل الحالة الأخرى..." style="display:none;">
-            <textarea id="fieldDetails" placeholder="تفاصيل إضافية عن البلاغ..."></textarea>
-            <input type="file" id="fieldImage" accept="image/*">
-            <button onclick="submitReport()">إرسال وحفظ في الأرشيف</button>
-        </div>
-
-        <div class="content-card">
-            <h3>أرشيف الحالات الميدانية</h3>
-            <div id="archiveContainer">
-                <p style="color:#777; font-size:12px;">لا توجد حالات مسجلة حتى الآن في الأرشيف.</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="cars-page" class="page-section">
-        <button class="back-btn" onclick="goHome()">← الرجوع للرئيسية</button>
-        <div class="content-card">
-            <h3>قسم السيارات والمركبات الأمنية</h3>
-            <p>• <b>التاهو:</b> مخصص للضباط والقيادة العليا والمهام الخاصة.</p>
-            <p>• <b>الأف جي:</b> مخصص للعريّف والدوريات الأمنية.</p>
-            <p>• <b>الربع:</b> مخصص للجنود والجنود الأوائل في الميدان.</p>
-            <p>• <b>التورس والفورورد:</b> لمهام الاستيقاف والطرق السريعة.</p>
-        </div>
-    </div>
-
-    <div id="admin-page" class="page-section">
-        <button class="back-btn" onclick="goHome()">← الرجوع للرئيسية</button>
-        <div class="content-card">
-            <h3>قسم الإدارة والقيادات</h3>
-            <p>• المؤسس والقائد العام: الملازم أول / أحمد المعشني</p>
-            <p>• قائد القطاع: اللواء ركن / سعد العتيبي</p>
-            <p>• الإداري: عبد العزيز محمد العتيبي</p>
-            <p>• الإداري: خالد العتيبي</p>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="menuModal" onclick="checkClose(event)">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>قائمة قطاع العزم الأمني</h3>
-                <button class="close-modal" onclick="toggleModal()">✕</button>
-            </div>
-
-            <a class="menu-btn-item" onclick="switchPage('home-page')">الرئيسية</a>
-            <a class="menu-btn-item" onclick="switchPage('laws-page')">2. قسم القوانين والتعليمات</a>
-            <a class="menu-btn-item" onclick="switchPage('military-page')">3. السلم العسكري والرتـب</a>
-            <a class="menu-btn-item" onclick="switchPage('field-page')">4. الحالة الميدانية والأرشيف</a>
-            <a class="menu-btn-item" onclick="switchPage('cars-page')">5. قسم السيارات والمركبات</a>
-            <a class="menu-btn-item" onclick="switchPage('admin-page')">6. قسم الإدارة والقيادات</a>
-        </div>
+    <h2>الحالة الميدانية (تنتقل للأرشيف)</h2>
+    <div class="field-form">
+        <input type="text" id="t" placeholder="عنوان البلاغ">
+        <textarea id="d" rows="2" placeholder="تفاصيل البلاغ"></textarea>
+        <button onclick="add()">إرسال للبلاغات</button>
+        <div id="arch" class="archive-list">الأرشيف:</div>
     </div>
 
     <script>
-        function toggleModal() {
-            document.getElementById('menuModal').classList.toggle('active');
-        }
-
-        function checkClose(e) {
-            if (e.target.id === 'menuModal') { toggleModal(); }
-        }
-
-        function switchPage(pageId) {
-            toggleModal();
-            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function goHome() {
-            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
-            document.getElementById('home-page').classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function checkOther() {
-            const val = document.getElementById('fieldType').value;
-            document.getElementById('customType').style.display = (val === 'أخرى') ? 'block' : 'none';
-        }
-
-        function submitReport() {
-            const name = document.getElementById('fieldName').value || 'عسكري غير محدد';
-            const rank = document.getElementById('fieldRank').value || 'غير محددة';
-            let type = document.getElementById('fieldType').value;
-            const details = document.getElementById('fieldDetails').value;
-            
-            if (type === 'أخرى') {
-                type = document.getElementById('customType').value || 'حالة أخرى';
-            } else if (!type) {
-                type = 'حالة ميدانية عامة';
+        function toggle(id) { document.getElementById(id).classList.toggle('active'); }
+        function add() {
+            let t = document.getElementById('t').value;
+            let d = document.getElementById('d').value;
+            if(t) {
+                let a = document.getElementById('arch');
+                a.innerHTML += `<br>▪️ ${t}: ${d}`;
+                document.getElementById('t').value = ""; document.getElementById('d').value = "";
             }
-
-            const archive = document.getElementById('archiveContainer');
-            if (archive.innerHTML.includes('لا توجد حالات')) {
-                archive.innerHTML = '';
-            }
-
-            const record = document.createElement('div');
-            record.className = 'archive-box';
-            record.innerHTML = `
-                <b>العسكري:</b> ${name} (${rank})<br>
-                <b>نوع الحالة:</b> ${type}<br>
-                <b>التفاصيل:</b> ${details || 'لا توجد تفاصيل إضافية'}<br>
-                <span style="color:#00ff66; font-size:10px;">تم الحفظ في الأرشيف بنجاح</span>
-            `;
-            archive.prepend(record);
-            alert('تم إرسال الحالة وحفظها في الأرشيف بنجاح!');
-            
-            document.getElementById('fieldName').value = '';
-            document.getElementById('fieldDetails').value = '';
         }
     </script>
 </body>
