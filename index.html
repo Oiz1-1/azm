@@ -7,8 +7,8 @@
     <style>
         body { background-color: #040d07; color: #ffffff; font-family: 'Segoe UI', Tahoma, sans-serif; display: flex; flex-direction: column; align-items: center; padding: 15px; }
         .logo-img { width: 150px; height: 150px; border-radius: 50%; border: 3px solid #00ff66; margin: 15px 0; object-fit: cover; }
-        h1 { color: #00ff66; font-size: 28px; margin-bottom: 20px; }
-        h2 { color: #00ff66; font-size: 20px; margin-top: 25px; margin-bottom: 15px; border-bottom: 1px solid #143820; padding-bottom: 5px; }
+        h1 { color: #00ff66; font-size: 28px; margin-bottom: 20px; text-align: center; }
+        h2 { color: #00ff66; font-size: 20px; margin-top: 25px; margin-bottom: 15px; border-bottom: 1px solid #143820; padding-bottom: 5px; text-align: center; width: 100%; }
         
         .btn-box { width: 100%; display: flex; gap: 10px; margin-bottom: 25px; }
         .btn { flex: 1; padding: 15px; border-radius: 12px; text-align: center; background: #00ff66; color: #040d07; font-weight: bold; text-decoration: none; font-size: 16px; border: none; }
@@ -22,19 +22,20 @@
         .section-box { width: 100%; margin-bottom: 10px; }
         .drop-btn { width: 100%; background: #08160e; border: 1px solid #00ff66; color: #fff; padding: 20px; border-radius: 10px; text-align: right; font-size: 17px; font-weight: bold; cursor: pointer; transition: 0.3s; }
         .drop-content { display: none; background: #0c2012; padding: 15px; border-radius: 0 0 10px 10px; border: 1px solid #00ff66; border-top: none; font-size: 16px; color: #ddd; line-height: 1.8; }
-        .active { display: block; animation: fadeIn 0.5s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .active { display: block; animation: fadeIn 0.4s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
         /* قسم الدوريات */
         .patrol-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; }
         .patrol-card { background: #08160e; border: 1px solid #143820; padding: 15px; border-radius: 10px; text-align: center; }
-        .patrol-card b { color: #00ff66; font-size: 14px; }
-        .patrol-card p { font-size: 12px; color: #aaa; margin-top: 5px; }
+        .patrol-card b { color: #00ff66; font-size: 15px; }
+        .patrol-card p { font-size: 13px; color: #ccc; margin-top: 5px; }
 
-        /* الأرشيف */
+        /* الأرشيف والحالة الميدانية */
         .field-form { background: #08160e; border: 1px solid #00ff66; padding: 15px; border-radius: 10px; width: 100%; }
-        input, textarea { width: 100%; background: #040d07; border: 1px solid #00ff66; color: #fff; padding: 10px; margin-bottom: 10px; border-radius: 5px; box-sizing: border-box; }
-        .archive-list { margin-top: 15px; padding: 10px; border-top: 1px solid #00ff66; color: #00ff66; font-size: 14px; }
+        input, select, textarea { width: 100%; background: #040d07; border: 1px solid #00ff66; color: #fff; padding: 12px; margin-bottom: 10px; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
+        .submit-btn { width: 100%; background: #00ff66; color: #040d07; border: none; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; }
+        .archive-list { margin-top: 15px; padding: 10px; border-top: 1px solid #00ff66; color: #00ff66; font-size: 15px; line-height: 1.6; }
     </style>
 </head>
 <body>
@@ -43,7 +44,7 @@
     <h1>قطاع العزم الأمني</h1>
 
     <div class="btn-box">
-        <a href="https://www.tiktok.com/@ssoh022" class="btn">تيك توك</a>
+        <a href="https://www.tiktok.com/@ssoh022?_r=1&_t=ZS-991jJVyMqJw" class="btn">تيك توك</a>
         <a href="https://discord.gg/KT9aYRC9y" class="btn">ديسكورد</a>
     </div>
 
@@ -64,34 +65,68 @@
     <div class="section-box"><button class="drop-btn" onclick="toggle('c3')">⭐ رؤساء الرقباء</button><div id="c3" class="drop-content">رئيس رقباء: Aa100200<br>رئيس رقباء: عفان عرفان<br>رئيس رقباء: عمر العتيبي</div></div>
     <div class="section-box"><button class="drop-btn" onclick="toggle('c4')">⭐ الرقباء الأوائل والرقباء</button><div id="c4" class="drop-content">رقيب أول: Aa1234512345<br>رقيب أول: ياسر ريس<br>رقيب: ثامر البقمي<br>رقيب: Eg294</div></div>
     <div class="section-box"><button class="drop-btn" onclick="toggle('c5')">⭐ وكلاء الرقباء والعرفاء</button><div id="c5" class="drop-content">وكيل رقيب: mKruKp1122<br>وكيل رقيب: NAsr hamd<br>عريف: Saeeddddd<br>عريف: تركي كدوس</div></div>
-    <div class="section-box"><button class="drop-btn" onclick="toggle('c6')">⭐ الأفراد والجنود</button><div id="c6" class="drop-content">جندي أول: zeyad507 / رياض العامري / هاشم حمزة الشنقيطي<br>جندي: بدر العتيبي / سعود العتيبي / تركي كدوس / فهيد ابن محمد / خالد العتيبي / مطنش</div></div>
+    <div class="section-box"><button class="drop-btn" onclick="toggle('c6')">⭐ الأفراد والجنود</button><div id="c6" class="drop-content">جندي أول: zeyad507<br>جندي أول: رياض العامري<br>جندي أول: هاشم حمزة الشنقيطي<br>جندي: بدر العتيبي<br>جندي: سعود العتيبي<br>جندي: تركي كدوس<br>جندي: فهيد ابن محمد<br>جندي: خالد العتيبي<br>جندي: مطنش</div></div>
 
     <h2>قسم الدوريات العسكرية</h2>
     <div class="patrol-grid">
-        <div class="patrol-card"><b>تاهو</b><p>للضباط (ملازم، ملازم أول)</p></div>
-        <div class="patrol-card"><b>ربع</b><p>للجنود (جندي، جندي أول)</p></div>
-        <div class="patrol-card"><b>أف جي</b><p>للعرفاء</p></div>
-        <div class="patrol-card"><b>تورس</b><p>للطوارئ</p></div>
+        <div class="patrol-card"><b>تاهو</b><p>مخصصة للضباط (ملازم، ملازم أول)</p></div>
+        <div class="patrol-card"><b>ربع</b><p>مخصصة للجنود (جندي، جندي أول)</p></div>
+        <div class="patrol-card"><b>أف جي</b><p>مخصصة للعريّف</p></div>
+        <div class="patrol-card"><b>تورس</b><p>مخصصة للطوارئ</p></div>
     </div>
 
-    <h2>الحالة الميدانية (تنتقل للأرشيف)</h2>
+    <h2>الحالة الميدانية والأرشيف</h2>
     <div class="field-form">
-        <input type="text" id="t" placeholder="عنوان البلاغ">
-        <textarea id="d" rows="2" placeholder="تفاصيل البلاغ"></textarea>
-        <button onclick="add()">إرسال للبلاغات</button>
-        <div id="arch" class="archive-list">الأرشيف:</div>
+        <input type="text" id="repName" placeholder="أدخل اسم العسكري...">
+        <select id="repRank">
+            <option value="">اختر الرتبة...</option>
+            <option value="اللواء ركن">اللواء ركن</option>
+            <option value="العميد ركن">العميد ركن</option>
+            <option value="العقيد">العقيد</option>
+            <option value="ملازم أول">ملازم أول</option>
+            <option value="ملازم">ملازم</option>
+            <option value="رئيس رقباء">رئيس رقباء</option>
+            <option value="رقيب أول">رقيب أول</option>
+            <option value="رقيب">رقيب</option>
+            <option value="وكيل رقيب">وكيل رقيب</option>
+            <option value="عريف">عريف</option>
+            <option value="جندي أول">جندي أول</option>
+            <option value="جندي">جندي</option>
+        </select>
+        <textarea id="repDesc" rows="2" placeholder="اكتب تفاصيل الحالة أو البلاغ الميداني هنا..."></textarea>
+        <button class="submit-btn" onclick="addReport()">إرسال وحفظ في الأرشيف فوراً</button>
+        
+        <div id="archiveDisplay" class="archive-list"><b>سجل الأرشيف الميداني المباشر:</b><br>لا توجد حالات مسجلة حتى الآن.</div>
     </div>
 
     <script>
         function toggle(id) { document.getElementById(id).classList.toggle('active'); }
-        function add() {
-            let t = document.getElementById('t').value;
-            let d = document.getElementById('d').value;
-            if(t) {
-                let a = document.getElementById('arch');
-                a.innerHTML += `<br>▪️ ${t}: ${d}`;
-                document.getElementById('t').value = ""; document.getElementById('d').value = "";
+        
+        function addReport() {
+            let name = document.getElementById('repName').value;
+            let rank = document.getElementById('repRank').value;
+            let desc = document.getElementById('repDesc').value;
+            
+            if(!name || !rank || !desc) {
+                alert("يرجى تعبئة الاسم، اختيار الرتبة، وكتابة البلاغ!");
+                return;
             }
+            
+            let display = document.getElementById('archiveDisplay');
+            if(display.innerText.includes("لا توجد حالات مسجلة")) {
+                display.innerHTML = "<b>سجل الأرشيف الميداني المباشر:</b>";
+            }
+            
+            let entry = document.createElement('div');
+            entry.style.borderBottom = "1px dashed #143820";
+            entry.style.padding = "8px 0";
+            entry.innerHTML = `📌 <b>[${rank}] ${name}</b>: ${desc}`;
+            
+            display.appendChild(entry);
+            
+            document.getElementById('repName').value = "";
+            document.getElementById('repRank').value = "";
+            document.getElementById('repDesc').value = "";
         }
     </script>
 </body>
