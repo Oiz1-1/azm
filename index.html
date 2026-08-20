@@ -3,332 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>قطاع العزم الأمنـي</title>
+    <title>قطاع العزم الأمني</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Tahoma, sans-serif;
-        }
-        body {
-            background-color: #040d07;
-            color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            min-height: 100vh;
-        }
-        header {
-            width: 100%;
-            max-width: 450px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .logo-azm {
-            color: #00ff66;
-            font-size: 26px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(0,255,102,0.6);
-        }
-        .menu-btn {
-            background: transparent;
-            border: 2px solid #00ff66;
-            color: #00ff66;
-            padding: 6px 12px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 20px;
-            box-shadow: 0 0 10px rgba(0,255,102,0.2);
-        }
-        .divider {
-            width: 100%;
-            max-width: 450px;
-            height: 1px;
-            background-color: #143320;
-            margin-bottom: 20px;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: Tahoma, sans-serif; }
+        body { background-color: #040d07; color: #ffffff; display: flex; flex-direction: column; align-items: center; padding: 20px; min-height: 100vh; }
+        
+        #main-content { display: flex; width: 100%; max-width: 450px; flex-direction: column; align-items: center; }
+        header { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .logo-azm { color: #00ff66; font-size: 26px; font-weight: bold; letter-spacing: 2px; }
+        .menu-btn { background: transparent; border: 2px solid #00ff66; color: #00ff66; padding: 6px 12px; border-radius: 12px; cursor: pointer; font-size: 20px; transition: 0.3s; }
+        .menu-btn:hover { background: #00ff66; color: #040d07; }
+        .divider { width: 100%; height: 1px; background-color: #143320; margin-bottom: 20px; }
+        
         .main-emblem-container {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 0 25px #00ff66, inset 0 0 15px #00ff66;
-            margin-bottom: 20px;
-            background: #081a10;
-            overflow: hidden;
+            width: 130px; height: 130px; border-radius: 50%; display: flex;
+            justify-content: center; align-items: center; box-shadow: 0 0 25px #00ff66, inset 0 0 15px #00ff66;
+            margin-bottom: 20px; background: #081a10; overflow: hidden;
         }
-        .main-emblem-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        h1 {
-            color: #00ff66;
-            font-size: 26px;
-            margin-bottom: 10px;
-            text-shadow: 0 0 12px rgba(0,255,102,0.5);
-            text-align: center;
-        }
-        .description {
-            text-align: center;
-            color: #a8c4b0;
-            font-size: 13px;
-            line-height: 1.6;
-            max-width: 400px;
-            margin-bottom: 15px;
-        }
-        .alert-box {
-            border: 1px dashed #00ff66;
-            background: rgba(0, 255, 102, 0.04);
-            color: #00ff66;
-            padding: 10px 14px;
-            border-radius: 10px;
-            font-size: 12px;
-            text-align: center;
-            width: 100%;
-            max-width: 420px;
-            margin-bottom: 20px;
-        }
-        .btn-group {
-            display: flex;
-            gap: 12px;
-            width: 100%;
-            max-width: 420px;
-            margin-bottom: 25px;
-        }
-        .btn {
-            flex: 1;
-            padding: 12px;
-            border-radius: 12px;
-            text-align: center;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 14px;
-            cursor: pointer;
-        }
-        .btn-discord {
-            background-color: #00ff66;
-            color: #040d07;
-            box-shadow: 0 0 15px rgba(0,255,102,0.4);
-        }
-        .btn-x {
-            background-color: transparent;
-            border: 2px solid #00ff66;
-            color: #00ff66;
-        }
-        .cards-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            width: 100%;
-            max-width: 420px;
-            margin-bottom: 30px;
-        }
-        .profile-card {
-            background: #08160e;
-            border: 1px solid #143820;
-            border-radius: 16px;
-            padding: 15px 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-        .profile-card img {
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #00ff66;
-            margin-bottom: 10px;
-        }
-        .profile-card .name {
-            color: #00ff66;
-            font-size: 14px;
-            font-weight: bold;
-            margin-bottom: 4px;
-        }
-        .profile-card .title {
-            color: #9cb8a4;
-            font-size: 11px;
-        }
+        .main-emblem-container img { width: 100%; height: 100%; object-fit: cover; }
+        h1 { color: #00ff66; font-size: 26px; margin-bottom: 10px; text-align: center; text-shadow: 0 0 10px rgba(0,255,102,0.4); }
+        .description { text-align: center; color: #a8c4b0; font-size: 13px; line-height: 1.6; max-width: 400px; margin-bottom: 15px; }
+        
+        .alert-box { border: 1px dashed #00ff66; background: rgba(0, 255, 102, 0.04); color: #00ff66; padding: 10px 14px; border-radius: 10px; font-size: 12px; text-align: center; width: 100%; margin-bottom: 20px; }
+        .btn-group { display: flex; gap: 12px; width: 100%; margin-bottom: 25px; }
+        .btn { flex: 1; padding: 12px; border-radius: 12px; text-align: center; text-decoration: none; font-weight: bold; font-size: 14px; cursor: pointer; }
+        .btn-discord { background-color: #00ff66; color: #040d07; box-shadow: 0 0 15px rgba(0,255,102,0.4); }
+        .btn-x { background-color: transparent; border: 2px solid #00ff66; color: #00ff66; }
 
-        /* القائمة الجانبية الأصلية */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            right: -300px;
-            width: 280px;
-            height: 100%;
-            background: #06140b;
-            border-left: 2px solid #00ff66;
-            box-shadow: -5px 0 25px rgba(0,0,0,0.8);
-            transition: 0.3s ease;
-            z-index: 1000;
-            padding: 20px 15px;
-            overflow-y: auto;
+        .cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; margin-bottom: 30px; }
+        .profile-card { background: #08160e; border: 1px solid #143820; border-radius: 16px; padding: 15px 10px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .profile-card img { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; border: 2px solid #00ff66; margin-bottom: 10px; }
+        .profile-card .name { color: #00ff66; font-size: 14px; font-weight: bold; margin-bottom: 4px; }
+        .profile-card .title { color: #9cb8a4; font-size: 11px; }
+
+        /* نافذة القائمة المركزية بإنيميشن ناعم */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85); display: flex; justify-content: center; align-items: center;
+            z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.35s ease-in-out;
         }
-        .sidebar.active {
-            right: 0;
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-content {
+            background: #06140b; border: 2px solid #00ff66; box-shadow: 0 0 30px rgba(0,255,102,0.3);
+            width: 90%; max-width: 420px; max-height: 85vh; border-radius: 20px; padding: 20px; overflow-y: auto;
+            transform: scale(0.7); transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .sidebar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #143820;
-            padding-bottom: 10px;
+        .modal-overlay.active .modal-content { transform: scale(1); }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #143820; padding-bottom: 10px; margin-bottom: 15px; }
+        .modal-header h3 { color: #00ff66; font-size: 16px; }
+        .close-modal { background: none; border: none; color: #00ff66; font-size: 22px; cursor: pointer; }
+        
+        .menu-btn-item {
+            width: 100%; background: #040d07; border: 1px solid #00ff66; color: #00ff66;
+            padding: 12px; border-radius: 10px; margin-bottom: 10px; text-align: center;
+            font-weight: bold; cursor: pointer; font-size: 14px; transition: 0.2s;
         }
-        .sidebar-header h3 {
-            color: #00ff66;
-            font-size: 15px;
+        .menu-btn-item:hover { background: #00ff66; color: #040d07; }
+        .sub-section { display: none; background: #040d07; border: 1px solid #143820; border-radius: 10px; padding: 12px; margin-bottom: 10px; }
+        .sub-section.active { display: block; }
+        .sub-section h4 { color: #00ff66; font-size: 13px; margin-bottom: 8px; border-bottom: 1px solid #143820; padding-bottom: 5px; cursor: pointer; }
+        .sub-section p, .sub-section div { color: #b0c4b8; font-size: 12px; padding: 4px 0; }
+        .sub-collapse { display: none; margin-top: 6px; padding-right: 10px; border-right: 2px solid #00ff66; }
+        .sub-collapse.open { display: block; }
+
+        /* نموذج الحالة والأرشيف */
+        .field-form input, .field-form select, .field-form textarea {
+            width: 100%; background: #040d07; border: 1px solid #143820; color: #fff;
+            padding: 8px; border-radius: 8px; margin-bottom: 8px; font-size: 12px;
         }
-        .close-sidebar {
-            background: none;
-            border: none;
-            color: #00ff66;
-            font-size: 20px;
-            cursor: pointer;
+        .field-form button {
+            width: 100%; background: #00ff66; color: #040d07; border: none;
+            padding: 8px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 13px;
         }
-        .menu-category {
-            margin-bottom: 15px;
+        .archive-item {
+            background: #081a10; border: 1px solid #00ff66; border-radius: 8px; padding: 8px; margin-bottom: 8px; font-size: 11px;
         }
-        .category-title {
-            color: #00ff66;
-            font-size: 13px;
-            font-weight: bold;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .category-items {
-            background: #040d07;
-            border: 1px solid #143820;
-            border-radius: 10px;
-            padding: 8px 12px;
-        }
-        .category-items div {
-            color: #a8c4b0;
-            font-size: 12px;
-            padding: 5px 0;
-            border-bottom: 1px solid #0a1f13;
-        }
-        .category-items div:last-child {
-            border-bottom: none;
-        }
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            display: none;
-            z-index: 999;
-        }
-        .overlay.active {
-            display: block;
-        }
+        .car-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; background: #08160e; padding: 8px; border-radius: 8px; border: 1px solid #143820; }
+        .car-row img { width: 70px; height: 45px; object-fit: cover; border-radius: 6px; border: 1px solid #00ff66; }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo-azm">azm</div>
-        <button class="menu-btn" onclick="toggleSidebar()">☰</button>
-    </header>
+    <div id="main-content">
+        <header>
+            <div class="logo-azm">azm</div>
+            <button class="menu-btn" onclick="toggleModal()">☰</button>
+        </header>
 
-    <div class="divider"></div>
+        <div class="divider"></div>
 
-    <div class="main-emblem-container">
-        <img src="logo.png" alt="شعار القطاع">
-    </div>
-
-    <h1>قطاع العزم الأمنـي</h1>
-    <p class="description">القطاع الأمنـي الرسمي والمجتمعي المتميز. انضم إلينا لبيئة احترافية، تنظيم عالٍ، وفعاليات حصرية.</p>
-
-    <div class="alert-box">
-        ⚠️ تنبيه: بعض الأقسام والخدمات تحت التحديث والتطوير المستمر
-    </div>
-
-    <div class="btn-group">
-        <a href="رابط_الديسكورد_هنا" class="btn btn-discord">سيرفر الديسكورد</a>
-        <a href="رابط_تيك_توك_هنا" class="btn btn-x">حسابنا في تيك توك</a>
-    </div>
-
-    <div class="cards-grid">
-        <div class="profile-card">
-            <img src="ahmed.png" alt="أحمد المعشني">
-            <div class="name">أحمد المعشني</div>
-            <div class="title">ملازم أول ومؤسس</div>
+        <div class="main-emblem-container">
+            <!-- ضع رابط شعار القطاع الدائري هنا -->
+            <img src="logo.png" alt="شعار القطاع">
         </div>
 
-        <div class="profile-card">
-            <img src="leader.png" alt="قائد القطاع">
-            <div class="name">قائد القطاع</div>
-            <div class="title">قائد قطاع عزم الأمنـي</div>
-        </div>
-    </div>
+        <h1>قطاع العزم الأمني</h1>
+        <p class="description">القطاع الأمني الرسمي والمجتمعي المتميز. انضم إلينا لبيئة احترافية، تنظيم عالٍ، وفعاليات حصرية.</p>
 
-    <div class="overlay" id="myOverlay" onclick="toggleSidebar()"></div>
-
-    <div class="sidebar" id="mySidebar">
-        <div class="sidebar-header">
-            <h3>قائمة الأقسام والرتب</h3>
-            <button class="close-sidebar" onclick="toggleSidebar()">✕</button>
+        <div class="alert-box">
+            ⚠️ تنبيه: بعض الأقسام والخدمات تحت التحديث والتطوير المستمر (يشترط العمر فوق 14 سنة).
         </div>
 
-        <div class="menu-category">
-            <div class="category-title">▼ القيادة العليا والضباط</div>
-            <div class="category-items">
-                <div>اللواء ركن سعد العتيبي (قائد القطاع)</div>
-                <div>العميد ركن خالد</div>
-                <div>العقيد بسام</div>
+        <div class="btn-group">
+            <a href="#" class="btn btn-discord">سيرفر الديسكورد</a>
+            <a href="#" class="btn btn-x">حسابنا في X</a>
+        </div>
+
+        <div class="cards-grid">
+            <div class="profile-card">
+                <!-- صورة المؤسس -->
+                <img src="ahmed.png" alt="أحمد المعشني">
+                <div class="name">أحمد المعشني</div>
+                <div class="title">ملازم أول ومؤسس</div>
+            </div>
+
+            <div class="profile-card">
+                <!-- صورة اللواء ركن سعد العتيبي أو قائد القطاع -->
+                <img src="leader.png" alt="قائد القطاع">
+                <div class="name">قائد القطاع</div>
+                <div class="title">قائد قطاع عزم الأمني</div>
             </div>
         </div>
+    </div>
 
-        <div class="menu-category">
-            <div class="category-title">▼ الطاقم الإداري</div>
-            <div class="category-items">
-                <div>خالد العتيبي</div>
-                <div>عبد العزيز محمد العتيبي</div>
+    <!-- النافذة المنسدلة -->
+    <div class="modal-overlay" id="menuModal" onclick="checkClose(event)">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>قائمة قطاع العزم الأمني</h3>
+                <button class="close-modal" onclick="toggleModal()">✕</button>
             </div>
-        </div>
 
-        <div class="menu-category">
-            <div class="category-title">▼ الرتب العسكرية والأفراد</div>
-            <div class="category-items">
-                <div>رئيـس رقبة</div>
-                <div>رقيب أول</div>
-                <div>عريف</div>
-                <div>جندي مطنش</div>
+            <div class="menu-btn-item" onclick="goHome()">🏠 الرئيسية</div>
+
+            <div class="menu-btn-item" onclick="toggleSub('lawsSec')">📜 2. قسم القوانين والتعليمات</div>
+            <div class="sub-section" id="lawsSec">
+                <h4>قوانين وضوابط قطاع العزم</h4>
+                <p>• الشرط الأساسي: يُشترط أن يكون عمر المחתور أو العسكري أكثر من 14 عاماً.</p>
+                <p>• الالتزام التام بالتعليمات الميدانية والاحترام المتبادل بين الرتب.</p>
             </div>
-        </div>
 
-        <div class="menu-category">
-            <div class="category-title">▼ قسم الدوريات الميدانية</div>
-            <div class="category-items">
-                <div>دوريات اللكسز</div>
-                <div>دوريات اللاندكروزر</div>
-                <div>العمليات الخاصة</div>
+            <div class="menu-btn-item" onclick="toggleSub('militarySec')">🎖️ 3. السلم العسكري والرتـب</div>
+            <div class="sub-section" id="militarySec">
+                <h4>اضغط على الفئة للاستعراض:</h4>
+                <div style="margin-top:8px;">
+                    <h4 onclick="toggleCollapse('col1')">⭐ القيادة العليا</h4>
+                    <div class="sub-collapse" id="col1">
+                        <p>• اللواء ركن: سعد</p>
+                        <p>• العميد ركن: خالد</p>
+                        <p>• العقيد: بسام (درع القطاع)</p>
+                    </div>
+                </div>
+                <div style="margin-top:8px;">
+                    <h4 onclick="toggleCollapse('col2')">⭐ قسم الضباط</h4>
+                    <div class="sub-collapse" id="col2">
+                        <p>• ملازم أول / أحمد المعشني (المؤسس)</p>
+                        <p>• ملازم / عبد العزيز العتيبي</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-btn-item" onclick="toggleSub('fieldSec')">🚨 4. الحالة الميدانية والأرشيف</div>
+            <div class="sub-section field-form" id="fieldSec">
+                <h4>تسجيل تقرير ميداني جديد</h4>
+                <input type="text" id="fieldName" placeholder="اسم العسكري...">
+                <select id="fieldRank">
+                    <option value="">اختر الرتبة...</option>
+                    <option>جندي</option><option>عريف</option><option>رقيب</option><option>ملازم / ملازم أول</option><option>قيادة عليا</option>
+                </select>
+                <select id="fieldType">
+                    <option value="">اختر نوع الحالة...</option>
+                    <option>مطاردة</option><option>إيقاف مروري</option><option>بلاغ تهريب</option>
+                </select>
+                <textarea id="fieldDetails" placeholder="تفاصيل إضافية..."></textarea>
+                <input type="file" id="fieldImage" accept="image/*">
+                <button onclick="submitFieldReport()">إرسال للأرشيف</button>
+                <div id="archiveList" style="margin-top:10px;"></div>
+            </div>
+
+            <div class="menu-btn-item" onclick="toggleSub('carsSec')">🚗 5. قسم السيارات والمركبات</div>
+            <div class="sub-section" id="carsSec">
+                <h4>المركبات الرسمية</h4>
+                <div class="car-row">
+                    <div><b>التاهو:</b> للضباط والقيادة العليا</div>
+                </div>
+                <div class="car-row">
+                    <div><b>الأف جي والربع:</b> للدوريات والأفراد</div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        function toggleSidebar() {
-            const sidebar = document.getElementById('mySidebar');
-            const overlay = document.getElementById('myOverlay');
-            sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
+        function toggleModal() { document.getElementById('menuModal').classList.toggle('active'); }
+        function checkClose(e) { if (e.target.id === 'menuModal') { toggleModal(); } }
+        function goHome() { toggleModal(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        function toggleSub(id) {
+            document.querySelectorAll('.sub-section').forEach(sec => { if (sec.id !== id) sec.classList.remove('active'); });
+            document.getElementById(id).classList.toggle('active');
+        }
+        function toggleCollapse(id) { document.getElementById(id).classList.toggle('open'); }
+        function submitFieldReport() {
+            alert('تم حفظ الحالة بنجاح في الأرشيف الميداني!');
         }
     </script>
 </body>
