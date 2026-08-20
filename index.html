@@ -36,7 +36,6 @@
         .profile-card .name { color: #00ff66; font-size: 14px; font-weight: bold; margin-bottom: 4px; }
         .profile-card .title { color: #9cb8a4; font-size: 11px; }
 
-        /* نافذة القائمة المركزية بإنيميشن ناعم */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.85); display: flex; justify-content: center; align-items: center;
@@ -45,7 +44,7 @@
         .modal-overlay.active { opacity: 1; visibility: visible; }
         .modal-content {
             background: #06140b; border: 2px solid #00ff66; box-shadow: 0 0 30px rgba(0,255,102,0.3);
-            width: 90%; max-width: 420px; max-height: 85vh; border-radius: 20px; padding: 20px; overflow-y: auto;
+            width: 90%; max-width: 420px; border-radius: 20px; padding: 20px;
             transform: scale(0.7); transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .modal-overlay.active .modal-content { transform: scale(1); }
@@ -56,35 +55,31 @@
         .menu-btn-item {
             width: 100%; background: #040d07; border: 1px solid #00ff66; color: #00ff66;
             padding: 12px; border-radius: 10px; margin-bottom: 10px; text-align: center;
-            font-weight: bold; cursor: pointer; font-size: 14px; transition: 0.2s;
+            font-weight: bold; cursor: pointer; font-size: 14px; transition: 0.2s; text-decoration: none; display: block;
         }
         .menu-btn-item:hover { background: #00ff66; color: #040d07; }
-        .sub-section { display: none; background: #040d07; border: 1px solid #143820; border-radius: 10px; padding: 12px; margin-bottom: 10px; }
-        .sub-section.active { display: block; }
-        .sub-section h4 { color: #00ff66; font-size: 13px; margin-bottom: 8px; border-bottom: 1px solid #143820; padding-bottom: 5px; cursor: pointer; }
-        .sub-section p, .sub-section div { color: #b0c4b8; font-size: 12px; padding: 4px 0; }
-        .sub-collapse { display: none; margin-top: 6px; padding-right: 10px; border-right: 2px solid #00ff66; }
-        .sub-collapse.open { display: block; }
 
-        /* نموذج الحالة والأرشيف */
+        .page-section { display: none; width: 100%; max-width: 450px; flex-direction: column; }
+        .page-section.active { display: flex; }
+        .back-btn { background: #08160e; border: 1px solid #00ff66; color: #00ff66; padding: 8px 15px; border-radius: 8px; cursor: pointer; margin-bottom: 15px; font-weight: bold; width: fit-content; }
+        .content-card { background: #08160e; border: 1px solid #143820; border-radius: 12px; padding: 15px; margin-bottom: 12px; }
+        .content-card h3 { color: #00ff66; font-size: 15px; margin-bottom: 8px; border-bottom: 1px solid #143820; padding-bottom: 5px; }
+        .content-card p, .content-card div { color: #b0c4b8; font-size: 13px; line-height: 1.6; margin-bottom: 6px; }
+
         .field-form input, .field-form select, .field-form textarea {
             width: 100%; background: #040d07; border: 1px solid #143820; color: #fff;
-            padding: 8px; border-radius: 8px; margin-bottom: 8px; font-size: 12px;
+            padding: 10px; border-radius: 8px; margin-bottom: 10px; font-size: 13px;
         }
         .field-form button {
             width: 100%; background: #00ff66; color: #040d07; border: none;
-            padding: 8px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 13px;
+            padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px;
         }
-        .archive-item {
-            background: #081a10; border: 1px solid #00ff66; border-radius: 8px; padding: 8px; margin-bottom: 8px; font-size: 11px;
-        }
-        .car-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; background: #08160e; padding: 8px; border-radius: 8px; border: 1px solid #143820; }
-        .car-row img { width: 70px; height: 45px; object-fit: cover; border-radius: 6px; border: 1px solid #00ff66; }
+        .archive-box { background: #040d07; border: 1px solid #00ff66; border-radius: 8px; padding: 10px; margin-top: 10px; font-size: 12px; }
     </style>
 </head>
 <body>
 
-    <div id="main-content">
+    <div id="home-page" class="page-section active">
         <header>
             <div class="logo-azm">azm</div>
             <button class="menu-btn" onclick="toggleModal()">☰</button>
@@ -93,15 +88,14 @@
         <div class="divider"></div>
 
         <div class="main-emblem-container">
-            <!-- ضع رابط شعار القطاع الدائري هنا -->
-            <img src="logo.png" alt="شعار القطاع">
+            <img src="IMG_0347.jpeg" alt="شعار القطاع">
         </div>
 
         <h1>قطاع العزم الأمني</h1>
         <p class="description">القطاع الأمني الرسمي والمجتمعي المتميز. انضم إلينا لبيئة احترافية، تنظيم عالٍ، وفعاليات حصرية.</p>
 
         <div class="alert-box">
-            ⚠️ تنبيه: بعض الأقسام والخدمات تحت التحديث والتطوير المستمر (يشترط العمر فوق 14 سنة).
+            ⚠️ تنبيه: يُشترط أن يكون عمر المتقدم أو العسكري أكثر من 14 عاماً تماماً.
         </div>
 
         <div class="btn-group">
@@ -111,22 +105,115 @@
 
         <div class="cards-grid">
             <div class="profile-card">
-                <!-- صورة المؤسس -->
-                <img src="ahmed.png" alt="أحمد المعشني">
+                <img src="ahmed.jpeg" onerror="this.src='IMG_0347.jpeg'" alt="أحمد المعشني">
                 <div class="name">أحمد المعشني</div>
                 <div class="title">ملازم أول ومؤسس</div>
             </div>
 
             <div class="profile-card">
-                <!-- صورة اللواء ركن سعد العتيبي أو قائد القطاع -->
-                <img src="leader.png" alt="قائد القطاع">
-                <div class="name">قائد القطاع</div>
+                <img src="leader.jpeg" onerror="this.src='IMG_0347.jpeg'" alt="قائد القطاع">
+                <div class="name">اللواء ركن سعد</div>
                 <div class="title">قائد قطاع عزم الأمني</div>
             </div>
         </div>
     </div>
 
-    <!-- النافذة المنسدلة -->
+    <div id="laws-page" class="page-section">
+        <button class="back-btn" onclick="goHome()">← الرجوع للرئيسية</button>
+        <div class="content-card">
+            <h3>قسم القوانين والتعليمات</h3>
+            <p>• الشرط الأساسي: يُسمح بانضمام من هم فوق سن 14 عاماً فقط.</p>
+            <p>• الالتزام التام بالتعليمات الميدانية والاحترام المتبادل بين كافة الرتب العسكرية.</p>
+            <p>• منع استخدام الآليات في غير مهامها الرسمية المحددة.</p>
+        </div>
+    </div>
+
+    <div id="military-page" class="page-section">
+        <button class="back-btn" onclick="goHome()">← الرجوع للرئيسية</button>
+        <div class="content-card">
+            <h3>السلم العسكري والرتـب</h3>
+            <div style="margin-bottom: 12px;">
+                <b style="color:#00ff66;">القيادة العليا:</b>
+                <p>• اللواء ركن: سعد</p>
+                <p>• العميد ركن: خالد</p>
+                <p>• العقيد: بسام (درع القطاع)</p>
+            </div>
+            <div style="margin-bottom: 12px;">
+                <b style="color:#00ff66;">قسم الضباط:</b>
+                <p>• الملازم أول / أحمد المعشني (المؤسس)</p>
+                <p>• الملازم / عبد العزيز العتيبي</p>
+            </div>
+            <div style="margin-bottom: 12px;">
+                <b style="color:#00ff66;">رؤساء الرقباء والرقباء:</b>
+                <p>• رؤساء الرقباء: Aa100200، عفان عرفان، عمر العتيبي</p>
+                <p>• الرقباء الأوائل: Aa1234512345، ياسر ريس</p>
+                <p>• الرقباء: ثامر البقمي، Eg294</p>
+            </div>
+            <div>
+                <b style="color:#00ff66;">الأفراد والجنود:</b>
+                <p>• العرفاء: Saeeddddd، تركي كدوس</p>
+                <p>• الجنود الأوائل: zeyad507، رياض العامري، هاشم حمزة الشنقيطي</p>
+                <p>• الجنود: بدر العتيبي، سعود العتيبي، فهيد ابن محمد، خالد العتيبي</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="field-page" class="page-section">
+        <button class="back-btn" onclick="goHome()">← الرجوع للرئيسية</button>
+        <div class="content-card field-form">
+            <h3>الحالة الميدانية وتسجيل البلاغات</h3>
+            <input type="text" id="fieldName" placeholder="اسم العسكري...">
+            <select id="fieldRank">
+                <option value="">اختر الرتبة (اختياري)...</option>
+                <option>جندي / جندي أول</option>
+                <option>عريف / وكيل رقيب</option>
+                <option>رقيب / رقيب أول / رئيس رقيب</option>
+                <option>ملازم / ملازم أول</option>
+                <option>قيادة عليا</option>
+            </select>
+            <select id="fieldType" onchange="checkOther()">
+                <option value="">اختر الحالة (اختياري)...</option>
+                <option>مطاردة</option>
+                <option>إيقاف مروري</option>
+                <option>بلاغ تهريب</option>
+                <option value="أخرى">أخرى (اكتبها يدوياً)</option>
+            </select>
+            <input type="text" id="customType" placeholder="اكتب تفاصيل الحالة الأخرى..." style="display:none;">
+            <textarea id="fieldDetails" placeholder="تفاصيل إضافية عن البلاغ..."></textarea>
+            <input type="file" id="fieldImage" accept="image/*">
+            <button onclick="submitReport()">إرسال وحفظ في الأرشيف</button>
+        </div>
+
+        <div class="content-card">
+            <h3>أرشيف الحالات الميدانية</h3>
+            <div id="archiveContainer">
+                <p style="color:#777; font-size:12px;">لا توجد حالات مسجلة حتى الآن في الأرشيف.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="cars-page" class="page-section">
+        <button class="back-btn" onclick="goHome()">← الرجوع للرئيسية</button>
+        <div class="content-card">
+            <h3>قسم السيارات والمركبات الأمنية</h3>
+            <p>• <b>التاهو:</b> مخصص للضباط والقيادة العليا والمهام الخاصة.</p>
+            <p>• <b>الأف جي:</b> مخصص للعريّف والدوريات الأمنية.</p>
+            <p>• <b>الربع:</b> مخصص للجنود والجنود الأوائل في الميدان.</p>
+            <p>• <b>التورس والفورورد:</b> لمهام الاستيقاف والطرق السريعة.</p>
+        </div>
+    </div>
+
+    <div id="admin-page" class="page-section">
+        <button class="back-btn" onclick="goHome()">← الرجوع للرئيسية</button>
+        <div class="content-card">
+            <h3>قسم الإدارة والقيادات</h3>
+            <p>• المؤسس والقائد العام: الملازم أول / أحمد المعشني</p>
+            <p>• قائد القطاع: اللواء ركن / سعد العتيبي</p>
+            <p>• الإداري: عبد العزيز محمد العتيبي</p>
+            <p>• الإداري: خالد العتيبي</p>
+        </div>
+    </div>
+
     <div class="modal-overlay" id="menuModal" onclick="checkClose(event)">
         <div class="modal-content">
             <div class="modal-header">
@@ -134,77 +221,72 @@
                 <button class="close-modal" onclick="toggleModal()">✕</button>
             </div>
 
-            <div class="menu-btn-item" onclick="goHome()">🏠 الرئيسية</div>
-
-            <div class="menu-btn-item" onclick="toggleSub('lawsSec')">📜 2. قسم القوانين والتعليمات</div>
-            <div class="sub-section" id="lawsSec">
-                <h4>قوانين وضوابط قطاع العزم</h4>
-                <p>• الشرط الأساسي: يُشترط أن يكون عمر المחתور أو العسكري أكثر من 14 عاماً.</p>
-                <p>• الالتزام التام بالتعليمات الميدانية والاحترام المتبادل بين الرتب.</p>
-            </div>
-
-            <div class="menu-btn-item" onclick="toggleSub('militarySec')">🎖️ 3. السلم العسكري والرتـب</div>
-            <div class="sub-section" id="militarySec">
-                <h4>اضغط على الفئة للاستعراض:</h4>
-                <div style="margin-top:8px;">
-                    <h4 onclick="toggleCollapse('col1')">⭐ القيادة العليا</h4>
-                    <div class="sub-collapse" id="col1">
-                        <p>• اللواء ركن: سعد</p>
-                        <p>• العميد ركن: خالد</p>
-                        <p>• العقيد: بسام (درع القطاع)</p>
-                    </div>
-                </div>
-                <div style="margin-top:8px;">
-                    <h4 onclick="toggleCollapse('col2')">⭐ قسم الضباط</h4>
-                    <div class="sub-collapse" id="col2">
-                        <p>• ملازم أول / أحمد المعشني (المؤسس)</p>
-                        <p>• ملازم / عبد العزيز العتيبي</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="menu-btn-item" onclick="toggleSub('fieldSec')">🚨 4. الحالة الميدانية والأرشيف</div>
-            <div class="sub-section field-form" id="fieldSec">
-                <h4>تسجيل تقرير ميداني جديد</h4>
-                <input type="text" id="fieldName" placeholder="اسم العسكري...">
-                <select id="fieldRank">
-                    <option value="">اختر الرتبة...</option>
-                    <option>جندي</option><option>عريف</option><option>رقيب</option><option>ملازم / ملازم أول</option><option>قيادة عليا</option>
-                </select>
-                <select id="fieldType">
-                    <option value="">اختر نوع الحالة...</option>
-                    <option>مطاردة</option><option>إيقاف مروري</option><option>بلاغ تهريب</option>
-                </select>
-                <textarea id="fieldDetails" placeholder="تفاصيل إضافية..."></textarea>
-                <input type="file" id="fieldImage" accept="image/*">
-                <button onclick="submitFieldReport()">إرسال للأرشيف</button>
-                <div id="archiveList" style="margin-top:10px;"></div>
-            </div>
-
-            <div class="menu-btn-item" onclick="toggleSub('carsSec')">🚗 5. قسم السيارات والمركبات</div>
-            <div class="sub-section" id="carsSec">
-                <h4>المركبات الرسمية</h4>
-                <div class="car-row">
-                    <div><b>التاهو:</b> للضباط والقيادة العليا</div>
-                </div>
-                <div class="car-row">
-                    <div><b>الأف جي والربع:</b> للدوريات والأفراد</div>
-                </div>
-            </div>
+            <a class="menu-btn-item" onclick="switchPage('home-page')">الرئيسية</a>
+            <a class="menu-btn-item" onclick="switchPage('laws-page')">2. قسم القوانين والتعليمات</a>
+            <a class="menu-btn-item" onclick="switchPage('military-page')">3. السلم العسكري والرتـب</a>
+            <a class="menu-btn-item" onclick="switchPage('field-page')">4. الحالة الميدانية والأرشيف</a>
+            <a class="menu-btn-item" onclick="switchPage('cars-page')">5. قسم السيارات والمركبات</a>
+            <a class="menu-btn-item" onclick="switchPage('admin-page')">6. قسم الإدارة والقيادات</a>
         </div>
     </div>
 
     <script>
-        function toggleModal() { document.getElementById('menuModal').classList.toggle('active'); }
-        function checkClose(e) { if (e.target.id === 'menuModal') { toggleModal(); } }
-        function goHome() { toggleModal(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
-        function toggleSub(id) {
-            document.querySelectorAll('.sub-section').forEach(sec => { if (sec.id !== id) sec.classList.remove('active'); });
-            document.getElementById(id).classList.toggle('active');
+        function toggleModal() {
+            document.getElementById('menuModal').classList.toggle('active');
         }
-        function toggleCollapse(id) { document.getElementById(id).classList.toggle('open'); }
-        function submitFieldReport() {
-            alert('تم حفظ الحالة بنجاح في الأرشيف الميداني!');
+
+        function checkClose(e) {
+            if (e.target.id === 'menuModal') { toggleModal(); }
+        }
+
+        function switchPage(pageId) {
+            toggleModal();
+            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function goHome() {
+            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById('home-page').classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function checkOther() {
+            const val = document.getElementById('fieldType').value;
+            document.getElementById('customType').style.display = (val === 'أخرى') ? 'block' : 'none';
+        }
+
+        function submitReport() {
+            const name = document.getElementById('fieldName').value || 'عسكري غير محدد';
+            const rank = document.getElementById('fieldRank').value || 'غير محددة';
+            let type = document.getElementById('fieldType').value;
+            const details = document.getElementById('fieldDetails').value;
+            
+            if (type === 'أخرى') {
+                type = document.getElementById('customType').value || 'حالة أخرى';
+            } else if (!type) {
+                type = 'حالة ميدانية عامة';
+            }
+
+            const archive = document.getElementById('archiveContainer');
+            if (archive.innerHTML.includes('لا توجد حالات')) {
+                archive.innerHTML = '';
+            }
+
+            const record = document.createElement('div');
+            record.className = 'archive-box';
+            record.innerHTML = `
+                <b>العسكري:</b> ${name} (${rank})<br>
+                <b>نوع الحالة:</b> ${type}<br>
+                <b>التفاصيل:</b> ${details || 'لا توجد تفاصيل إضافية'}<br>
+                <span style="color:#00ff66; font-size:10px;">تم الحفظ في الأرشيف بنجاح</span>
+            `;
+            archive.prepend(record);
+            alert('تم إرسال الحالة وحفظها في الأرشيف بنجاح!');
+            
+            document.getElementById('fieldName').value = '';
+            document.getElementById('fieldDetails').value = '';
         }
     </script>
 </body>
