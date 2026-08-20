@@ -18,12 +18,16 @@
         .profile-box img { width: 80px; height: 80px; border-radius: 50%; border: 2px solid #00ff66; margin-bottom: 5px; object-fit: cover; }
         .name { font-weight: bold; font-size: 14px; color: #00ff66; }
 
-        /* الأكورديون (الأنيميشن) */
+        /* القوائم المنسدلة (الأكورديون مع الأنيميشن) */
         .section-box { width: 100%; margin-bottom: 10px; }
-        .drop-btn { width: 100%; background: #08160e; border: 1px solid #00ff66; color: #fff; padding: 20px; border-radius: 10px; text-align: right; font-size: 17px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .drop-content { display: none; background: #0c2012; padding: 15px; border-radius: 0 0 10px 10px; border: 1px solid #00ff66; border-top: none; font-size: 16px; color: #ddd; line-height: 1.8; }
-        .active { display: block; animation: fadeIn 0.4s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+        .drop-btn { width: 100%; background: #08160e; border: 1px solid #00ff66; color: #fff; padding: 18px 20px; border-radius: 10px; text-align: right; font-size: 17px; font-weight: bold; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background 0.3s; }
+        .drop-btn:hover { background: #0c2012; }
+        .drop-btn::after { content: '▼'; font-size: 12px; color: #00ff66; transition: transform 0.3s; }
+        
+        .section-box.active .drop-btn::after { transform: rotate(180deg); }
+        
+        .drop-content { max-height: 0; overflow: hidden; background: #0c2012; border-radius: 0 0 10px 10px; border: 0px solid #00ff66; font-size: 16px; color: #ddd; line-height: 1.8; transition: max-height 0.4s ease-out, padding 0.4s ease; padding: 0 15px; }
+        .section-box.active .drop-content { max-height: 500px; padding: 15px; border: 1px solid #00ff66; border-top: none; }
 
         /* قسم الدوريات */
         .patrol-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; }
@@ -44,8 +48,8 @@
     <h1>قطاع العزم الأمني</h1>
 
     <div class="btn-box">
-        <a href="https://www.tiktok.com/@ssoh022?_r=1&_t=ZS-991jJVyMqJw" class="btn">تيك توك</a>
-        <a href="https://discord.gg/KT9aYRC9y" class="btn">ديسكورد</a>
+        <a href="https://www.tiktok.com/@ssoh022?_r=1&_t=ZS-991jJVyMqJw" class="btn" target="_blank">تيك توك</a>
+        <a href="https://discord.gg/KT9aYRC9y" class="btn" target="_blank">ديسكورد</a>
     </div>
 
     <div class="profile-container">
@@ -60,12 +64,36 @@
     </div>
 
     <h2>السلك العسكري</h2>
-    <div class="section-box"><button class="drop-btn" onclick="toggle('c1')">⭐ القادات العليا</button><div id="c1" class="drop-content">اللواء ركن: سعد العتيبي<br>العميد ركن: خالد القحطاني<br>العقيد: بسام</div></div>
-    <div class="section-box"><button class="drop-btn" onclick="toggle('c2')">⭐ الضباط</button><div id="c2" class="drop-content">ملازم أول: أحمد المعشني (المؤسس)<br>ملازم: عبد العزيز العتيبي</div></div>
-    <div class="section-box"><button class="drop-btn" onclick="toggle('c3')">⭐ رؤساء الرقباء</button><div id="c3" class="drop-content">رئيس رقباء: Aa100200<br>رئيس رقباء: عفان عرفان<br>رئيس رقباء: عمر العتيبي</div></div>
-    <div class="section-box"><button class="drop-btn" onclick="toggle('c4')">⭐ الرقباء الأوائل والرقباء</button><div id="c4" class="drop-content">رقيب أول: Aa1234512345<br>رقيب أول: ياسر ريس<br>رقيب: ثامر البقمي<br>رقيب: Eg294</div></div>
-    <div class="section-box"><button class="drop-btn" onclick="toggle('c5')">⭐ وكلاء الرقباء والعرفاء</button><div id="c5" class="drop-content">وكيل رقيب: mKruKp1122<br>وكيل رقيب: NAsr hamd<br>عريف: Saeeddddd<br>عريف: تركي كدوس</div></div>
-    <div class="section-box"><button class="drop-btn" onclick="toggle('c6')">⭐ الأفراد والجنود</button><div id="c6" class="drop-content">جندي أول: zeyad507<br>جندي أول: رياض العامري<br>جندي أول: هاشم حمزة الشنقيطي<br>جندي: بدر العتيبي<br>جندي: سعود العتيبي<br>جندي: تركي كدوس<br>جندي: فهيد ابن محمد<br>جندي: خالد العتيبي<br>جندي: مطنش</div></div>
+    
+    <div class="section-box">
+        <button class="drop-btn" onclick="toggleSection(this)">⭐ القادات العليا</button>
+        <div class="drop-content">اللواء ركن: سعد العتيبي<br>العميد ركن: خالد القحطاني<br>العقيد: بسام</div>
+    </div>
+    
+    <div class="section-box">
+        <button class="drop-btn" onclick="toggleSection(this)">⭐ الضباط</button>
+        <div class="drop-content">ملازم أول: أحمد المعشني (المؤسس)<br>ملازم: عبد العزيز العتيبي</div>
+    </div>
+    
+    <div class="section-box">
+        <button class="drop-btn" onclick="toggleSection(this)">⭐ رؤساء الرقباء</button>
+        <div class="drop-content">رئيس رقباء: Aa100200<br>رئيس رقباء: عفان عرفان<br>رئيس رقباء: عمر العتيبي</div>
+    </div>
+    
+    <div class="section-box">
+        <button class="drop-btn" onclick="toggleSection(this)">⭐ الرقباء الأوائل والرقباء</button>
+        <div class="drop-content">رقيب أول: Aa1234512345<br>رقيب أول: ياسر ريس<br>رقيب: ثامر البقمي<br>رقيب: Eg294</div>
+    </div>
+    
+    <div class="section-box">
+        <button class="drop-btn" onclick="toggleSection(this)">⭐ وكلاء الرقباء والعرفاء</button>
+        <div class="drop-content">وكيل رقيب: mKruKp1122<br>وكيل رقيب: NAsr hamd<br>عريف: Saeeddddd<br>عريف: تركي كدوس</div>
+    </div>
+    
+    <div class="section-box">
+        <button class="drop-btn" onclick="toggleSection(this)">⭐ الأفراد والجنود</button>
+        <div class="drop-content">جندي أول: zeyad507<br>جندي أول: رياض العامري<br>جندي أول: هاشم حمزة الشنقيطي<br>جندي: بدر العتيبي<br>جندي: سعود العتيبي<br>جندي: تركي كدوس<br>جندي: فهيد ابن محمد<br>جندي: خالد العتيبي<br>جندي: مطنش</div>
+    </div>
 
     <h2>قسم الدوريات العسكرية</h2>
     <div class="patrol-grid">
@@ -100,7 +128,10 @@
     </div>
 
     <script>
-        function toggle(id) { document.getElementById(id).classList.toggle('active'); }
+        function toggleSection(btn) {
+            let box = btn.parentElement;
+            box.classList.toggle('active');
+        }
         
         function addReport() {
             let name = document.getElementById('repName').value;
