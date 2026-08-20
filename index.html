@@ -33,7 +33,7 @@
         .patrol-card b { color: #00ff66; font-size: 15px; }
         .patrol-card p { font-size: 13px; color: #ccc; margin-top: 5px; }
 
-        /* الأرشيف والحالة الميدانية */
+        /* النماذج */
         .field-form { background: #08160e; border: 1px solid #00ff66; padding: 15px; border-radius: 10px; width: 100%; box-sizing: border-box; }
         input, select, textarea { width: 100%; background: #040d07; border: 1px solid #00ff66; color: #fff; padding: 12px; margin-bottom: 10px; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
         .submit-btn { width: 100%; background: #00ff66; color: #040d07; border: none; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; }
@@ -73,36 +73,12 @@
     </div>
 
     <h2>السلك العسكري</h2>
-    
-    <div class="section-box">
-        <button class="drop-btn" onclick="toggleSection(this)">⭐ القادات العليا</button>
-        <div class="drop-content">اللواء ركن: سعد العتيبي<br>العميد ركن: خالد القحطاني<br>العقيد: بسام</div>
-    </div>
-    
-    <div class="section-box">
-        <button class="drop-btn" onclick="toggleSection(this)">⭐ الضباط</button>
-        <div class="drop-content">ملازم أول: أحمد المعشني (المؤسس)<br>ملازم: عبد العزيز العتيبي</div>
-    </div>
-    
-    <div class="section-box">
-        <button class="drop-btn" onclick="toggleSection(this)">⭐ رؤساء الرقباء</button>
-        <div class="drop-content">رئيس رقباء: Aa100200<br>رئيس رقباء: عفان عرفان<br>رئيس رقباء: عمر العتيبي</div>
-    </div>
-    
-    <div class="section-box">
-        <button class="drop-btn" onclick="toggleSection(this)">⭐ الرقباء الأوائل والرقباء</button>
-        <div class="drop-content">رقيب أول: Aa1234512345<br>رقيب أول: ياسر ريس<br>رقيب: ثامر البقمي<br>رقيب: Eg294</div>
-    </div>
-    
-    <div class="section-box">
-        <button class="drop-btn" onclick="toggleSection(this)">⭐ وكلاء الرقباء والعرفاء</button>
-        <div class="drop-content">وكيل رقيب: mKruKp1122<br>وكيل رقيب: NAsr hamd<br>عريف: Saeeddddd<br>عريف: تركي كدوس</div>
-    </div>
-    
-    <div class="section-box">
-        <button class="drop-btn" onclick="toggleSection(this)">⭐ الأفراد والجنود</button>
-        <div class="drop-content">جندي أول: zeyad507<br>جندي أول: رياض العامري<br>جندي أول: هاشم حمزة الشنقيطي<br>جندي: بدر العتيبي<br>جندي: سعود العتيبي<br>جندي: تركي كدوس<br>جندي: فهيد ابن محمد<br>جندي: خالد العتيبي<br>جندي: مطنش</div>
-    </div>
+    <div class="section-box"><button class="drop-btn" onclick="toggleSection(this)">⭐ القادات العليا</button><div class="drop-content">اللواء ركن: سعد العتيبي<br>العميد ركن: خالد القحطاني<br>العقيد: بسام</div></div>
+    <div class="section-box"><button class="drop-btn" onclick="toggleSection(this)">⭐ الضباط</button><div class="drop-content">ملازم أول: أحمد المعشني (المؤسس)<br>ملازم: عبد العزيز العتيبي</div></div>
+    <div class="section-box"><button class="drop-btn" onclick="toggleSection(this)">⭐ رؤساء الرقباء</button><div class="drop-content">رئيس رقباء: Aa100200<br>رئيس رقباء: عفان عرفان<br>رئيس رقباء: عمر العتيبي</div></div>
+    <div class="section-box"><button class="drop-btn" onclick="toggleSection(this)">⭐ الرقباء الأوائل والرقباء</button><div class="drop-content">رقيب أول: Aa1234512345<br>رقيب أول: ياسر ريس<br>رقيب: ثامر البقمي<br>رقيب: Eg294</div></div>
+    <div class="section-box"><button class="drop-btn" onclick="toggleSection(this)">⭐ وكلاء الرقباء والعرفاء</button><div class="drop-content">وكيل رقيب: mKruKp1122<br>وكيل رقيب: NAsr hamd<br>عريف: Saeeddddd<br>عريف: تركي كدوس</div></div>
+    <div class="section-box"><button class="drop-btn" onclick="toggleSection(this)">⭐ الأفراد والجنود</button><div class="drop-content">جندي أول: zeyad507<br>جندي أول: رياض العامري<br>جندي أول: هاشم حمزة الشنقيطي<br>جندي: بدر العتيبي<br>جندي: سعود العتيبي<br>جندي: تركي كدوس<br>جندي: فهيد ابن محمد<br>جندي: خالد العتيبي<br>جندي: مطنش</div></div>
 
     <h2>قسم الدوريات العسكرية</h2>
     <div class="patrol-grid">
@@ -112,6 +88,7 @@
         <div class="patrol-card"><b>تورس</b><p>مخصصة لوكيل رقيب</p></div>
     </div>
 
+    <!-- قسم الحالة الميدانية والأرشيف المحدث -->
     <h2>الحالة الميدانية والأرشيف</h2>
     <div class="field-form">
         <input type="text" id="repName" placeholder="أدخل اسم العسكري...">
@@ -130,13 +107,33 @@
             <option value="جندي أول">جندي أول</option>
             <option value="جندي">جندي</option>
         </select>
-        <textarea id="repDesc" rows="2" placeholder="اكتب تفاصيل الحالة أو البلاغ الميداني هنا..."></textarea>
-        <button class="submit-btn" onclick="addReport()">إرسال وحفظ في الأرشيف فوراً</button>
+        
+        <select id="repType">
+            <option value="">اختر نوع الحالة (اختياري)...</option>
+            <option value="مطاردة">مطاردة</option>
+            <option value="استيقاف مروري">استيقاف مروري</option>
+            <option value="تهريب">تهريب</option>
+            <option value="حالة أخرى">حالة أخرى</option>
+        </select>
+
+        <input type="text" id="repImage" placeholder="رابط الصورة المرفقة (اختياري)...">
+        
+        <textarea id="repDesc" rows="2" placeholder="اكتب تفاصيل الحالة الميدانية هنا..."></textarea>
+        <button class="submit-btn" onclick="addReport()">إرسال البلاغ للديسكورد والأرشيف</button>
         
         <div id="archiveDisplay" class="archive-list"><b>سجل الأرشيف الميداني المباشر:</b><br>لا توجد حالات مسجلة حتى الآن.</div>
     </div>
 
-    <!-- قسم الإدارة المحدث -->
+    <!-- قسم التقديم العسكري الجديد -->
+    <h2>قسم التقديم العسكري</h2>
+    <div class="field-form">
+        <input type="text" id="appName" placeholder="اسم المتقدم...">
+        <input type="number" id="appAge" placeholder="العمر...">
+        <textarea id="appExperience" rows="2" placeholder="الخبرات السابقة..."></textarea>
+        <textarea id="appGoal" rows="2" placeholder="هدفـك من الانضمام لقطاع العزم..."></textarea>
+        <button class="submit-btn" onclick="submitApplication()">إرسال طلب الانضمام للديسكورد</button>
+    </div>
+
     <h2>قسم الإدارة</h2>
     <div class="section-box">
         <button class="drop-btn" onclick="toggleSection(this)">🛡️ أعضاء الإدارة</button>
@@ -150,21 +147,38 @@
     </div>
 
     <script>
+        // ضع رابط الويب هوك الخاص بديسكورد هنا بين العلامتين
+        const WEBHOOK_URL = "YOUR_WEBHOOK_URL_HERE";
+
         function toggleSection(btn) {
             let box = btn.parentElement;
             box.classList.toggle('active');
         }
         
-        function addReport() {
+        // إرسال البلاغ الميداني
+        async function addReport() {
             let name = document.getElementById('repName').value;
             let rank = document.getElementById('repRank').value;
+            let type = document.getElementById('repType').value || "غير محدد";
+            let image = document.getElementById('repImage').value;
             let desc = document.getElementById('repDesc').value;
             
             if(!name || !rank || !desc) {
-                alert("يرجى تعبئة الاسم، اختيار الرتبة، وكتابة البلاغ!");
+                alert("يرجى تعبئة الاسم، الرتبة، وتفاصيل البلاغ!");
                 return;
             }
             
+            if(WEBHOOK_URL !== "YOUR_WEBHOOK_URL_HERE") {
+                let messageContent = `📢 **[بلاغ ميداني جديد]**\n👤 **العسكري:** ${name}\n🎖️ **الرتبة:** ${rank}\n⚡ **نوع الحالة:** ${type}\n📝 **التفاصيل:** ${desc}`;
+                if(image) messageContent += `\n🖼️ **الصورة المرفقة:** ${image}`;
+
+                await fetch(WEBHOOK_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ content: messageContent })
+                });
+            }
+
             let display = document.getElementById('archiveDisplay');
             if(display.innerText.includes("لا توجد حالات مسجلة")) {
                 display.innerHTML = "<b>سجل الأرشيف الميداني المباشر:</b>";
@@ -173,13 +187,44 @@
             let entry = document.createElement('div');
             entry.style.borderBottom = "1px dashed #143820";
             entry.style.padding = "8px 0";
-            entry.innerHTML = `📌 <b>[${rank}] ${name}</b>: ${desc}`;
-            
+            entry.innerHTML = `📌 <b>[${rank}] ${name}</b> (${type}): ${desc} ${image ? '<br><a href="'+image+'" target="_blank" style="color:#00ff66;">[عرض الصورة المرفقة]</a>' : ''}`;
             display.appendChild(entry);
             
             document.getElementById('repName').value = "";
             document.getElementById('repRank').value = "";
+            document.getElementById('repType').value = "";
+            document.getElementById('repImage').value = "";
             document.getElementById('repDesc').value = "";
+            alert("تم إرسال البلاغ بنجاح!");
+        }
+
+        // إرسال طلب التقديم العسكري
+        async function submitApplication() {
+            let name = document.getElementById('appName').value;
+            let age = document.getElementById('appAge').value;
+            let experience = document.getElementById('appExperience').value;
+            let goal = document.getElementById('appGoal').value;
+
+            if(!name || !age || !experience || !goal) {
+                alert("يرجى تعبئة جميع حقول التقديم!");
+                return;
+            }
+
+            if(WEBHOOK_URL !== "YOUR_WEBHOOK_URL_HERE") {
+                await fetch(WEBHOOK_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        content: `📋 **[طلب انضمام جديد للقطاع]**\n👤 **اسم المتقدم:** ${name}\n🎂 **العمر:** ${age}\n💼 **الخبرات:** ${experience}\n🎯 **الهدف:** ${goal}`
+                    })
+                });
+            }
+
+            document.getElementById('appName').value = "";
+            document.getElementById('appAge').value = "";
+            document.getElementById('appExperience').value = "";
+            document.getElementById('appGoal').value = "";
+            alert("تم إرسال طلب الانضمام إلى الإدارة بنجاح!");
         }
     </script>
 </body>
