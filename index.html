@@ -89,7 +89,7 @@
         <div class="patrol-card"><b>تورس</b><p>مخصصة لوكيل رقيب</p></div>
     </div>
 
-    <!-- قسم الحالة الميدانية والأرشيف (مع رفع الصور المباشر من الألبوم) -->
+    <!-- قسم الحالة الميدانية والأرشيف -->
     <h2>الحالة الميدانية والأرشيف</h2>
     <div class="field-form">
         <input type="text" id="repName" placeholder="أدخل اسم العسكري...">
@@ -150,14 +150,18 @@
     </div>
 
     <script>
-        const WEBHOOK_URL = "https://discord.com/api/webhooks/1540393098754924624/DnTj3FlFHtx0-95wVZVnjxCBE0sVut-kdzeuLTxe_lXzc7WwiqYzu8PZ-utffHFr6aj_";
+        // رابط روم التقارير الميدانية
+        const REPORT_WEBHOOK = "https://discord.com/api/webhooks/1540393098754924624/DnTj3FlFHtx0-95wVZVnjxCBE0sVut-kdzeuLTxe_lXzc7WwiqYzu8PZ-utffHFr6aj_";
+        
+        // رابط روم تقطيع القطاع (التقديمات الجديدة)
+        const APP_WEBHOOK = "https://discord.com/api/webhooks/1540407696170156244/y-XWYWIr1CJuoUU3erFK9zEckqGZTRd4XrlCpROLiscR5eHxpO8JVfvR1m__NeULLfvh";
 
         function toggleSection(btn) {
             let box = btn.parentElement;
             box.classList.toggle('active');
         }
         
-        // إرسال البلاغ الميداني مع إمكانية رفع الصورة مباشرة من الجوال
+        // إرسال البلاغ الميداني (يروح لروم التقارير)
         async function addReport() {
             let name = document.getElementById('repName').value;
             let rank = document.getElementById('repRank').value;
@@ -179,7 +183,7 @@
                 formData.append('file', imageFile);
             }
 
-            await fetch(WEBHOOK_URL, {
+            await fetch(REPORT_WEBHOOK, {
                 method: "POST",
                 body: formData
             });
@@ -203,7 +207,7 @@
             alert("تم إرسال البلاغ والصورة بنجاح إلى الديسكورد!");
         }
 
-        // إرسال طلب التقديم العسكري
+        // إرسال طلب التقديم العسكري (يروح لروم تقطيع القطاع الجديد)
         async function submitApplication() {
             let name = document.getElementById('appName').value;
             let discord = document.getElementById('appDiscord').value;
@@ -216,7 +220,7 @@
                 return;
             }
 
-            await fetch(WEBHOOK_URL, {
+            await fetch(APP_WEBHOOK, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
