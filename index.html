@@ -218,7 +218,6 @@
             let stickerVal = parseInt(document.getElementById('repStickers').value) || 0;
             let dustVal = parseInt(document.getElementById('repDust').value) || 0;
             
-            // حساب النقاط بناءً على طلبك
             let totalPoints = (wrapVal * 5) + (phraseVal * 10) + (stickerVal * 5) + (dustVal * 20);
             
             let desc = document.getElementById('repDesc').value;
@@ -254,7 +253,6 @@
             entry.innerHTML = `📌 <b>[${rank}] ${name}</b> (${type}) | النقاط المكتسبة: <b style="color:#00ff66;">+${totalPoints}</b> ${imageFile ? '<br><span style="color:#00ff66; font-size:12px;">[تم إرفاق صورة الدليل]</span>' : ''}`;
             display.appendChild(entry);
             
-            // تفريغ الحقول بعد الإرسال
             document.getElementById('repName').value = "";
             document.getElementById('repRank').value = "";
             document.getElementById('repType').value = "";
