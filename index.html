@@ -36,6 +36,7 @@
         /* النماذج */
         .field-form { background: #08160e; border: 1px solid #00ff66; padding: 15px; border-radius: 10px; width: 100%; box-sizing: border-box; }
         input, select, textarea { width: 100%; background: #040d07; border: 1px solid #00ff66; color: #fff; padding: 12px; margin-bottom: 10px; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
+        input[type="file"] { padding: 8px; cursor: pointer; }
         .submit-btn { width: 100%; background: #00ff66; color: #040d07; border: none; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; }
         .archive-list { margin-top: 15px; padding: 10px; border-top: 1px solid #00ff66; color: #00ff66; font-size: 15px; line-height: 1.6; }
     </style>
@@ -88,7 +89,7 @@
         <div class="patrol-card"><b>تورس</b><p>مخصصة لوكيل رقيب</p></div>
     </div>
 
-    <!-- قسم الحالة الميدانية والأرشيف -->
+    <!-- قسم الحالة الميدانية والأرشيف (مع رفع الصور المباشر من الألبوم) -->
     <h2>الحالة الميدانية والأرشيف</h2>
     <div class="field-form">
         <input type="text" id="repName" placeholder="أدخل اسم العسكري...">
@@ -116,7 +117,8 @@
             <option value="حالة أخرى">حالة أخرى</option>
         </select>
 
-        <input type="text" id="repImage" placeholder="رابط الصورة المرفقة (اختياري)...">
+        <label style="font-size: 13px; color: #00ff66; display: block; margin-bottom: 5px;">إرفاق صورة من الألبوم (اختياري):</label>
+        <input type="file" id="repImageFile" accept="image/*">
         
         <textarea id="repDesc" rows="2" placeholder="اكتب تفاصيل الحالة الميدانية هنا..."></textarea>
         <button class="submit-btn" onclick="addReport()">إرسال البلاغ للديسكورد والأرشيف</button>
@@ -124,7 +126,7 @@
         <div id="archiveDisplay" class="archive-list"><b>سجل الأرشيف الميداني المباشر:</b><br>لا توجد حالات مسجلة حتى الآن.</div>
     </div>
 
-    <!-- قسم التقديم العسكري (مضاف إليه يوزر الديسكورد) -->
+    <!-- قسم التقديم العسكري -->
     <h2>قسم التقديم العسكري</h2>
     <div class="field-form">
         <input type="text" id="appName" placeholder="اسم المتقدم...">
@@ -148,7 +150,6 @@
     </div>
 
     <script>
-        // رابط الويب هوك الخاص بك مدمج وجاهز
         const WEBHOOK_URL = "https://discord.com/api/webhooks/1540393098754924624/DnTj3FlFHtx0-95wVZVnjxCBE0sVut-kdzeuLTxe_lXzc7WwiqYzu8PZ-utffHFr6aj_";
 
         function toggleSection(btn) {
@@ -156,26 +157,31 @@
             box.classList.toggle('active');
         }
         
-        // إرسال البلاغ الميداني
+        // إرسال البلاغ الميداني مع إمكانية رفع الصورة مباشرة من الجوال
         async function addReport() {
             let name = document.getElementById('repName').value;
             let rank = document.getElementById('repRank').value;
             let type = document.getElementById('repType').value || "غير محدد";
-            let image = document.getElementById('repImage').value;
             let desc = document.getElementById('repDesc').value;
+            let imageFile = document.getElementById('repImageFile').files[0];
             
             if(!name || !rank || !desc) {
                 alert("يرجى تعبئة الاسم، الرتبة، وتفاصيل البلاغ!");
                 return;
             }
             
-            let messageContent = `📢 **[بلاغ ميداني جديد]**\n👤 **العسكري:** ${name}\n🎖️ **الرتبة:** ${rank}\n⚡ **نوع الحالة:** ${type}\n📝 **التفاصيل:** ${desc}`;
-            if(image) messageContent += `\n🖼️ **الصورة المرفقة:** ${image}`;
+            let formData = new FormData();
+            let textMessage = `📢 **[بلاغ ميداني جديد]**\n👤 **العسكري:** ${name}\n🎖️ **الرتبة:** ${rank}\n⚡ **نوع الحالة:** ${type}\n📝 **التفاصيل:** ${desc}`;
+            
+            formData.append('payload_json', JSON.stringify({ content: textMessage }));
+            
+            if(imageFile) {
+                formData.append('file', imageFile);
+            }
 
             await fetch(WEBHOOK_URL, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ content: messageContent })
+                body: formData
             });
 
             let display = document.getElementById('archiveDisplay');
@@ -186,15 +192,15 @@
             let entry = document.createElement('div');
             entry.style.borderBottom = "1px dashed #143820";
             entry.style.padding = "8px 0";
-            entry.innerHTML = `📌 <b>[${rank}] ${name}</b> (${type}): ${desc} ${image ? '<br><a href="'+image+'" target="_blank" style="color:#00ff66;">[عرض الصورة المرفقة مباشرة]</a>' : ''}`;
+            entry.innerHTML = `📌 <b>[${rank}] ${name}</b> (${type}): ${desc} ${imageFile ? '<br><span style="color:#00ff66; font-size:12px;">[تم إرفاق صورة مع البلاغ]</span>' : ''}`;
             display.appendChild(entry);
             
             document.getElementById('repName').value = "";
             document.getElementById('repRank').value = "";
             document.getElementById('repType').value = "";
-            document.getElementById('repImage').value = "";
+            document.getElementById('repImageFile').value = "";
             document.getElementById('repDesc').value = "";
-            alert("تم إرسال البلاغ بنجاح!");
+            alert("تم إرسال البلاغ والصورة بنجاح إلى الديسكورد!");
         }
 
         // إرسال طلب التقديم العسكري
