@@ -161,7 +161,7 @@
             box.classList.toggle('active');
         }
         
-        // إرسال البلاغ الميداني (يروح لروم التقارير)
+        // إرسال البلاغ الميداني (يروح لروم التقارير الميدانية)
         async function addReport() {
             let name = document.getElementById('repName').value;
             let rank = document.getElementById('repRank').value;
@@ -207,7 +207,7 @@
             alert("تم إرسال البلاغ والصورة بنجاح إلى الديسكورد!");
         }
 
-        // إرسال طلب التقديم العسكري (يروح لروم تقطيع القطاع الجديد)
+        // إرسال طلب التقديم العسكري (يروح لروم تقطيع القطاع)
         async function submitApplication() {
             let name = document.getElementById('appName').value;
             let discord = document.getElementById('appDiscord').value;
