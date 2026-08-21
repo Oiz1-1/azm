@@ -88,7 +88,7 @@
         <div class="patrol-card"><b>تورس</b><p>مخصصة لوكيل رقيب</p></div>
     </div>
 
-    <!-- قسم الحالة الميدانية والأرشيف المحدث -->
+    <!-- قسم الحالة الميدانية والأرشيف -->
     <h2>الحالة الميدانية والأرشيف</h2>
     <div class="field-form">
         <input type="text" id="repName" placeholder="أدخل اسم العسكري...">
@@ -124,10 +124,11 @@
         <div id="archiveDisplay" class="archive-list"><b>سجل الأرشيف الميداني المباشر:</b><br>لا توجد حالات مسجلة حتى الآن.</div>
     </div>
 
-    <!-- قسم التقديم العسكري الجديد -->
+    <!-- قسم التقديم العسكري (مضاف إليه يوزر الديسكورد) -->
     <h2>قسم التقديم العسكري</h2>
     <div class="field-form">
         <input type="text" id="appName" placeholder="اسم المتقدم...">
+        <input type="text" id="appDiscord" placeholder="يوزر الديسكورد (مثال: a_n7rk)...">
         <input type="number" id="appAge" placeholder="العمر...">
         <textarea id="appExperience" rows="2" placeholder="الخبرات السابقة..."></textarea>
         <textarea id="appGoal" rows="2" placeholder="هدفـك من الانضمام لقطاع العزم..."></textarea>
@@ -147,8 +148,8 @@
     </div>
 
     <script>
-        // ضع رابط الويب هوك الخاص بديسكورد هنا بين العلامتين
-        const WEBHOOK_URL = "YOUR_WEBHOOK_URL_HERE";
+        // رابط الويب هوك الخاص بك مدمج وجاهز
+        const WEBHOOK_URL = "https://discord.com/api/webhooks/1540393098754924624/DnTj3FlFHtx0-95wVZVnjxCBE0sVut-kdzeuLTxe_lXzc7WwiqYzu8PZ-utffHFr6aj_";
 
         function toggleSection(btn) {
             let box = btn.parentElement;
@@ -168,16 +169,14 @@
                 return;
             }
             
-            if(WEBHOOK_URL !== "YOUR_WEBHOOK_URL_HERE") {
-                let messageContent = `📢 **[بلاغ ميداني جديد]**\n👤 **العسكري:** ${name}\n🎖️ **الرتبة:** ${rank}\n⚡ **نوع الحالة:** ${type}\n📝 **التفاصيل:** ${desc}`;
-                if(image) messageContent += `\n🖼️ **الصورة المرفقة:** ${image}`;
+            let messageContent = `📢 **[بلاغ ميداني جديد]**\n👤 **العسكري:** ${name}\n🎖️ **الرتبة:** ${rank}\n⚡ **نوع الحالة:** ${type}\n📝 **التفاصيل:** ${desc}`;
+            if(image) messageContent += `\n🖼️ **الصورة المرفقة:** ${image}`;
 
-                await fetch(WEBHOOK_URL, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ content: messageContent })
-                });
-            }
+            await fetch(WEBHOOK_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ content: messageContent })
+            });
 
             let display = document.getElementById('archiveDisplay');
             if(display.innerText.includes("لا توجد حالات مسجلة")) {
@@ -187,7 +186,7 @@
             let entry = document.createElement('div');
             entry.style.borderBottom = "1px dashed #143820";
             entry.style.padding = "8px 0";
-            entry.innerHTML = `📌 <b>[${rank}] ${name}</b> (${type}): ${desc} ${image ? '<br><a href="'+image+'" target="_blank" style="color:#00ff66;">[عرض الصورة المرفقة]</a>' : ''}`;
+            entry.innerHTML = `📌 <b>[${rank}] ${name}</b> (${type}): ${desc} ${image ? '<br><a href="'+image+'" target="_blank" style="color:#00ff66;">[عرض الصورة المرفقة مباشرة]</a>' : ''}`;
             display.appendChild(entry);
             
             document.getElementById('repName').value = "";
@@ -201,26 +200,26 @@
         // إرسال طلب التقديم العسكري
         async function submitApplication() {
             let name = document.getElementById('appName').value;
+            let discord = document.getElementById('appDiscord').value;
             let age = document.getElementById('appAge').value;
             let experience = document.getElementById('appExperience').value;
             let goal = document.getElementById('appGoal').value;
 
-            if(!name || !age || !experience || !goal) {
-                alert("يرجى تعبئة جميع حقول التقديم!");
+            if(!name || !discord || !age || !experience || !goal) {
+                alert("يرجى تعبئة جميع حقول التقديم (بما فيها يوزر الديسكورد)!");
                 return;
             }
 
-            if(WEBHOOK_URL !== "YOUR_WEBHOOK_URL_HERE") {
-                await fetch(WEBHOOK_URL, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        content: `📋 **[طلب انضمام جديد للقطاع]**\n👤 **اسم المتقدم:** ${name}\n🎂 **العمر:** ${age}\n💼 **الخبرات:** ${experience}\n🎯 **الهدف:** ${goal}`
-                    })
-                });
-            }
+            await fetch(WEBHOOK_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    content: `📋 **[طلب انضمام جديد للقطاع]**\n👤 **اسم المتقدم:** ${name}\n🎮 **يوزر الديسكورد:** ${discord}\n🎂 **العمر:** ${age}\n💼 **الخبرات:** ${experience}\n🎯 **الهدف:** ${goal}`
+                })
+            });
 
             document.getElementById('appName').value = "";
+            document.getElementById('appDiscord').value = "";
             document.getElementById('appAge').value = "";
             document.getElementById('appExperience').value = "";
             document.getElementById('appGoal').value = "";
