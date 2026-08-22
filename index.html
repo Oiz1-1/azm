@@ -215,14 +215,21 @@
     <script>
         const REPORT_WEBHOOK = "https://discord.com/api/webhooks/1540393098754924624/DnTj3FlFHtx0-95wVZVnjxCBE0sVut-kdzeuLTxe_lXzc7WwiqYzu8PZ-utffHFr6aj_";
 
-        // قائمة يوزرات ديسكورد المعتمدة للعساكر والشباب المصرح لهم بالدخول
+        // قائمة يوزرات ديسكورد المعتمدة والكاملة لعساكر القطاع والمصرح لهم بالدخول
         const allowedDiscordUsers = [
-            "a_n7rk",       
-            "swd00965",     
-            "fahad__502",   
-            "khalid",       
-            "bessam",       
-            "saad"          
+            "nl.po",              // العميد ركن: خالد
+            "swd00965",           // سعود العتيبي
+            "bbbbas991",          // الجندي: بدر العتيبي
+            "a_n7rk",             // أحمد
+            "moh223314__51587",   // اللواء: سعد
+            "bassamalharbi0426",  // العكيد: بسام
+            "ahe11233df",         // جندي اول: رياض العامري
+            "fahad__502",         // جندي اول: فهد عبدالله الدوسري
+            "azoz02831",          // الملازم: عبدالعزيز العتيبي
+            "eieuhe",             // الجندي أول: تركي كدوس
+            "whp_m",              // الرقيب: حبيب اليامي
+            "soz5021",            // الرئيس رقباء: فهيد ابن محمد
+            "asrws._37169"        // الجندي أول: ثامر البقمي
         ];
 
         // التحقق التلقائي عند فتح الصفحة إذا تم تسجيل الدخول مسبقاً (مدى الحياة)
@@ -281,11 +288,9 @@
             let name = document.getElementById('repName').value;
             let rank = document.getElementById('repRank').value;
             
-            let actionType = "";
             let messageText = "";
 
             if(status.innerText.includes("غير مسجل حضور")) {
-                actionType = "🟢 تسجيل حضور (بدء الدوام)";
                 status.style.color = "#00ff66";
                 status.innerText = "الحالة: مسجل حضور (على رأس العمل)";
                 btn.style.background = "#ff3333";
@@ -293,7 +298,6 @@
                 btn.innerText = "🔴 إنهاء الدوام (تسجيل انصراف)";
                 messageText = `🟢 **[بصمة حضور]**\n👤 **العسكري:** ${name}\n🎖️ **الرتبة:** ${rank}\n⏰ **الحالة:** بدأ الدوام وهو على رأس العمل الآن.`;
             } else {
-                actionType = "🔴 تسجيل انصراف (انتهاء الدوام)";
                 status.style.color = "#ff3333";
                 status.innerText = "الحالة: غير مسجل حضور";
                 btn.style.background = "#00ff66";
