@@ -5,364 +5,158 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>قطاع العزم الأمني - العمليات الميدانية</title>
     <style>
-        /* --- الهوية والأساسيات --- */
-        body {
-            background-color: #040d07;
-            color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 0;
-            padding: 15px;
-            min-height: 100vh;
-        }
-
-        /* --- العناصر المشتركة --- */
-        .logo-img {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            border: 3px solid #00ff66;
-            box-shadow: 0 0 15px rgba(0, 255, 102, 0.5);
-            margin-top: 10px;
-            margin-bottom: 15px;
-            object-fit: cover;
-        }
-
-        h1 {
-            color: #00ff66;
-            font-size: 26px;
-            margin-bottom: 5px;
-            text-shadow: 0 0 5px rgba(0, 255, 102, 0.3);
-        }
-
-        h2 {
-            color: #00ff66;
-            font-size: 20px;
-            margin-top: 25px;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #143820;
-            padding-bottom: 5px;
-            text-align: center;
-            width: 100%;
-        }
-
-        .section-card {
-            background-color: #08160e;
-            border: 1px solid #143820;
-            border-radius: 12px;
-            padding: 15px;
-            width: 100%;
-            max-width: 400px;
-            box-sizing: border-box;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-        }
-
-        /* --- النماذج والأزرار --- */
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-size: 14px;
-            color: #88cc99;
-        }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 12px;
-            background-color: #040d07;
-            border: 1px solid #00ff66;
-            border-radius: 8px;
-            color: #ffffff;
-            font-size: 15px;
-            box-sizing: border-box;
-            transition: border-color 0.3s;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: #00cc55;
-            box-shadow: 0 0 5px rgba(0, 255, 102, 0.5);
-        }
-
-        .action-btn {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.1s;
-            margin-top: 10px;
-        }
-
-        .action-btn:active {
-            transform: scale(0.98);
-        }
-
-        .submit-btn {
-            background-color: #00ff66;
-            color: #040d07;
-        }
-
-        .submit-btn:hover {
-            background-color: #00cc55;
-        }
-
-        .danger-btn {
-            background-color: #ff4444;
-            color: #ffffff;
-        }
-
-        .danger-btn:hover {
-            background-color: #cc3333;
-        }
-
-        /* --- معلومات العسكري --- */
-        .user-info-display {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 15px;
-            color: #00ff66;
-            background: #08160e;
-            padding: 8px 15px;
-            border-radius: 20px;
-            border: 1px solid #143820;
-        }
-
-        /* --- بوابة تسجيل الدخول (Overlay) --- */
-        #authOverlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(4, 13, 7, 0.95);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        .auth-card {
-            background-color: #08160e;
-            border: 2px solid #00ff66;
-            border-radius: 15px;
-            padding: 25px;
-            width: 100%;
-            max-width: 380px;
-            text-align: center;
-            box-shadow: 0 0 20px rgba(0, 255, 102, 0.3);
-            animation: authSlideIn 0.5s ease-out;
-        }
-
-        @keyframes authSlideIn {
-            from { transform: translateY(-30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .auth-card h2 {
-            margin-top: 0;
-            border-bottom: none;
-            font-size: 22px;
-        }
-
-        /* --- أنيميشن البصمة --- */
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(0, 255, 102, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(0, 255, 102, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(0, 255, 102, 0); }
-        }
-
-        #startDutyBtn.pulse-active {
-            animation: pulse 2s infinite;
-        }
-
-        /* --- التنبيهات (Toasts) --- */
-        #toastBox {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column-reverse;
-            gap: 10px;
-            z-index: 2000;
-        }
-
-        .toast-msg {
-            background: #08160e;
-            color: #00ff66;
-            border: 1px solid #00ff66;
-            padding: 12px 20px;
-            border-radius: 8px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
-            animation: toastIn 0.3s ease;
-            font-size: 14px;
-            text-align: center;
-        }
-
-        @keyframes toastIn {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
+        body { background-color: #040d07; color: #fff; font-family: 'Segoe UI', Tahoma, sans-serif; display: flex; flex-direction: column; align-items: center; margin: 0; padding: 15px; min-height: 100vh; }
+        .logo-img { width: 130px; height: 130px; border-radius: 50%; border: 3px solid #00ff66; margin: 15px 0; object-fit: cover; }
+        h1 { color: #00ff66; font-size: 26px; margin-bottom: 5px; text-align: center; }
+        h2 { color: #00ff66; font-size: 18px; margin-top: 25px; margin-bottom: 15px; border-bottom: 1px solid #143820; padding-bottom: 5px; text-align: center; width: 100%; }
+        .section-card { background-color: #08160e; border: 1px solid #143820; border-radius: 12px; padding: 15px; width: 100%; max-width: 400px; box-sizing: border-box; margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-size: 13px; color: #00ff66; }
+        input, select, textarea { width: 100%; padding: 12px; margin-bottom: 10px; background-color: #040d07; border: 1px solid #00ff66; border-radius: 8px; color: #fff; font-size: 15px; box-sizing: border-box; }
+        .action-btn { width: 100%; padding: 12px; border: none; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 10px; }
+        .submit-btn { background-color: #00ff66; color: #040d07; }
+        .danger-btn { background-color: #ff3333; color: #fff; }
+        .user-info-display { text-align: center; margin-bottom: 15px; font-size: 14px; color: #00ff66; background: #08160e; padding: 8px 15px; border-radius: 20px; border: 1px solid #143820; width: 100%; max-width: 400px; box-sizing: border-box; }
+        #authOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(4, 13, 7, 0.95); display: flex; justify-content: center; align-items: center; z-index: 1000; padding: 20px; box-sizing: border-box; }
+        .auth-card { background-color: #08160e; border: 2px solid #00ff66; border-radius: 15px; padding: 20px; width: 100%; max-width: 380px; text-align: center; }
     </style>
 </head>
 <body>
 
-    <!-- بوابة تسجيل الدخول الأولية (تظهر مرة واحدة فقط) -->
     <div id="authOverlay" style="display: none;">
         <div class="auth-card">
-            <h2>بوابة الدخول العسكري</h2>
-            <p style="font-size: 13px; color: #88cc99; margin-bottom: 20px;">أدخل بياناتك المعتمدة لبدء العمليات الميدانية (ستحفظ لمرة واحدة)</p>
-            <label>الاسم العسكري (ثنائي/ثلاثي):</label>
-            <input type="text" id="regName" placeholder="مثال: أحمد الحربي">
-            <label>الرتبة العسكرية:</label>
+            <h2 style="margin-top:0;">بوابة الدخول العسكري</h2>
+            <p style="font-size: 13px; color: #ccc;">أدخل بياناتك لربطها بجهازك (لمرة واحدة)</p>
+            <input type="text" id="regName" placeholder="الاسم العسكري...">
             <select id="regRank">
                 <option value="">اختر رتبتك...</option>
-                <option value="فريق أول ركن">فريق أول ركن</option>
-                <option value="فريق ركن">فريق ركن</option>
                 <option value="لواء ركن">لواء ركن</option>
-                <option value="عميد ركن">عميد ركن</option>
                 <option value="عقيد">عقيد</option>
-                <option value="مقدم">مقدم</option>
-                <option value="رائد">رائد</option>
-                <option value="نقيب">نقيب</option>
                 <option value="ملازم أول">ملازم أول</option>
                 <option value="ملازم">ملازم</option>
                 <option value="رئيس رقباء">رئيس رقباء</option>
-                <option value="رقيب أول">رقيب أول</option>
                 <option value="رقيب">رقيب</option>
-                <option value="وكيل رقيب">وكيل رقيب</option>
                 <option value="عريف">عريف</option>
-                <option value="جندي أول">جندي أول</option>
                 <option value="جندي">جندي</option>
             </select>
-            <label>يوزر الديسكورد (للتوثيق):</label>
-            <input type="text" id="regDiscord" placeholder="مثال: a_n7rk">
-            <button class="action-btn submit-btn" onclick="saveRegistration()">اعتماد وتسجيل الدخول</button>
+            <input type="text" id="regDiscord" placeholder="يوزر الديسكورد...">
+            <button class="action-btn submit-btn" onclick="saveRegistration()">اعتماد الدخول</button>
         </div>
     </div>
 
     <img src="IMG_0347.jpeg" class="logo-img" alt="الشعار">
     <h1>قطاع العزم الأمني</h1>
-
-    <!-- معلومات العسكري المسجل (تظهر بعد التسجيل) -->
     <div id="userInfoDisplay" class="user-info-display" style="display: none;"></div>
 
-    <!-- قسم البصمة (تسجيل الحضور والانصراف) -->
     <div class="section-card">
-        <h2 style="margin-top: 0;">بصمة الدوام الرسمي</h2>
+        <h2 style="margin-top:0;">بصمة الدوام الرسمي</h2>
         <div style="text-align: center;">
-            <p id="dutyStatusText" style="margin-bottom: 15px; font-size: 14px; color: #88cc99;">الحالة: غير مسجل حضور</p>
+            <p id="dutyStatusText" style="margin-bottom: 10px; font-size: 13px; color: #ccc;">الحالة: غير مسجل حضور</p>
             <button id="startDutyBtn" class="action-btn submit-btn" onclick="startDuty()">🟢 بدء الدوام (تسجيل حضور)</button>
-            <button id="endDutyBtn" class="action-btn danger-btn" onclick="endDuty()" style="display: none;">🔴 إنهاء الدوام (تسجيل انصراف)</button>
+            <button id="endDutyBtn" class="action-btn danger-btn" onclick="endDuty()" style="display: none;">🔴 إنهاء الدوام وإرسال التقرير</button>
         </div>
     </div>
 
-    <!-- قسم الحالة الميدانية -->
     <div class="section-card">
-        <h2>رفع حالة ميدانية (البلاغات)</h2>
-        <label>نوع الحالة:</label>
+        <h2 style="margin-top:0;">الحالة الميدانية</h2>
         <select id="repType">
             <option value="">اختر نوع الحالة...</option>
             <option value="مطاردة">مطاردة</option>
             <option value="استيقاف مروري">استيقاف مروري</option>
             <option value="تهريب">تهريب</option>
-            <option value="مخالفة نظامية">مخالفة نظامية</option>
-            <option value="أخرى">أخرى</option>
         </select>
-        
-        <label>تفاصيل إضافية:</label>
-        <textarea id="repDesc" rows="3" placeholder="وصف موجز للحدث..."></textarea>
-        
-        <button class="action-btn submit-btn" onclick="sendReport()">إرسال البلاغ للعمليات</button>
+        <textarea id="repDesc" rows="2" placeholder="تفاصيل إضافية..."></textarea>
+        <button class="action-btn submit-btn" onclick="sendReport()">إرسال البلاغ للديسكورد</button>
     </div>
 
-    <!-- حاوية التنبيهات -->
-    <div id="toastBox"></div>
-
     <script>
-        // --- إعدادات الديسكورد (الويب هوك) ---
-        // ضع هنا رابط الويب هوك الخاص بروم البلاغات والتحضير القديم
-        const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1540393098754924624/DnTj3FlFHtx0-95wVZVnjxCBE0sVut-kdzeuLTxe_lXzc7WwiqYzu8PZ-utffHFr6aj_";
+        const WEBHOOK_URL = "https://discord.com/api/webhooks/1540393098754924624/DnTj3FlFHtx0-95wVZVnjxCBE0sVut-kdzeuLTxe_lXzc7WwiqYzu8PZ-utffHFr6aj_";
 
-        // --- دوال مساعدة ---
-        function showToast(message) {
-            const toastBox = document.getElementById('toastBox');
-            const toast = document.createElement('div');
-            toast.className = 'toast-msg';
-            toast.innerText = message;
-            toastBox.appendChild(toast);
-            setTimeout(() => toast.remove(), 4000);
-        }
-
-        function formatDate(date) {
-            return date.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) + ' - ' + date.toLocaleDateString('ar-SA');
-        }
-
-        // --- نظام تسجيل الدخول لأول مرة ---
-        function saveRegistration() {
-            const name = document.getElementById('regName').value.trim();
-            const rank = document.getElementById('regRank').value;
-            const discord = document.getElementById('regDiscord').value.trim();
-
-            if (!name || !rank || !discord) {
-                showToast('❌ يرجى تعبئة كافة الحقول لتفعيل حسابك!');
-                return;
-            }
-
-            localStorage.setItem('military_name', name);
-            localStorage.setItem('military_rank', rank);
-            localStorage.setItem('military_discord', discord);
-
-            document.getElementById('authOverlay').style.display = 'none';
-            initializePage();
-            showToast('✅ تم اعتماد هويتك العسكرية بنجاح!');
-        }
-
-        function checkAuth() {
+        window.onload = function() {
             if (!localStorage.getItem('military_name')) {
                 document.getElementById('authOverlay').style.display = 'flex';
             } else {
-                initializePage();
+                initUser();
             }
+        };
+
+        function saveRegistration() {
+            let name = document.getElementById('regName').value.trim();
+            let rank = document.getElementById('regRank').value;
+            let discord = document.getElementById('regDiscord').value.trim();
+            if(!name || !rank || !discord) { alert("يرجى تعبئة جميع الحقول!"); return; }
+            localStorage.setItem('military_name', name);
+            localStorage.setItem('military_rank', rank);
+            localStorage.setItem('military_discord', discord);
+            document.getElementById('authOverlay').style.display = 'none';
+            initUser();
+            alert("تم حفظ هويتك بنجاح!");
         }
 
-        function initializePage() {
-            const name = localStorage.getItem('military_name');
-            const rank = localStorage.getItem('military_rank');
-            const discord = localStorage.getItem('military_discord');
-            
-            const display = document.getElementById('userInfoDisplay');
-            display.innerHTML = `👤 العسكري: <b>[${rank}] ${name}</b> <span style="color:#88cc99;">(${discord})</span>`;
-            display.style.display = 'block';
-            
-            checkActiveDutyState();
-        }
-
-        // --- نظام البصمة (التحضير والدوام) ---
-        async function sendDiscordMessage(content) {
-            try {
-                await fetch(DISCORD_WEBHOOK_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ content: content }),
-                });
-            } catch (error) {
-                console.error('Error sending to Discord:', error);
-                showToast('⚠️ حدث خطأ أثناء إرسال التقرير للديسكورد.');
-            }
+        function initUser() {
+            let name = localStorage.getItem('military_name');
+            let rank = localStorage.getItem('military_rank');
+            document.getElementById('userInfoDisplay').innerHTML = `👤 العسكري: <b>[${rank}] ${name}</b>`;
+            document.getElementById('userInfoDisplay').style.display = 'block';
+            checkDuty();
         }
 
         function startDuty() {
-            const startTime = new Date();
-            
+            let startTime = new Date().toLocaleString('ar-SA');
+            localStorage.setItem('duty_start', startTime);
+            localStorage.setItem('on_duty', 'true');
+            checkDuty();
+            alert("تم تسجيل بدء الدوام بنجاح!");
+        }
+
+        async function endDuty() {
+            let name = localStorage.getItem('military_name');
+            let rank = localStorage.getItem('military_rank');
+            let start = localStorage.getItem('duty_start');
+            let end = new Date().toLocaleString('ar-SA');
+
+            let msg = `🚨 **[تقرير بصمة دوام]**\n👤 **العسكري:** ${name}\n🎖️ **الرتبة:** ${rank}\n🟢 **وقت الحضور:** ${start}\n🔴 **وقت الانصراف:** ${end}\n⏳ **الحالة:** تم إنهاء الدوام.`;
+
+            await fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({content: msg})
+            });
+
+            localStorage.removeItem('on_duty');
+            localStorage.removeItem('duty_start');
+            checkDuty();
+            alert("تم إنهاء الدوام وإرسال التقرير للديسكورد!");
+        }
+
+        function checkDuty() {
+            let onDuty = localStorage.getItem('on_duty');
+            if(onDuty === 'true') {
+                document.getElementById('dutyStatusText').innerHTML = `الحالة: <span style="color:#00ff66;">على رأس العمل (من: ${localStorage.getItem('duty_start')})</span>`;
+                document.getElementById('startDutyBtn').style.display = 'none';
+                document.getElementById('endDutyBtn').style.display = 'block';
+            } else {
+                document.getElementById('dutyStatusText').innerHTML = `الحالة: <span style="color:#ff3333;">غير مسجل حضور</span>`;
+                document.getElementById('startDutyBtn').style.display = 'block';
+                document.getElementById('endDutyBtn').style.display = 'none';
+            }
+        }
+
+        async function sendReport() {
+            let name = localStorage.getItem('military_name');
+            let rank = localStorage.getItem('military_rank');
+            let type = document.getElementById('repType').value;
+            let desc = document.getElementById('repDesc').value;
+            if(!type) { alert("اختر نوع الحالة!"); return; }
+
+            let msg = `📢 **[بلاغ ميداني]**\n👤 **العسكري:** ${name}\n🎖️ **الرتبة:** ${rank}\n⚡ **نوع الحالة:** ${type}\n📝 **التفاصيل:** ${desc || 'لا توجد'}`;
+
+            await fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({content: msg})
+            });
+            alert("تم إرسال البلاغ بنجاح!");
+        }
+    </script>
+</body>
+</html>
