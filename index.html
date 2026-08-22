@@ -39,6 +39,7 @@
 
         .field-form { background: #08160e; border: 1px solid #00ff66; padding: 15px; border-radius: 10px; width: 100%; box-sizing: border-box; margin-bottom: 15px; }
         input, select, textarea { width: 100%; background: #040d07; border: 1px solid #00ff66; color: #fff; padding: 12px; margin-bottom: 10px; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
+        input[readonly] { background: #0b1f14; color: #00ff66; font-weight: bold; cursor: not-allowed; border-color: #143820; }
         input[type="file"] { padding: 8px; cursor: pointer; }
         label { font-size: 13px; color: #00ff66; display: block; margin-bottom: 5px; }
         .submit-btn { width: 100%; background: #00ff66; color: #040d07; border: none; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; }
@@ -130,19 +131,11 @@
         <!-- قسم الحالة الميدانية والأرشيف -->
         <h2>الحالة الميدانية والأرشيف</h2>
         <div class="field-form">
-            <input type="text" id="repName" placeholder="أدخل اسم العسكري...">
-            <select id="repRank">
-                <option value="">اختر الرتبة...</option>
-                <option value="اللواء ركن">اللواء ركن</option>
-                <option value="العميد ركن">العميد ركن</option>
-                <option value="العقيد">العقيد</option>
-                <option value="رائد">رائد</option>
-                <option value="ملازم">ملازم</option>
-                <option value="رئيس رقباء">رئيس رقباء</option>
-                <option value="رقيب">رقيب</option>
-                <option value="جندي أول">جندي أول</option>
-                <option value="جندي">جندي</option>
-            </select>
+            <label>👤 اسم العسكري (مثبت تلقائياً):</label>
+            <input type="text" id="repName" readonly placeholder="اسم العسكري...">
+            
+            <label>🎖️ الرتبة العسكرية (مثبتة تلقائياً):</label>
+            <input type="text" id="repRank" readonly placeholder="الرتبة العسكرية...">
             
             <select id="repType" onchange="checkOther(this.value)">
                 <option value="">اختر نوع الحالة...</option>
