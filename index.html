@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>قطاع العزم الأمني</title>
     <style>
-        body { background-color: #040d07; color: #ffffff; font-family: 'Segoe UI', Tahoma, sans-serif; display: flex; flex-direction: column; align-items: center; padding: 15px; }
+        body { background-color: #040d07; color: #ffffff; font-family: 'Segoe UI', Tahoma, sans-serif; display: flex; flex-direction: column; align-items: center; padding: 15px; margin: 0; }
         .logo-img { width: 150px; height: 150px; border-radius: 50%; border: 3px solid #00ff66; margin: 15px 0; object-fit: cover; }
         h1 { color: #00ff66; font-size: 28px; margin-bottom: 20px; text-align: center; }
         h2 { color: #00ff66; font-size: 20px; margin-top: 25px; margin-bottom: 15px; border-bottom: 1px solid #143820; padding-bottom: 5px; text-align: center; width: 100%; }
         
-        /* شاشة البوابة */
+        /* بوابة الدخول الإجبارية */
         #gateway-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #040d07; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; }
         .gateway-box { background: #08160e; border: 2px solid #00ff66; padding: 25px; border-radius: 15px; width: 100%; max-width: 400px; text-align: center; box-sizing: border-box; }
         
-        .main-content { display: none; width: 100%; flex-direction: column; align-items: center; }
+        .main-content { display: none; width: 100%; max-width: 600px; flex-direction: column; align-items: center; }
 
         .btn-box { width: 100%; display: flex; gap: 10px; margin-bottom: 25px; }
         .btn { flex: 1; padding: 15px; border-radius: 12px; text-align: center; background: #00ff66; color: #040d07; font-weight: bold; text-decoration: none; font-size: 16px; border: none; }
@@ -24,15 +24,15 @@
         .profile-box img { width: 80px; height: 80px; border-radius: 50%; border: 2px solid #00ff66; margin-bottom: 5px; object-fit: cover; }
         .name { font-weight: bold; font-size: 14px; color: #00ff66; }
 
-        .section-box { width: 100%; margin-bottom: 10px; }
-        .drop-btn { width: 100%; background: #08160e; border: 1px solid #00ff66; color: #fff; padding: 18px 20px; border-radius: 10px; text-align: right; font-size: 17px; font-weight: bold; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .section-box { width: 100%; margin-bottom: 10px; box-sizing: border-box; }
+        .drop-btn { width: 100%; background: #08160e; border: 1px solid #00ff66; color: #fff; padding: 18px 20px; border-radius: 10px; text-align: right; font-size: 17px; font-weight: bold; cursor: pointer; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; }
         .drop-btn::after { content: '▼'; font-size: 12px; color: #00ff66; transition: transform 0.3s; }
         .section-box.active .drop-btn::after { transform: rotate(180deg); }
         
-        .drop-content { display: none; background: #0c2012; padding: 15px; border-radius: 0 0 10px 10px; border: 1px solid #00ff66; border-top: none; font-size: 16px; color: #ddd; line-height: 1.8; }
+        .drop-content { display: none; background: #0c2012; padding: 15px; border-radius: 0 0 10px 10px; border: 1px solid #00ff66; border-top: none; font-size: 16px; color: #ddd; line-height: 1.8; box-sizing: border-box; width: 100%; }
         .section-box.active .drop-content { display: block; }
 
-        .patrol-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; }
+        .patrol-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; box-sizing: border-box; }
         .patrol-card { background: #08160e; border: 1px solid #143820; padding: 15px; border-radius: 10px; text-align: center; }
         .patrol-card b { color: #00ff66; font-size: 15px; }
         .patrol-card p { font-size: 13px; color: #ccc; margin-top: 5px; }
@@ -42,17 +42,17 @@
         input[type="file"] { padding: 8px; cursor: pointer; }
         label { font-size: 13px; color: #00ff66; display: block; margin-bottom: 5px; }
         .submit-btn { width: 100%; background: #00ff66; color: #040d07; border: none; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; }
-        .archive-list { margin-top: 15px; padding: 10px; border-top: 1px solid #00ff66; color: #00ff66; font-size: 15px; line-height: 1.6; }
+        .archive-list { margin-top: 15px; padding: 10px; border-top: 1px solid #00ff66; color: #00ff66; font-size: 15px; line-height: 1.6; word-break: break-word; }
     </style>
 </head>
 <body>
 
-    <!-- بوابة الدخول للقطاع -->
+    <!-- البوابة الإجبارية للدخول -->
     <div id="gateway-screen">
         <div class="gateway-box">
             <img src="IMG_0347.jpeg" style="width: 100px; height: 100px; border-radius: 50%; border: 2px solid #00ff66; margin-bottom: 15px; object-fit: cover;" alt="الشعار">
             <h2 style="margin-top: 0; font-size: 22px;">بوابة قطاع العزم الأمني</h2>
-            <p style="font-size: 13px; color: #ccc; margin-bottom: 15px;">الرجاء إدخال بياناتك للدخول إلى النظام</p>
+            <p style="font-size: 13px; color: #ccc; margin-bottom: 15px;">الرجاء إدخال بياناتك العسكرية للدخول</p>
             <input type="text" id="gateName" placeholder="أدخل اسمك العسكري...">
             <select id="gateRank">
                 <option value="">اختر رتبتك...</option>
@@ -66,11 +66,11 @@
                 <option value="جندي أول">جندي أول</option>
                 <option value="جندي">جندي</option>
             </select>
-            <button class="submit-btn" onclick="enterGateway()">دخول القطاع 🛡️</button>
+            <button class="submit-btn" onclick="enterGateway()">دخول البوابة 🛡️</button>
         </div>
     </div>
 
-    <!-- محتوى الموقع الرئيسي -->
+    <!-- المحتوى الرئيسي للموقع -->
     <div class="main-content" id="mainContent">
         <img src="IMG_0347.jpeg" class="logo-img" alt="الشعار">
         <h1>قطاع العزم الأمني</h1>
@@ -91,7 +91,7 @@
             </div>
         </div>
 
-        <!-- قسم بصمة الدوام الرسمي -->
+        <!-- بصمة الدوام الرسمي -->
         <h2>بصمة الدوام الرسمي</h2>
         <div class="field-form" style="text-align: center;">
             <p id="attendanceStatus" style="font-size: 16px; margin-bottom: 15px; color: #ff3333;">الحالة: غير مسجل حضور</p>
@@ -222,15 +222,14 @@
         const REPORT_WEBHOOK = "https://discord.com/api/webhooks/1540393098754924624/DnTj3FlFHtx0-95wVZVnjxCBE0sVut-kdzeuLTxe_lXzc7WwiqYzu8PZ-utffHFr6aj_";
 
         function enterGateway() {
-            let name = document.getElementById('gateName').value;
+            let name = document.getElementById('gateName').value.trim();
             let rank = document.getElementById('gateRank').value;
             if(!name || !rank) {
-                alert("يرجى إدخال الاسم واختيار الرتبة لتجاوز البوابة!");
+                alert("يرجى إدخال الاسم العسكري واختيار الرتبة لتجاوز البوابة!");
                 return;
             }
             document.getElementById('gateway-screen').style.display = 'none';
             document.getElementById('mainContent').style.display = 'flex';
-            // تعبئة حقل الاسم تلقائياً في البلاغات لتسهيل الشغل
             document.getElementById('repName').value = name;
             document.getElementById('repRank').value = rank;
         }
@@ -247,7 +246,7 @@
         function toggleAttendance() {
             let status = document.getElementById('attendanceStatus');
             let btn = document.getElementById('attendanceBtn');
-            if(status.style.color === "rgb(255, 51, 51)" || status.style.color === "#ff3333" || status.innerText.includes("غير مسجل حضور")) {
+            if(status.innerText.includes("غير مسجل حضور")) {
                 status.style.color = "#00ff66";
                 status.innerText = "الحالة: مسجل حضور (على رأس العمل)";
                 btn.style.background = "#ff3333";
