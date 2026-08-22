@@ -1,33 +1,345 @@
-# قائمة بجميع الأعضاء والشباب في السيرفر مع رتبهم وتفاصيلهم
-server_members = [
-    {
-        "name": "أحمد",
-        "username": "a_n7rk",
-        "role": "Server Owner / Administrator",
-        "joined_discord": "Dec 5, 2025",
-        "joined_server": "Aug 19, 2026"
-    },
-    {
-        "name": "سعود العتيبي",
-        "username": "swd00965",
-        "role": "الأمير",
-        "joined_discord": "Jul 5, 2026",
-        "joined_server": "Aug 11, 2026"
-    },
-    {
-        "name": "فهد عبدالله الدوسري",
-        "username": "fahad__502",
-        "role": "جندي اول",
-        "joined_discord": "Jul 18, 2024",
-        "friends_since": "Aug 21, 2026"
-    },
-    # وباقي الشباب يتم إضافتهم هنا تباعاً بنفس الهيكل البرمجي
-]
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قطاع العزم الأمني</title>
+    <style>
+        body { background-color: #040d07; color: #ffffff; font-family: 'Segoe UI', Tahoma, sans-serif; display: flex; flex-direction: column; align-items: center; padding: 15px; margin: 0; }
+        .logo-img { width: 150px; height: 150px; border-radius: 50%; border: 3px solid #00ff66; margin: 15px 0; object-fit: cover; }
+        h1 { color: #00ff66; font-size: 28px; margin-bottom: 20px; text-align: center; }
+        h2 { color: #00ff66; font-size: 20px; margin-top: 25px; margin-bottom: 15px; border-bottom: 1px solid #143820; padding-bottom: 5px; text-align: center; width: 100%; }
+        
+        /* بوابة الدخول الإجبارية */
+        #gateway-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #040d07; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; }
+        .gateway-box { background: #08160e; border: 2px solid #00ff66; padding: 25px; border-radius: 15px; width: 100%; max-width: 400px; text-align: center; box-sizing: border-box; }
+        
+        .main-content { display: none; width: 100%; max-width: 600px; flex-direction: column; align-items: center; }
 
-def display_members(members_list):
-    print("--- قائمة أعضاء السيرفر والشباب ---")
-    for index, member in enumerate(members_list, start=1):
-        print(f"{index}. الاسم: {member['name']} | المعرف: {member['username']} | الرتبة: {member['role']}")
+        .btn-box { width: 100%; display: flex; gap: 10px; margin-bottom: 25px; }
+        .btn { flex: 1; padding: 15px; border-radius: 12px; text-align: center; background: #00ff66; color: #040d07; font-weight: bold; text-decoration: none; font-size: 16px; border: none; }
 
-if __name__ == "__main__":
-    display_members(server_members)
+        .profile-container { display: flex; justify-content: space-around; width: 100%; margin-bottom: 25px; gap: 10px; }
+        .profile-box { text-align: center; flex: 1; background: #08160e; padding: 10px; border-radius: 12px; border: 1px solid #00ff66; }
+        .profile-box img { width: 80px; height: 80px; border-radius: 50%; border: 2px solid #00ff66; margin-bottom: 5px; object-fit: cover; }
+        .name { font-weight: bold; font-size: 14px; color: #00ff66; }
+
+        .section-box { width: 100%; margin-bottom: 10px; box-sizing: border-box; }
+        .drop-btn { width: 100%; background: #08160e; border: 1px solid #00ff66; color: #fff; padding: 18px 20px; border-radius: 10px; text-align: right; font-size: 17px; font-weight: bold; cursor: pointer; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; }
+        .drop-btn::after { content: '▼'; font-size: 12px; color: #00ff66; transition: transform 0.3s; }
+        .section-box.active .drop-btn::after { transform: rotate(180deg); }
+        
+        .drop-content { display: none; background: #0c2012; padding: 15px; border-radius: 0 0 10px 10px; border: 1px solid #00ff66; border-top: none; font-size: 16px; color: #ddd; line-height: 1.8; box-sizing: border-box; width: 100%; }
+        .section-box.active .drop-content { display: block; }
+
+        .patrol-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; box-sizing: border-box; }
+        .patrol-card { background: #08160e; border: 1px solid #143820; padding: 15px; border-radius: 10px; text-align: center; }
+        .patrol-card b { color: #00ff66; font-size: 15px; }
+        .patrol-card p { font-size: 13px; color: #ccc; margin-top: 5px; }
+
+        .field-form { background: #08160e; border: 1px solid #00ff66; padding: 15px; border-radius: 10px; width: 100%; box-sizing: border-box; margin-bottom: 15px; }
+        input, select, textarea { width: 100%; background: #040d07; border: 1px solid #00ff66; color: #fff; padding: 12px; margin-bottom: 10px; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
+        input[type="file"] { padding: 8px; cursor: pointer; }
+        label { font-size: 13px; color: #00ff66; display: block; margin-bottom: 5px; }
+        .submit-btn { width: 100%; background: #00ff66; color: #040d07; border: none; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; }
+        .archive-list { margin-top: 15px; padding: 10px; border-top: 1px solid #00ff66; color: #00ff66; font-size: 15px; line-height: 1.6; word-break: break-word; }
+    </style>
+</head>
+<body>
+
+    <!-- البوابة الإجبارية للدخول -->
+    <div id="gateway-screen">
+        <div class="gateway-box">
+            <img src="IMG_0347.jpeg" style="width: 100px; height: 100px; border-radius: 50%; border: 2px solid #00ff66; margin-bottom: 15px; object-fit: cover;" alt="الشعار">
+            <h2 style="margin-top: 0; font-size: 22px;">بوابة قطاع العزم الأمني</h2>
+            <p style="font-size: 13px; color: #ccc; margin-bottom: 15px;">الرجاء إدخال بياناتك ويوزر الديسكورد للدخول</p>
+            <input type="text" id="gateDiscord" placeholder="أدخل يوزر الديسكورد (مثل: a_n7rk)...">
+            <input type="text" id="gateName" placeholder="أدخل اسمك العسكري...">
+            <select id="gateRank">
+                <option value="">اختر رتبتك...</option>
+                <option value="اللواء ركن">اللواء ركن</option>
+                <option value="العميد ركن">العميد ركن</option>
+                <option value="العقيد">العقيد</option>
+                <option value="رائد">رائد</option>
+                <option value="ملازم">ملازم</option>
+                <option value="رئيس رقباء">رئيس رقباء</option>
+                <option value="رقيب">رقيب</option>
+                <option value="جندي أول">جندي أول</option>
+                <option value="جندي">جندي</option>
+            </select>
+            <button class="submit-btn" onclick="enterGateway()">دخول البوابة 🛡️</button>
+        </div>
+    </div>
+
+    <!-- المحتوى الرئيسي للموقع -->
+    <div class="main-content" id="mainContent">
+        <img src="IMG_0347.jpeg" class="logo-img" alt="الشعار">
+        <h1>قطاع العزم الأمني</h1>
+
+        <div class="btn-box">
+            <a href="https://www.tiktok.com/@ssoh022?_r=1&_t=ZS-991jJVyMqJw" class="btn" target="_blank">تيك توك</a>
+            <a href="https://discord.gg/KT9aYRC9y" class="btn" target="_blank">ديسكورد</a>
+        </div>
+
+        <div class="profile-container">
+            <div class="profile-box">
+                <img src="IMG_0349.jpeg" alt="القائد">
+                <div class="name">اللواء ركن سعد العتيبي</div>
+            </div>
+            <div class="profile-box">
+                <img src="IMG_8649.jpeg" alt="أحمد">
+                <div class="name">أحمد المعشني (رائد)</div>
+            </div>
+        </div>
+
+        <!-- بصمة الدوام الرسمي -->
+        <h2>بصمة الدوام الرسمي</h2>
+        <div class="field-form" style="text-align: center;">
+            <p id="attendanceStatus" style="font-size: 16px; margin-bottom: 15px; color: #ff3333;">الحالة: غير مسجل حضور</p>
+            <button id="attendanceBtn" class="submit-btn" onclick="toggleAttendance()" style="background: #00ff66; color: #040d07;">🟢 بدء الدوام (تسجيل حضور)</button>
+        </div>
+
+        <h2>قوانين وتعليمات القطاع</h2>
+        <div class="section-box">
+            <button class="drop-btn" onclick="toggleSection(this)">📜 قوانين وأنظمة قطاع العزم الأمني</button>
+            <div class="drop-content">
+                1. الالتزام بالرتب العسكرية واحترام القيادة العليا.<br>
+                2. استخدام الدوريات المخصصة لكل رتبة وعدم تجاوزها.<br>
+                3. رفع البلاغات والحالات الميدانية أولاً بأول للأرشيف.<br>
+                4. التواجد في الديسكورد والالتزام بالتعليمات الصادرة من الضباط.
+            </div>
+        </div>
+
+        <h2>السلك العسكري</h2>
+        <div class="section-box"><button class="drop-btn" onclick="toggleSection(this)">⭐ القادات العليا</button><div class="drop-content">اللواء ركن: سعد العتيبي<br>العميد ركن: خالد<br>العقيد: بسام<br>الرائد: أحمد المعشني</div></div>
+        <div class="section-box"><button class="drop-btn" onclick="toggleSection(this)">⭐ الضباط</button><div class="drop-content">ملازم: عبد العزيز العتيبي</div></div>
+        <div class="section-box"><button class="drop-btn" onclick="toggleSection(this)">⭐ رؤساء الرقباء</button><div class="drop-content">رئيس رقباء: فهيد ابن محمد</div></div>
+        <div class="section-box"><button class="drop-btn" onclick="toggleSection(this)">⭐ الرقباء</button><div class="drop-content">رقيب: حبيب اليامي</div></div>
+        <div class="section-box"><button class="drop-btn" onclick="toggleSection(this)">⭐ الجنود والجنود الأوائل</button><div class="drop-content">جندي أول: رياض العامري<br>جندي أول: فهد عبدالله الدوسري<br>جندي أول: تركي كدوس<br>جندي أول: ثامر البقمي<br>جندي: بدر العتيبي</div></div>
+
+        <h2>قسم الدوريات العسكرية</h2>
+        <div class="patrol-grid">
+            <div class="patrol-card"><b>سيارة خاصة + السيارة السرية</b><p>مخصصة للقادات العليا</p></div>
+            <div class="patrol-card"><b>تاهو</b><p>مخصصة للملازم والملازم أول</p></div>
+            <div class="patrol-card"><b>تورس</b><p>مخصصة لرئيس رقباء</p></div>
+            <div class="patrol-card"><b>أف جي (FJ)</b><p>مخصصة للرقيب</p></div>
+            <div class="patrol-card"><b>فورد</b><p>مخصصة للعريف</p></div>
+            <div class="patrol-card"><b>ربع</b><p>مخصصة للجندي والجندي أول</p></div>
+        </div>
+
+        <!-- قسم الحالة الميدانية والأرشيف -->
+        <h2>الحالة الميدانية والأرشيف</h2>
+        <div class="field-form">
+            <input type="text" id="repName" placeholder="أدخل اسم العسكري...">
+            <select id="repRank">
+                <option value="">اختر الرتبة...</option>
+                <option value="اللواء ركن">اللواء ركن</option>
+                <option value="العميد ركن">العميد ركن</option>
+                <option value="العقيد">العقيد</option>
+                <option value="رائد">رائد</option>
+                <option value="ملازم">ملازم</option>
+                <option value="رئيس رقباء">رئيس رقباء</option>
+                <option value="رقيب">رقيب</option>
+                <option value="جندي أول">جندي أول</option>
+                <option value="جندي">جندي</option>
+            </select>
+            
+            <select id="repType" onchange="checkOther(this.value)">
+                <option value="">اختر نوع الحالة...</option>
+                <option value="مطاردة">مطاردة</option>
+                <option value="استيقاف مروري">استيقاف مروري</option>
+                <option value="تهريب">تهريب</option>
+                <option value="أخرى">أخرى (اكتب الحالة...)</option>
+            </select>
+            <input type="text" id="otherType" placeholder="اكتب نوع الحالة هنا..." style="display:none;">
+
+            <label>🎨 مستوى التجليد (الضرب × 5 نقاط):</label>
+            <select id="repWrap">
+                <option value="0">بدون (0)</option>
+                <option value="1">1 (5 نقاط)</option>
+                <option value="2">2 (10 نقاط)</option>
+                <option value="3">3 (15 نقاط)</option>
+                <option value="4">4 (20 نقاط)</option>
+                <option value="5">5 (25 نقاط)</option>
+                <option value="6">6 (30 نقاط)</option>
+            </select>
+
+            <label>✍️ العبارات (الضرب × 10 نقاط):</label>
+            <select id="repPhrases">
+                <option value="0">بدون (0)</option>
+                <option value="1">1 (10 نقاط)</option>
+                <option value="2">2 (20 نقاط)</option>
+                <option value="3">3 (30 نقاط)</option>
+                <option value="4">4 (40 نقاط)</option>
+                <option value="5">5 (50 نقاط)</option>
+                <option value="6">6 (60 نقاط)</option>
+            </select>
+
+            <label>🏷️ الستكرات (الضرب × 5 نقاط):</label>
+            <select id="repStickers">
+                <option value="0">بدون (0)</option>
+                <option value="1">1 (5 نقاط)</option>
+                <option value="2">2 (10 نقاط)</option>
+                <option value="3">3 (15 نقاط)</option>
+                <option value="4">4 (20 نقاط)</option>
+                <option value="5">5 (25 نقاط)</option>
+                <option value="6">6 (30 نقاط)</option>
+            </select>
+
+            <label>🏜️ التغبيرة (الضرب × 20 نقطة):</label>
+            <select id="repDust">
+                <option value="0">بدون (0)</option>
+                <option value="1">1 (20 نقاط)</option>
+                <option value="2">2 (40 نقاط)</option>
+                <option value="3">3 (60 نقاط)</option>
+                <option value="4">4 (80 نقاط)</option>
+                <option value="5">5 (100 نقاط)</option>
+                <option value="6">6 (120 نقاط)</option>
+            </select>
+
+            <label>📷 إرفاق صورة كدليل:</label>
+            <input type="file" id="repImageFile" accept="image/*">
+            
+            <textarea id="repDesc" rows="2" placeholder="اكتب تفاصيل إضافية للحالة..."></textarea>
+            <button class="submit-btn" onclick="addReport()">إرسال البلاغ وحساب النقاط</button>
+            
+            <div id="archiveDisplay" class="archive-list"><b>سجل الأرشيف الميداني المباشر:</b><br>لا توجد حالات مسجلة حتى الآن.</div>
+        </div>
+
+        <h2>قسم الإدارة</h2>
+        <div class="section-box">
+            <button class="drop-btn" onclick="toggleSection(this)">🛡️ أعضاء الإدارة</button>
+            <div class="drop-content">
+                • الإداري: سعد العتيبي<br>
+                • الإداري: خالد<br>
+                • الإداري: بسام<br>
+                • الإداري: أحمد المعشني<br>
+                • الإداري: سعود العتيبي
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const REPORT_WEBHOOK = "https://discord.com/api/webhooks/1540393098754924624/DnTj3FlFHtx0-95wVZVnjxCBE0sVut-kdzeuLTxe_lXzc7WwiqYzu8PZ-utffHFr6aj_";
+
+        // قائمة يوزرات ديسكورد المعتمدة للعساكر والشباب المصرح لهم بالدخول
+        const allowedDiscordUsers = [
+            "a_n7rk",       // أحمد
+            "swd00965",     // سعود العتيبي
+            "fahad__502",   // فهد عبدالله الدوسري
+            "khalid",       // مثال ليوزر خالد (يمكنك تعديله اليوزر الدقيق إذا لزم)
+            "bessam",       // مثال ليوزر بسام
+            "saad"          // مثال ليوزر سعد
+            // يمكنك إضافة أي يوزرات إضافية هنا بنفس الطريقة بين علامات التنصيص وبينهما فاصلة
+        ];
+
+        function enterGateway() {
+            let discordUser = document.getElementById('gateDiscord').value.trim().toLowerCase();
+            let name = document.getElementById('gateName').value.trim();
+            let rank = document.getElementById('gateRank').value;
+
+            if(!discordUser || !name || !rank) {
+                alert("يرجى تعبئة جميع الحقول (يوزر الديسكورد، الاسم العسكري، والرتبة)!");
+                return;
+            }
+
+            // التحقق مما إذا كان يوزر الديسكورد موجود في قائمة العساكر المعتمدين
+            if(!allowedDiscordUsers.includes(discordUser)) {
+                alert("خطأ: يوزر الديسكورد غير مصرح له أو غير تابع لعساكر القطاع!");
+                return;
+            }
+
+            document.getElementById('gateway-screen').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'flex';
+            document.getElementById('repName').value = name;
+            document.getElementById('repRank').value = rank;
+        }
+
+        function toggleSection(btn) {
+            let box = btn.parentElement;
+            box.classList.toggle('active');
+        }
+
+        function checkOther(val) {
+            document.getElementById('otherType').style.display = (val === 'أخرى') ? 'block' : 'none';
+        }
+
+        function toggleAttendance() {
+            let status = document.getElementById('attendanceStatus');
+            let btn = document.getElementById('attendanceBtn');
+            if(status.innerText.includes("غير مسجل حضور")) {
+                status.style.color = "#00ff66";
+                status.innerText = "الحالة: مسجل حضور (على رأس العمل)";
+                btn.style.background = "#ff3333";
+                btn.style.color = "#ffffff";
+                btn.innerText = "🔴 إنهاء الدوام (تسجيل انصراف)";
+            } else {
+                status.style.color = "#ff3333";
+                status.innerText = "الحالة: غير مسجل حضور";
+                btn.style.background = "#00ff66";
+                btn.style.color = "#040d07";
+                btn.innerText = "🟢 بدء الدوام (تسجيل حضور)";
+            }
+        }
+        
+        async function addReport() {
+            let name = document.getElementById('repName').value;
+            let rank = document.getElementById('repRank').value;
+            let typeSelect = document.getElementById('repType').value;
+            let otherType = document.getElementById('otherType').value;
+            let type = (typeSelect === 'أخرى') ? otherType : typeSelect;
+            
+            let wrapVal = parseInt(document.getElementById('repWrap').value) || 0;
+            let phraseVal = parseInt(document.getElementById('repPhrases').value) || 0;
+            let stickerVal = parseInt(document.getElementById('repStickers').value) || 0;
+            let dustVal = parseInt(document.getElementById('repDust').value) || 0;
+            
+            let totalPoints = (wrapVal * 5) + (phraseVal * 10) + (stickerVal * 5) + (dustVal * 20);
+            
+            let desc = document.getElementById('repDesc').value;
+            let imageFile = document.getElementById('repImageFile').files[0];
+            
+            if(!name || !rank || !type) {
+                alert("يرجى تعبئة الاسم، الرتبة، ونوع الحالة!");
+                return;
+            }
+            
+            let formData = new FormData();
+            let textMessage = `📢 **[بلاغ ميداني جديد]**\n👤 **العسكري:** ${name}\n🎖️ **الرتبة:** ${rank}\n⚡ **نوع الحالة:** ${type}\n🎨 **التجليد:** مستوى ${wrapVal} (${wrapVal * 5} نقطة)\n✍️ **العبارات:** مستوى ${phraseVal} (${phraseVal * 10} نقطة)\n🏷️ **الستكرات:** مستوى ${stickerVal} (${stickerVal * 5} نقطة)\n🏜️ **التغبيرة:** مستوى ${dustVal} (${dustVal * 20} نقطة)\n💰 **إجمالي نقاط البلاغ:** ${totalPoints} نقطة\n📝 **التفاصيل:** ${desc || 'لا توجد تفاصيل إضافية'}`;
+            
+            formData.append('payload_json', JSON.stringify({ content: textMessage }));
+            
+            if(imageFile) {
+                formData.append('file', imageFile);
+            }
+
+            await fetch(REPORT_WEBHOOK, {
+                method: "POST",
+                body: formData
+            });
+
+            let display = document.getElementById('archiveDisplay');
+            if(display.innerText.includes("لا توجد حالات مسجلة")) {
+                display.innerHTML = "<b>سجل الأرشيف الميداني المباشر:</b>";
+            }
+            
+            let entry = document.createElement('div');
+            entry.style.borderBottom = "1px dashed #143820";
+            entry.style.padding = "8px 0";
+            entry.innerHTML = `📌 <b>[${rank}] ${name}</b> (${type}) | النقاط المكتسبة: <b style="color:#00ff66;">+${totalPoints}</b> ${imageFile ? '<br><span style="color:#00ff66; font-size:12px;">[تم إرفاق صورة الدليل]</span>' : ''}`;
+            display.appendChild(entry);
+            
+            document.getElementById('repType').value = "";
+            document.getElementById('otherType').value = "";
+            document.getElementById('repWrap').value = "0";
+            document.getElementById('repPhrases').value = "0";
+            document.getElementById('repStickers').value = "0";
+            document.getElementById('repDust').value = "0";
+            document.getElementById('repImageFile').value = "";
+            document.getElementById('repDesc').value = "";
+            
+            alert("تم إرسال البلاغ بنجاح! كسبت مجموع " + totalPoints + " نقطة.");
+        }
+    </script>
+</body>
+</html>
