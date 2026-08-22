@@ -53,7 +53,7 @@
             <img src="IMG_0347.jpeg" style="width: 100px; height: 100px; border-radius: 50%; border: 2px solid #00ff66; margin-bottom: 15px; object-fit: cover;" alt="الشعار">
             <h2 style="margin-top: 0; font-size: 22px;">بوابة قطاع العزم الأمني</h2>
             <p style="font-size: 13px; color: #ccc; margin-bottom: 15px;">الرجاء إدخال بياناتك ويوزر الديسكورد للدخول</p>
-            <input type="text" id="gateDiscord" placeholder="أدخل يوزر الديسكورد (مثل: a_n7rk)...">
+            <input type="text" id="gateDiscord" placeholder="أدخل يوزر الديسكورد...">
             <input type="text" id="gateName" placeholder="أدخل اسمك العسكري...">
             <select id="gateRank">
                 <option value="">اختر رتبتك...</option>
@@ -224,14 +224,27 @@
 
         // قائمة يوزرات ديسكورد المعتمدة للعساكر والشباب المصرح لهم بالدخول
         const allowedDiscordUsers = [
-            "a_n7rk",       // أحمد
-            "swd00965",     // سعود العتيبي
-            "fahad__502",   // فهد عبدالله الدوسري
-            "khalid",       // مثال ليوزر خالد (يمكنك تعديله اليوزر الدقيق إذا لزم)
-            "bessam",       // مثال ليوزر بسام
-            "saad"          // مثال ليوزر سعد
-            // يمكنك إضافة أي يوزرات إضافية هنا بنفس الطريقة بين علامات التنصيص وبينهما فاصلة
+            "a_n7rk",       
+            "swd00965",     
+            "fahad__502",   
+            "khalid",       
+            "bessam",       
+            "saad"          
         ];
+
+        // التحقق التلقائي عند فتح الصفحة إذا تم تسجيل الدخول مسبقاً (مدى الحياة)
+        window.onload = function() {
+            let savedDiscord = localStorage.getItem('azm_discord');
+            let savedName = localStorage.getItem('azm_name');
+            let savedRank = localStorage.getItem('azm_rank');
+
+            if(savedDiscord && savedName && savedRank && allowedDiscordUsers.includes(savedDiscord)) {
+                document.getElementById('gateway-screen').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'flex';
+                document.getElementById('repName').value = savedName;
+                document.getElementById('repRank').value = savedRank;
+            }
+        };
 
         function enterGateway() {
             let discordUser = document.getElementById('gateDiscord').value.trim().toLowerCase();
@@ -248,6 +261,11 @@
                 alert("خطأ: يوزر الديسكورد غير مصرح له أو غير تابع لعساكر القطاع!");
                 return;
             }
+
+            // حفظ بيانات الدخول في المتصفح للأبد (مدى الحياة)
+            localStorage.setItem('azm_discord', discordUser);
+            localStorage.setItem('azm_name', name);
+            localStorage.setItem('azm_rank', rank);
 
             document.getElementById('gateway-screen').style.display = 'none';
             document.getElementById('mainContent').style.display = 'flex';
