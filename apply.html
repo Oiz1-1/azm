@@ -104,8 +104,8 @@
         <label>👤 الاسم الثنائي:</label>
         <input type="text" id="appName" placeholder="اكتب اسمك الثنائي...">
         
-        <label>💬 يوزر الديسكورد:</label>
-        <input type="text" id="appDiscord" placeholder="أدخل يوزر الديسكورد...">
+        <label>💬 يوزر الديسكورد (اكتبه كتابة يدوية):</label>
+        <input type="text" id="appDiscord" placeholder="مثال: username دون رموز أو أرقام مشفرة">
 
         <label>🛡️ هل تملك خبرات سابقة؟</label>
         <input type="text" id="appExperience" placeholder="ذكر الخبرات السابقة إن وجدت...">
@@ -117,7 +117,6 @@
     </div>
 
     <script>
-        // رابط الويب هوك الخاص بروم تقديم القطاع الجديد
         const APPLY_WEBHOOK = "https://discord.com/api/webhooks/1540407696170156244/y-XWYWIr1CJuoUU3erFK9zEckqGZTRd4XrlCpROLiscR5eHxpO8JVfvR1m__NeULLfvh";
 
         async function sendApplication() {
@@ -128,6 +127,12 @@
 
             if(!name || !discord || !experience || !goal) {
                 alert("يرجى تعبئة جميع خانات نموذج التقديم قبل الإرسال!");
+                return;
+            }
+
+            // تنبيه بسيط إذا حاول المستخدم وضع رموز مشفرة طويلة
+            if(discord.length > 35 || /^[A-Z0-9]{15,}$/.test(discord)) {
+                alert("تنبيه: يرجى كتابة يوزر الديسكورد الصحيح وليس رمز الحساب أو التوكن!");
                 return;
             }
 
