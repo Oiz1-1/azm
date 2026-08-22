@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>تقديم قطاع العزم الأمني</title>
+    <style>
+        body { background-color: #040d07; color: #fff; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .logo-img { width: 140px; height: 140px; border-radius: 50%; border: 3px solid #00ff66; margin-bottom: 20px; }
+        .form-box { background: #08160e; border: 1px solid #00ff66; padding: 20px; border-radius: 12px; width: 100%; max-width: 400px; }
+        input, textarea { width: 100%; background: #040d07; border: 1px solid #00ff66; color: #fff; padding: 12px; margin-bottom: 10px; border-radius: 8px; box-sizing: border-box; }
+        .submit-btn { width: 100%; background: #00ff66; color: #040d07; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <img src="IMG_0347.jpeg" class="logo-img" alt="الشعار">
+    <h1>قطاع العزم الأمني</h1>
+    
+    <div class="form-box">
+        <input type="text" id="appName" placeholder="الاسم الثنائي...">
+        <input type="number" id="appAge" placeholder="العمر...">
+        <input type="text" id="appDiscord" placeholder="يوزر الديسكورد...">
+        <textarea id="appExperience" placeholder="الخبرات..." rows="2"></textarea>
+        <textarea id="appGoal" placeholder="هدف الانضمام..." rows="2"></textarea>
+        <button class="submit-btn" onclick="sendApp()">إرسال الطلب</button>
+    </div>
+
+    <script>
+        const APP_WEBHOOK = "https://discord.com/api/webhooks/1540407696170156244/y-XWYWIr1CJuoUU3erFK9zEckqGZTRd4XrlCpROLiscR5eHxpO8JVfvR1m__NeULLfvh";
+
+        async function sendApp() {
+            const data = { content: `📋 **[طلب انضمام جديد]**\n👤 الاسم: ${document.getElementById('appName').value}\n🎂 العمر: ${document.getElementById('appAge').value}\n🎮 الديسكورد: ${document.getElementById('appDiscord').value}\n💼 الخبرات: ${document.getElementById('appExperience').value}\n🎯 الهدف: ${document.getElementById('appGoal').value}` };
+            await fetch(APP_WEBHOOK, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(data) });
+            alert("تم إرسال طلبك بنجاح!");
+        }
+    </script>
+</body>
+</html>
