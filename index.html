@@ -275,22 +275,39 @@
             document.getElementById('otherType').style.display = (val === 'أخرى') ? 'block' : 'none';
         }
 
-        function toggleAttendance() {
+        async function toggleAttendance() {
             let status = document.getElementById('attendanceStatus');
             let btn = document.getElementById('attendanceBtn');
+            let name = document.getElementById('repName').value;
+            let rank = document.getElementById('repRank').value;
+            
+            let actionType = "";
+            let messageText = "";
+
             if(status.innerText.includes("غير مسجل حضور")) {
+                actionType = "🟢 تسجيل حضور (بدء الدوام)";
                 status.style.color = "#00ff66";
                 status.innerText = "الحالة: مسجل حضور (على رأس العمل)";
                 btn.style.background = "#ff3333";
                 btn.style.color = "#ffffff";
                 btn.innerText = "🔴 إنهاء الدوام (تسجيل انصراف)";
+                messageText = `🟢 **[بصمة حضور]**\n👤 **العسكري:** ${name}\n🎖️ **الرتبة:** ${rank}\n⏰ **الحالة:** بدأ الدوام وهو على رأس العمل الآن.`;
             } else {
+                actionType = "🔴 تسجيل انصراف (انتهاء الدوام)";
                 status.style.color = "#ff3333";
                 status.innerText = "الحالة: غير مسجل حضور";
                 btn.style.background = "#00ff66";
                 btn.style.color = "#040d07";
                 btn.innerText = "🟢 بدء الدوام (تسجيل حضور)";
+                messageText = `🔴 **[بصمة انصراف]**\n👤 **العسكري:** ${name}\n🎖️ **الرتبة:** ${rank}\n⏰ **الحالة:** أنهى الدوام وغادر الميدان.`;
             }
+
+            // إرسال البيانات للروم عبر الـ Webhook
+            await fetch(REPORT_WEBHOOK, {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ content: messageText })
+            });
         }
         
         async function addReport() {
