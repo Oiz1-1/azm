@@ -20,37 +20,37 @@
         }
 
         .logo-img { 
-            width: 100px; 
-            height: 100px; 
+            width: 90px; 
+            height: 90px; 
             border-radius: 50%; 
             border: 3px solid #00ff66; 
-            margin-bottom: 15px; 
+            margin-bottom: 12px; 
             object-fit: cover; 
         }
 
         h1 { 
             color: #00ff66; 
-            font-size: 22px; 
-            margin-bottom: 20px; 
+            font-size: 20px; 
+            margin-bottom: 15px; 
             text-align: center; 
         }
 
         .field-form { 
             background: #08160e; 
             border: 2px solid #00ff66; 
-            padding: 20px; 
+            padding: 18px; 
             border-radius: 15px; 
             width: 100%; 
-            max-width: 400px; 
+            max-width: 360px; 
             box-sizing: border-box; 
             box-shadow: 0 4px 15px rgba(0, 255, 102, 0.15);
         }
 
         label { 
-            font-size: 13px; 
+            font-size: 12px; 
             color: #00ff66; 
             display: block; 
-            margin-bottom: 5px; 
+            margin-bottom: 4px; 
             font-weight: bold;
         }
 
@@ -59,8 +59,8 @@
             background: #040d07; 
             border: 1px solid #00ff66; 
             color: #fff; 
-            padding: 12px; 
-            margin-bottom: 12px; 
+            padding: 11px; 
+            margin-bottom: 10px; 
             border-radius: 8px; 
             box-sizing: border-box; 
             font-size: 14px; 
@@ -73,7 +73,7 @@
 
         textarea {
             resize: none;
-            height: 80px;
+            height: 70px;
         }
 
         .submit-btn { 
@@ -81,7 +81,7 @@
             background: #00ff66; 
             color: #040d07; 
             border: none; 
-            padding: 12px; 
+            padding: 11px; 
             border-radius: 8px; 
             font-weight: bold; 
             font-size: 15px; 
@@ -117,8 +117,8 @@
     </div>
 
     <script>
-        // رابط الويب هوك الخاص بروم التقديم في الديسكورد (يمديك تغييره لو روم التقديم يختلف عن البلاغات)
-        const APPLY_WEBHOOK = "https://discord.com/api/webhooks/1540393098754924624/DnTj3FlFHtx0-95wVZVnjxCBE0sVut-kdzeuLTxe_lXzc7WwiqYzu8PZ-utffHFr6aj_";
+        // رابط الويب هوك الخاص بروم التقديم الجديد
+        const APPLY_WEBHOOK = "Https://discord.com/api/webhooks/1540407696170156244/y-XWYWIr1CJuoUU3erFK9zEckqGZTRd4XrlCpROLiscR5eHxpO8JVfvR1m__NeULLfvh";
 
         async function sendApplication() {
             let name = document.getElementById('appName').value.trim();
@@ -133,7 +133,6 @@
 
             let messageText = `📝 **[طلب تقديم عسكري جديد]**\n\n👤 **الاسم الثنائي:** ${name}\n💬 **يوزر الديسكورد:** ${discord}\n🛡️ **الخبرات السابقة:** ${experience}\n🎯 **الهدف من الانضمام:** ${goal}`;
 
-            // إرسال البيانات لروم الديسكورد
             let response = await fetch(APPLY_WEBHOOK, {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
@@ -141,14 +140,13 @@
             });
 
             if(response.ok || response.status === 204) {
-                alert("تم إرسال طلب التقديم بنجاح إلى روم القطاع!");
-                // تفريغ الحقول بعد الإرسال
+                alert("تم إرسال طلب التقديم بنجاح إلى روم التقديم!");
                 document.getElementById('appName').value = "";
                 document.getElementById('appDiscord').value = "";
                 document.getElementById('appExperience').value = "";
                 document.getElementById('appGoal').value = "";
             } else {
-                alert("حدث خطأ أثناء الإرسال، تأكد من اتصالك أو رابط الويب هوك.");
+                alert("حدث خطأ أثناء الإرسال، تأكد من اتصالك.");
             }
         }
     </script>
