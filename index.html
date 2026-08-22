@@ -31,7 +31,7 @@
         .patrol-card b { color: #00ff66; font-size: 15px; }
         .patrol-card p { font-size: 13px; color: #ccc; margin-top: 5px; }
 
-        .field-form { background: #08160e; border: 1px solid #00ff66; padding: 15px; border-radius: 10px; width: 100%; box-sizing: border-box; }
+        .field-form { background: #08160e; border: 1px solid #00ff66; padding: 15px; border-radius: 10px; width: 100%; box-sizing: border-box; margin-bottom: 15px; }
         input, select, textarea { width: 100%; background: #040d07; border: 1px solid #00ff66; color: #fff; padding: 12px; margin-bottom: 10px; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
         input[type="file"] { padding: 8px; cursor: pointer; }
         label { font-size: 13px; color: #00ff66; display: block; margin-bottom: 5px; }
@@ -58,6 +58,13 @@
             <img src="IMG_8649.jpeg" alt="أحمد">
             <div class="name">أحمد المعشني (رائد)</div>
         </div>
+    </div>
+
+    <!-- قسم بصمة الدوام الرسمي -->
+    <h2>بصمة الدوام الرسمي</h2>
+    <div class="field-form" style="text-align: center;">
+        <p id="attendanceStatus" style="font-size: 16px; margin-bottom: 15px; color: #ff3333;">الحالة: غير مسجل حضور</p>
+        <button id="attendanceBtn" class="submit-btn" onclick="toggleAttendance()" style="background: #00ff66; color: #040d07;">🟢 بدء الدوام (تسجيل حضور)</button>
     </div>
 
     <h2>قوانين وتعليمات القطاع</h2>
@@ -190,6 +197,24 @@
         function checkOther(val) {
             document.getElementById('otherType').style.display = (val === 'أخرى') ? 'block' : 'none';
         }
+
+        function toggleAttendance() {
+            let status = document.getElementById('attendanceStatus');
+            let btn = document.getElementById('attendanceBtn');
+            if(status.style.color === "rgb(255, 51, 51)" || status.style.color === "#ff3333" || status.innerText.includes("غير مسجل حضور")) {
+                status.style.color = "#00ff66";
+                status.innerText = "الحالة: مسجل حضور (على رأس العمل)";
+                btn.style.background = "#ff3333";
+                btn.style.color = "#ffffff";
+                btn.innerText = "🔴 إنهاء الدوام (تسجيل انصراف)";
+            } else {
+                status.style.color = "#ff3333";
+                status.innerText = "الحالة: غير مسجل حضور";
+                btn.style.background = "#00ff66";
+                btn.style.color = "#040d07";
+                btn.innerText = "🟢 بدء الدوام (تسجيل حضور)";
+            }
+        }
         
         async function addReport() {
             let name = document.getElementById('repName').value;
@@ -205,7 +230,7 @@
             
             let totalPoints = (wrapVal * 5) + (phraseVal * 10) + (stickerVal * 5) + (dustVal * 20);
             
-            let desc = document.getElementById('repDesc'].value;
+            let desc = document.getElementById('repDesc').value;
             let imageFile = document.getElementById('repImageFile').files[0];
             
             if(!name || !rank || !type) {
