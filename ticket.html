@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>تذاكر قطاع العزم الأمني</title>
+    <style>
+        body { 
+            background-color: #040d07; 
+            color: #ffffff; 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0; 
+            padding: 15px; 
+            box-sizing: border-box;
+        }
+
+        .logo-img { 
+            width: 90px; 
+            height: 90px; 
+            border-radius: 50%; 
+            border: 3px solid #00ff66; 
+            margin-bottom: 12px; 
+            object-fit: cover; 
+        }
+
+        h1 { 
+            color: #00ff66; 
+            font-size: 20px; 
+            margin-bottom: 15px; 
+            text-align: center; 
+        }
+
+        .field-form { 
+            background: #08160e; 
+            border: 2px solid #00ff66; 
+            padding: 18px; 
+            border-radius: 15px; 
+            width: 100%; 
+            max-width: 360px; 
+            box-sizing: border-box; 
+            box-shadow: 0 4px 15px rgba(0, 255, 102, 0.15);
+        }
+
+        label { 
+            font-size: 12px; 
+            color: #00ff66; 
+            display: block; 
+            margin-bottom: 4px; 
+            font-weight: bold;
+        }
+
+        input, textarea { 
+            width: 100%; 
+            background: #040d07; 
+            border: 1px solid #00ff66; 
+            color: #fff; 
+            padding: 11px; 
+            margin-bottom: 10px; 
+            border-radius: 8px; 
+            box-sizing: border-box; 
+            font-size: 14px; 
+            outline: none;
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: #666;
+        }
+
+        textarea {
+            resize: none;
+            height: 70px;
+        }
+
+        .submit-btn { 
+            width: 100%; 
+            background: #00ff66; 
+            color: #040d07; 
+            border: none; 
+            padding: 11px; 
+            border-radius: 8px; 
+            font-weight: bold; 
+            font-size: 15px; 
+            cursor: pointer; 
+            margin-top: 5px;
+        }
+
+        .submit-btn:active {
+            background: #00cc52;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="IMG_0347.jpeg" class="logo-img" alt="الشعار">
+    <h1>تذاكر قطاع العزم الأمني</h1>
+
+    <!-- نموذج التذاكر -->
+    <div class="field-form">
+        <label>👤 الاسم:</label>
+        <input type="text" id="ticketName" placeholder="اكتب اسمك...">
+        
+        <label>⭐ الرتبة:</label>
+        <input type="text" id="ticketRank" placeholder="اكتب رتبتك...">
+
+        <label>🛠️ المشكلة والسبب:</label>
+        <textarea id="ticketIssue" placeholder="اكتب تفاصيل المشكلة والسبب باختصار..."></textarea>
+        
+        <button class="submit-btn" onclick="sendTicket()">إرسال التذكرة 🎫</button>
+    </div>
+
+    <script>
+        const TICKET_WEBHOOK = "https://discord.com/api/webhooks/1542171947549458452/BGm1l6eavFJLTFfZZqBpcbIG43pIiCJnaPqGu0iHo7vU9ZoKpiVYODFi1HkkuRDhdi0D";
+
+        async function sendTicket() {
+            let name = document.getElementById('ticketName').value.trim();
+            let rank = document.getElementById('ticketRank').value.trim();
+            let issue = document.getElementById('ticketIssue').value.trim();
+
+            if(!name || !rank || !issue) {
+                alert("يرجى تعبئة جميع خانات التذكرة قبل الإرسال!");
+                return;
+            }
+
+            let messageText = `🔔 **تنبيه للمسؤول** (a_n7rk)\n🎫 **[تذكرة دعم جديدة]**\n\n👤 **الاسم:** ${name}\n⭐ **الرتبة:** ${rank}\n🛠️ **المشكلة والسبب:** ${issue}`;
+
+            let response = await fetch(TICKET_WEBHOOK, {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ content: messageText })
+            });
+
+            if(response.ok || response.status === 204) {
+                alert("تم استلام رسالتك بنجاح وسيتم التواصل معك من قِبل الرائد أحمد بأقرب وقت.");
+                document.getElementById('ticketName').value = "";
+                document.getElementById('ticketRank').value = "";
+                document.getElementById('ticketIssue').value = "";
+            } else {
+                alert("حدث خطأ أثناء الإرسال، تأكد من اتصالك.");
+            }
+        }
+    </script>
+</body>
+</html>
