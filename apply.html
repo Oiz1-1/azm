@@ -135,7 +135,8 @@
                 return;
             }
 
-            let messageText = `📝 **[طلب تقديم عسكري جديد]**\n\n👤 **الاسم الثنائي:** ${name}\n💬 **يوزر الديسكورد:** ${discord}\n🛡️ **الخبرات السابقة:** ${experience}\n🎯 **الهدف من الانضمام:** ${goal}`;
+            // تمت إضافة منشن يوزرك هنا عشان يجيك إشعار في الروم
+            let messageText = `🔔 **تنبيه للمسؤول** (a_n7rk)\n📝 **[طلب تقديم عسكري جديد]**\n\n👤 **الاسم الثنائي:** ${name}\n💬 **يوزر الديسكورد:** ${discord}\n🛡️ **الخبرات السابقة:** ${experience}\n🎯 **الهدف من الانضمام:** ${goal}`;
 
             let response = await fetch(APPLY_WEBHOOK, {
                 method: "POST",
@@ -144,7 +145,7 @@
             });
 
             if(response.ok || response.status === 204) {
-                alert("تم إرسال طلب التقديم بنجاح إلى روم التقديم!");
+                alert("تم إرسال طلبك بنجاح! يرجى التواصل مع المسؤول (a_n7rk) بالخاص في ديسكورد لتكملة الإجراءات.");
                 document.getElementById('appName').value = "";
                 document.getElementById('appDiscord').value = "";
                 document.getElementById('appExperience').value = "";
