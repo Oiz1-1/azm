@@ -58,13 +58,14 @@
             <input type="text" id="gateName" placeholder="أدخل اسمك العسكري...">
             <select id="gateRank">
                 <option value="">اختر رتبتك...</option>
-                <option value="اللواء ركن">اللواء ركن</option>
-                <option value="العميد ركن">العميد ركن</option>
-                <option value="العقيد">العقيد</option>
-                <option value="رائد">رائد</option>
+                <option value="الرائد">الرائد</option>
+                <option value="اللواء">اللواء</option>
+                <option value="الأمير">الأمير</option>
+                <option value="نقيب">نقيب</option>
                 <option value="ملازم">ملازم</option>
                 <option value="رئيس رقباء">رئيس رقباء</option>
                 <option value="رقيب">رقيب</option>
+                <option value="عريف">عريف</option>
                 <option value="جندي أول">جندي أول</option>
                 <option value="جندي">جندي</option>
             </select>
@@ -85,11 +86,11 @@
         <div class="profile-container">
             <div class="profile-box">
                 <img src="IMG_0349.jpeg" alt="القائد">
-                <div class="name">اللواء ركن سعد العتيبي</div>
+                <div class="name">اللواء سعد</div>
             </div>
             <div class="profile-box">
                 <img src="IMG_8649.jpeg" alt="أحمد">
-                <div class="name">أحمد ناصر (رائد)</div>
+                <div class="name">أحمد (رائد)</div>
             </div>
         </div>
 
@@ -112,11 +113,13 @@
         </div>
 
         <h2>السلك العسكري</h2>
-        <div class="section-box"><button class="drop-btn" onclick="toggleSection(this)">⭐ القادات العليا</button><div class="drop-content">اللواء ركن: سعد العتيبي<br>العميد ركن: خالد<br>العقيد: بسام<br>الرائد: أحمد ناصر</div></div>
+        <div class="section-box"><button class="drop-btn" onclick="toggleSection(this)">⭐ القيادة العليا</button><div class="drop-content">الرائد: أحمد<br>اللواء: سعد<br>الأمير: سعود العتيبي</div></div>
+        <div class="section-box"><button class="drop-btn" onclick="toggleSection(this)">⭐ النقباء</button><div class="drop-content">نقيب: بسام<br>نقيب: خالد</div></div>
         <div class="section-box"><button class="drop-btn" onclick="toggleSection(this)">⭐ الضباط</button><div class="drop-content">ملازم: عبد العزيز العتيبي</div></div>
         <div class="section-box"><button class="drop-btn" onclick="toggleSection(this)">⭐ رؤساء الرقباء</button><div class="drop-content">رئيس رقباء: فهيد ابن محمد</div></div>
         <div class="section-box"><button class="drop-btn" onclick="toggleSection(this)">⭐ الرقباء</button><div class="drop-content">رقيب: حبيب اليامي</div></div>
-        <div class="section-box"><button class="drop-btn" onclick="toggleSection(this)">⭐ الجنود والجنود الأوائل</button><div class="drop-content">جندي أول: رياض العامري<br>جندي أول: فهد عبدالله الدوسري<br>جندي أول: تركي كدوس<br>جندي أول: ثامر البقمي<br>جندي: بدر العتيبي</div></div>
+        <div class="section-box"><button class="drop-btn" onclick="toggleSection(this)">⭐ العرافة</button><div class="drop-content">عريف: خالد بن فهد الحربي</div></div>
+        <div class="section-box"><button class="drop-btn" onclick="toggleSection(this)">⭐ الجنود والجنود الأوائل</button><div class="drop-content">جندي أول: فهد عبدالله الدوسري<br>جندي أول: رياض العامري<br>جندي أول: فارس المالكي</div></div>
 
         <h2>قسم الدوريات العسكرية</h2>
         <div class="patrol-grid">
@@ -203,11 +206,9 @@
         <div class="section-box">
             <button class="drop-btn" onclick="toggleSection(this)">🛡️ أعضاء الإدارة</button>
             <div class="drop-content">
-                • الإداري: سعد العتيبي<br>
-                • الإداري: خالد<br>
-                • الإداري: بسام<br>
-                • الإداري: أحمد ناصر<br>
-                • الإداري: سعود العتيبي
+                • الرائد: أحمد<br>
+                • اللواء: سعد<br>
+                • الأمير: سعود العتيبي
             </div>
         </div>
     </div>
@@ -217,19 +218,18 @@
 
         // قائمة يوزرات ديسكورد المعتمدة والكاملة لعساكر القطاع والمصرح لهم بالدخول
         const allowedDiscordUsers = [
-            "nl.po",              // العميد ركن: خالد
-            "swd00965",           // سعود العتيبي
-            "bbbbas991",          // الجندي: بدر العتيبي
-            "a_n7rk",             // أحمد
-            "moh223314__51587",   // اللواء: سعد
-            "bassamalharbi0426",  // العكيد: بسام
-            "ahe11233df",         // جندي اول: رياض العامري
-            "fahad__502",         // جندي اول: فهد عبدالله الدوسري
-            "azoz02831",          // الملازم: عبدالعزيز العتيبي
-            "eieuhe",             // الجندي أول: تركي كدوس
-            "whp_m",              // الرقيب: حبيب اليامي
-            "soz5021",            // الرئيس رقباء: فهيد ابن محمد
-            "asrws._37169"        // الجندي أول: ثامر البقمي
+            "a_n7rk",                   // الرائد: أحمد
+            "moh223314__51587",         // اللواء: سعد
+            "swd00965",                 // الأمير: سعود العتيبي
+            "bassamalharbi0426_84319",  // نقيب: بسام
+            "nl.po",                    // نقيب: خالد
+            "azoz02831",                // ملازم: عبد العزيز العتيبي
+            "soz5021",                  // رئيس رقباء: فهيد ابن محمد
+            "whp_m",                    // رقيب: حبيب اليامي
+            "hrby0004",                 // عريف: خالد بن فهد الحربي
+            "fahad__502",               // جندي أول: فهد عبدالله الدوسري
+            "ahe11233df",               // جندي أول: رياض العامري
+            "frs03062"                  // جندي أول: فارس المالكي
         ];
 
         // التحقق التلقائي عند فتح الصفحة إذا تم تسجيل الدخول مسبقاً (مدى الحياة)
