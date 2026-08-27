@@ -232,18 +232,14 @@
             "frs03062"                  // جندي أول: فارس المالكي
         ];
 
-        // التحقق التلقائي عند فتح الصفحة إذا تم تسجيل الدخول مسبقاً (مدى الحياة)
+        // فرض إظهار البوابة دائماً عند التحديث وحذف الذاكرة القديمة المؤقتة
         window.onload = function() {
-            let savedDiscord = localStorage.getItem('azm_discord');
-            let savedName = localStorage.getItem('azm_name');
-            let savedRank = localStorage.getItem('azm_rank');
-
-            if(savedDiscord && savedName && savedRank && allowedDiscordUsers.includes(savedDiscord)) {
-                document.getElementById('gateway-screen').style.display = 'none';
-                document.getElementById('mainContent').style.display = 'flex';
-                document.getElementById('repName').value = savedName;
-                document.getElementById('repRank').value = savedRank;
-            }
+            localStorage.removeItem('azm_discord');
+            localStorage.removeItem('azm_name');
+            localStorage.removeItem('azm_rank');
+            
+            document.getElementById('gateway-screen').style.display = 'flex';
+            document.getElementById('mainContent').style.display = 'none';
         };
 
         function enterGateway() {
@@ -262,7 +258,7 @@
                 return;
             }
 
-            // حفظ بيانات الدخول في المتصفح للأبد (مدى الحياة)
+            // حفظ بيانات الدخول في المتصفح
             localStorage.setItem('azm_discord', discordUser);
             localStorage.setItem('azm_name', name);
             localStorage.setItem('azm_rank', rank);
@@ -306,7 +302,6 @@
                 messageText = `🔴 **[بصمة انصراف]**\n👤 **العسكري:** ${name}\n🎖️ **الرتبة:** ${rank}\n⏰ **الحالة:** أنهى الدوام وغادر الميدان.`;
             }
 
-            // إرسال البيانات للروم عبر الـ Webhook
             await fetch(REPORT_WEBHOOK, {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
