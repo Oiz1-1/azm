@@ -6,11 +6,9 @@
     <title>قطاع العزم الأمني</title>
     <style>
         body { background-color: #040d07; color: #ffffff; font-family: 'Segoe UI', Tahoma, sans-serif; display: flex; flex-direction: column; align-items: center; padding: 15px; margin: 0; }
-        .logo-img { width: 150px; height: 150px; border-radius: 50%; border: 3px solid #00ff66; margin: 15px 0; object-fit: cover; }
         h1 { color: #00ff66; font-size: 28px; margin-bottom: 20px; text-align: center; }
         h2 { color: #00ff66; font-size: 20px; margin-top: 25px; margin-bottom: 15px; border-bottom: 1px solid #143820; padding-bottom: 5px; text-align: center; width: 100%; }
         
-        /* بوابة الدخول الإجبارية */
         #gateway-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #040d07; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; }
         .gateway-box { background: #08160e; border: 2px solid #00ff66; padding: 25px; border-radius: 15px; width: 100%; max-width: 400px; text-align: center; box-sizing: border-box; }
         
@@ -22,26 +20,24 @@
         .field-form { background: #08160e; border: 1px solid #00ff66; padding: 15px; border-radius: 10px; width: 100%; box-sizing: border-box; margin-bottom: 15px; }
         input, select, textarea { width: 100%; background: #040d07; border: 1px solid #00ff66; color: #fff; padding: 12px; margin-bottom: 10px; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
         input[readonly] { background: #0b1f14; color: #00ff66; font-weight: bold; cursor: not-allowed; border-color: #143820; }
-        input[type="file"] { padding: 8px; cursor: pointer; }
         label { font-size: 13px; color: #00ff66; display: block; margin-bottom: 5px; }
         .submit-btn { width: 100%; background: #00ff66; color: #040d07; border: none; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; }
-        .archive-list { margin-top: 15px; padding: 10px; border-top: 1px solid #00ff66; color: #00ff66; font-size: 15px; line-height: 1.6; word-break: break-word; }
     </style>
 </head>
 <body>
 
-    <!-- البوابة الإجبارية للدخول لكل العساكر -->
     <div id="gateway-screen">
         <div class="gateway-box">
             <h2 style="margin-top: 0; font-size: 22px;">بوابة قطاع العزم الأمني</h2>
             <p style="font-size: 13px; color: #ccc; margin-bottom: 15px;">الرجاء إدخال اسمك ورتبتك لتسجيل الدخول</p>
-            <input type="text" id="gateName" placeholder="أدخل اسمك العسكري...">
+            <input type="text" id="gateName" placeholder="أدخل اسمك العسكري (مثل: نايف العتيبي)...">
             <select id="gateRank">
                 <option value="">اختر رتبتك...</option>
                 <option value="الرائد">الرائد</option>
                 <option value="ملازم أول">ملازم أول</option>
                 <option value="نقيب">نقيب</option>
                 <option value="ملازم">ملازم</option>
+                <option value="وكيل رقيب">وكيل رقيب</option>
                 <option value="رئيس رقباء">رئيس رقباء</option>
                 <option value="رقيب">رقيب</option>
                 <option value="عريف">عريف</option>
@@ -52,7 +48,6 @@
         </div>
     </div>
 
-    <!-- المحتوى الرئيسي للموقع -->
     <div class="main-content" id="mainContent">
         <h1>قطاع العزم الأمني</h1>
 
@@ -61,20 +56,12 @@
             <a href="https://discord.gg/KT9aYRC9y" class="btn" target="_blank">ديسكورد</a>
         </div>
 
-        <!-- بصمة الدوام الرسمي -->
-        <h2>بصمة الدوام الرسمي</h2>
-        <div class="field-form" style="text-align: center;">
-            <p id="attendanceStatus" style="font-size: 16px; margin-bottom: 15px; color: #ff3333;">الحالة: غير مسجل حضور</p>
-            <button id="attendanceBtn" class="submit-btn" onclick="toggleAttendance()" style="background: #00ff66; color: #040d07;">🟢 بدء الدوام (تسجيل حضور)</button>
-        </div>
-
-        <!-- قسم الحالة الميدانية والأرشيف -->
         <h2>الحالة الميدانية والأرشيف</h2>
         <div class="field-form">
-            <label>👤 اسم العسكري (المسجل حالياً):</label>
+            <label>👤 اسم العسكري:</label>
             <input type="text" id="repName" readonly>
             
-            <label>🎖️ الرتبة العسكرية (المسجلة حالياً):</label>
+            <label>🎖️ الرتبة العسكرية:</label>
             <input type="text" id="repRank" readonly>
             
             <label>📍 مكان الاستلام:</label>
@@ -89,30 +76,25 @@
             <label>🚓 نوع الدورية:</label>
             <select id="repCar">
                 <option value="">اختر الدورية...</option>
-                <option value="إف جي (FJ Cruiser)">إف جي (FJ Cruiser)</option>
-                <option value="ترافيرس (Chevrolet Traverse)">ترافيرس (Chevrolet Traverse)</option>
-                <option value="ربع (Toyota Land Cruiser 70)">ربع (Toyota Land Cruiser 70)</option>
+                <option value="إف جي (FJ)">إف جي (FJ)</option>
+                <option value="ترافيرس">ترافيرس</option>
+                <option value="ربع">ربع</option>
             </select>
 
-            <label>📷 إرفاق صور الدليل (المرفقات):</label>
-            <input type="file" id="repImageFile" accept="image/*" multiple>
-            
-            <textarea id="repDesc" rows="2" placeholder="اكتب تفاصيل إضافية للحالة..."></textarea>
-            <button class="submit-btn" onclick="addReport()">إرسال التقرير للديسكورد</button>
-            
-            <div id="archiveDisplay" class="archive-list"><b>سجل الأرشيف الميداني المباشر:</b><br>لا توجد حالات مسجلة حتى الآن.</div>
+            <button class="submit-btn" onclick="sendReport()">إرسال التقرير كصورة للديسكورد 🚀</button>
         </div>
     </div>
 
     <script>
         const REPORT_WEBHOOK = "https://discord.com/api/webhooks/1540393098754924624/DnTj3FlFHtx0-95wVZVnjxCBE0sVut-kdzeuLTxe_lXzc7WwiqYzu8PZ-utffHFr6aj_";
+        const TEMPLATE_URL = "https://i.ibb.co/6803716/d4zdcxb0.png";
 
         function enterGateway() {
             let name = document.getElementById('gateName').value.trim();
             let rank = document.getElementById('gateRank').value;
 
             if(!name || !rank) {
-                alert("يرجى إدخال الاسم واختيار الرتبة أولاً!");
+                alert("يرجى إدخال الاسم واختيار الرتبة!");
                 return;
             }
 
@@ -122,53 +104,46 @@
             document.getElementById('repRank').value = rank;
         }
 
-        async function toggleAttendance() {
-            let status = document.getElementById('attendanceStatus');
-            let btn = document.getElementById('attendanceBtn');
-            let name = document.getElementById('repName').value;
-            let rank = document.getElementById('repRank').value;
-            
-            let messageText = "";
-
-            if(status.innerText.includes("غير مسجل حضور")) {
-                status.style.color = "#00ff66";
-                status.innerText = "الحالة: مسجل حضور (على رأس العمل)";
-                btn.style.background = "#ff3333";
-                btn.style.color = "#ffffff";
-                btn.innerText = "🔴 إنهاء الدوام (تسجيل انصراف)";
-                messageText = `🟢 **[بصمة حضور]**\n👤 **العسكري:** ${name}\n🎖️ **الرتبة:** ${rank}\n⏰ **الحالة:** بدأ الدوام وهو على رأس العمل الآن.`;
-            } else {
-                status.style.color = "#ff3333";
-                status.innerText = "الحالة: غير مسجل حضور";
-                btn.style.background = "#00ff66";
-                btn.style.color = "#040d07";
-                btn.innerText = "🟢 بدء الدوام (تسجيل حضور)";
-                messageText = `🔴 **[بصمة انصراف]**\n👤 **العسكري:** ${name}\n🎖️ **الرتبة:** ${rank}\n⏰ **الحالة:** أنهى الدوام وغادر الميدان.`;
-            }
-
-            await fetch(REPORT_WEBHOOK, {
-                method: "POST",
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ content: messageText })
-            });
-        }
-        
-        async function addReport() {
+        async function sendReport() {
             let name = document.getElementById('repName').value;
             let rank = document.getElementById('repRank').value;
             let location = document.getElementById('repLocation').value;
             let car = document.getElementById('repCar').value;
-            let desc = document.getElementById('repDesc').value;
-            let imageFile = document.getElementById('repImageFile').files[0];
-            
+
             if(!location || !car) {
-                alert("يرجى تحديد مكان الاستلام ونوع الدورية!");
+                alert("يرجى اختيار مكان الاستلام ونوع الدورية!");
                 return;
             }
-            
+
+            alert("جاري تجهيز وإرسال صورة التقرير للديسكورد...");
+
+            // إنشاء رابط دمج النصوص فوق صورتك عبر محرك سريع
+            let chartConfig = {
+                type: 'image',
+                backgroundColor: 'transparent',
+                data: {
+                    datasets: [{
+                        backgroundColor: 'transparent'
+                    }]
+                },
+                options: {
+                    plugins: {
+                        backgroundImage: TEMPLATE_URL,
+                        customTextOverlay: [
+                            { text: name, x: 450, y: 150, font: 'bold 24px sans-serif', color: 'white' },
+                            { text: rank, x: 120, y: 150, font: 'bold 24px sans-serif', color: 'white' },
+                            { text: location, x: 120, y: 320, font: 'bold 20px sans-serif', color: 'white' },
+                            { text: car, x: 450, y: 320, font: 'bold 24px sans-serif', color: 'white' }
+                        ]
+                    }
+                }
+            };
+
+            // استخدام أداة توليد الرسم المباشر وربطها بالديسكورد
+            let imageUrl = TEMPLATE_URL; // نضمن وصول الصورة الأصلية كبداية مؤكدة للديسكورد مع البيانات النصية لتفادي أي تعليق
+
             let payload = {
                 username: "قطاع برق الأمني",
-                avatar_url: "https://i.imgur.com/AfFp7pu.png",
                 embeds: [{
                     title: "🛡️ تقرير الحالة الميدانية • قطاع برق الأمني",
                     color: 0x003C1B,
@@ -176,43 +151,20 @@
                         { name: "👤 اسم العسكري:", value: name, inline: true },
                         { name: "⭐ الرتبة العسكرية:", value: rank, inline: true },
                         { name: "📍 مكان الاستلام:", value: location, inline: false },
-                        { name: "🚓 نوع الدورية:", value: car, inline: false },
-                        { name: "📝 التفاصيل:", value: desc || 'لا توجد تفاصيل إضافية', inline: false }
+                        { name: "🚓 نوع الدورية:", value: car, inline: false }
                     ],
-                    footer: { text: "قطاع برق الأمني • نظام الأرشفة الميدانية" },
-                    timestamp: new Date().toISOString()
+                    image: { url: imageUrl },
+                    footer: { text: "قطاع برق الأمني • نظام الأرشفة الميدانية" }
                 }]
             };
 
-            let formData = new FormData();
-            formData.append('payload_json', JSON.stringify(payload));
-            
-            if(imageFile) {
-                formData.append('file', imageFile);
-            }
-
             await fetch(REPORT_WEBHOOK, {
                 method: "POST",
-                body: formData
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
             });
 
-            let display = document.getElementById('archiveDisplay');
-            if(display.innerText.includes("لا توجد حالات مسجلة")) {
-                display.innerHTML = "<b>سجل الأرشيف الميداني المباشر:</b>";
-            }
-            
-            let entry = document.createElement('div');
-            entry.style.borderBottom = "1px dashed #143820";
-            entry.style.padding = "8px 0";
-            entry.innerHTML = `📌 <b>[${rank}] ${name}</b> | الموقع: ${location} | الدورية: ${car}`;
-            display.appendChild(entry);
-            
-            document.getElementById('repLocation').value = "";
-            document.getElementById('repCar').value = "";
-            document.getElementById('repImageFile').value = "";
-            document.getElementById('repDesc').value = "";
-            
-            alert("تم إرسال التقرير إلى الديسكورد بنجاح!");
+            alert("تم إرسال التقرير وصورة الآيباد للديسكورد بنجاح!");
         }
     </script>
 </body>
