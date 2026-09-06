@@ -19,24 +19,6 @@
         .btn-box { width: 100%; display: flex; gap: 10px; margin-bottom: 25px; }
         .btn { flex: 1; padding: 15px; border-radius: 12px; text-align: center; background: #00ff66; color: #040d07; font-weight: bold; text-decoration: none; font-size: 16px; border: none; }
 
-        .profile-container { display: flex; justify-content: space-around; width: 100%; margin-bottom: 25px; gap: 10px; }
-        .profile-box { text-align: center; flex: 1; background: #08160e; padding: 10px; border-radius: 12px; border: 1px solid #00ff66; }
-        .profile-box img { width: 80px; height: 80px; border-radius: 50%; border: 2px solid #00ff66; margin-bottom: 5px; object-fit: cover; }
-        .name { font-weight: bold; font-size: 14px; color: #00ff66; }
-
-        .section-box { width: 100%; margin-bottom: 10px; box-sizing: border-box; }
-        .drop-btn { width: 100%; background: #08160e; border: 1px solid #00ff66; color: #fff; padding: 18px 20px; border-radius: 10px; text-align: right; font-size: 17px; font-weight: bold; cursor: pointer; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; }
-        .drop-btn::after { content: '▼'; font-size: 12px; color: #00ff66; transition: transform 0.3s; }
-        .section-box.active .drop-btn::after { transform: rotate(180deg); }
-        
-        .drop-content { display: none; background: #0c2012; padding: 15px; border-radius: 0 0 10px 10px; border: 1px solid #00ff66; border-top: none; font-size: 16px; color: #ddd; line-height: 1.8; box-sizing: border-box; width: 100%; }
-        .section-box.active .drop-content { display: block; }
-
-        .patrol-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; box-sizing: border-box; }
-        .patrol-card { background: #08160e; border: 1px solid #143820; padding: 15px; border-radius: 10px; text-align: center; }
-        .patrol-card b { color: #00ff66; font-size: 15px; }
-        .patrol-card p { font-size: 13px; color: #ccc; margin-top: 5px; }
-
         .field-form { background: #08160e; border: 1px solid #00ff66; padding: 15px; border-radius: 10px; width: 100%; box-sizing: border-box; margin-bottom: 15px; }
         input, select, textarea { width: 100%; background: #040d07; border: 1px solid #00ff66; color: #fff; padding: 12px; margin-bottom: 10px; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
         input[readonly] { background: #0b1f14; color: #00ff66; font-weight: bold; cursor: not-allowed; border-color: #143820; }
@@ -48,34 +30,35 @@
 </head>
 <body>
 
-    <!-- البوابة الإجبارية للدخول -->
+    <!-- البوابة الإجبارية للدخول لكل العساكر -->
     <div id="gateway-screen">
         <div class="gateway-box">
-            <img src="IMG_0347.jpeg" style="width: 100px; height: 100px; border-radius: 50%; border: 2px solid #00ff66; margin-bottom: 15px; object-fit: cover;" alt="الشعار">
             <h2 style="margin-top: 0; font-size: 22px;">بوابة قطاع العزم الأمني</h2>
-            <p style="font-size: 13px; color: #ccc; margin-bottom: 15px;">الرجاء إدخال بيانات الاعتماد الخاصة بك</p>
-            <input type="text" id="gateDiscord" placeholder="أدخل يوزر الديسكورد (a_n7rk)...">
-            <input type="text" id="gateName" value="الملازم أول أحمد" readonly>
-            <input type="text" id="gateRank" value="ملازم أول" readonly>
+            <p style="font-size: 13px; color: #ccc; margin-bottom: 15px;">الرجاء إدخال اسمك ورتبتك لتسجيل الدخول</p>
+            <input type="text" id="gateName" placeholder="أدخل اسمك العسكري...">
+            <select id="gateRank">
+                <option value="">اختر رتبتك...</option>
+                <option value="الرائد">الرائد</option>
+                <option value="ملازم أول">ملازم أول</option>
+                <option value="نقيب">نقيب</option>
+                <option value="ملازم">ملازم</option>
+                <option value="رئيس رقباء">رئيس رقباء</option>
+                <option value="رقيب">رقيب</option>
+                <option value="عريف">عريف</option>
+                <option value="جندي أول">جندي أول</option>
+                <option value="جندي">جندي</option>
+            </select>
             <button class="submit-btn" onclick="enterGateway()">دخول البوابة 🛡️</button>
         </div>
     </div>
 
     <!-- المحتوى الرئيسي للموقع -->
     <div class="main-content" id="mainContent">
-        <img src="IMG_0347.jpeg" class="logo-img" alt="الشعار">
         <h1>قطاع العزم الأمني</h1>
 
         <div class="btn-box">
             <a href="https://www.tiktok.com/@ssoh022?_r=1&_t=ZS-991jJVyMqJw" class="btn" target="_blank">تيك توك</a>
             <a href="https://discord.gg/KT9aYRC9y" class="btn" target="_blank">ديسكورد</a>
-        </div>
-
-        <div class="profile-container">
-            <div class="profile-box" style="flex: 1; max-width: 100%;">
-                <img src="IMG_8649.jpeg" alt="أحمد">
-                <div class="name">الملازم أول أحمد (القائد)</div>
-            </div>
         </div>
 
         <!-- بصمة الدوام الرسمي -->
@@ -85,32 +68,14 @@
             <button id="attendanceBtn" class="submit-btn" onclick="toggleAttendance()" style="background: #00ff66; color: #040d07;">🟢 بدء الدوام (تسجيل حضور)</button>
         </div>
 
-        <h2>قوانين وتعليمات القطاع</h2>
-        <div class="section-box">
-            <button class="drop-btn" onclick="toggleSection(this)">📜 قوانين وأنظمة قطاع العزم الأمني</button>
-            <div class="drop-content">
-                1. الالتزام التام بالتعليمات والأنظمة العسكرية.<br>
-                2. استخدام الدوريات المخصصة للملازم أول.<br>
-                3. رفع البلاغات والحالات الميدانية أولاً بأول للأرشيف.
-            </div>
-        </div>
-
-        <h2>السلك العسكري</h2>
-        <div class="section-box"><button class="drop-btn" onclick="toggleSection(this)">⭐ القيادة العليا</button><div class="drop-content">الملازم أول: أحمد</div></div>
-
-        <h2>قسم الدوريات العسكرية</h2>
-        <div class="patrol-grid">
-            <div class="patrol-card"><b>تاهو / سيارة خاصة</b><p>مخصصة للملازم أول</p></div>
-        </div>
-
         <!-- قسم الحالة الميدانية والأرشيف -->
         <h2>الحالة الميدانية والأرشيف</h2>
         <div class="field-form">
-            <label>👤 اسم العسكري (مثبت تلقائياً):</label>
-            <input type="text" id="repName" value="الملازم أول أحمد" readonly>
+            <label>👤 اسم العسكري (المسجل حالياً):</label>
+            <input type="text" id="repName" readonly>
             
-            <label>🎖️ الرتبة العسكرية (مثبتة تلقائياً):</label>
-            <input type="text" id="repRank" value="ملازم أول" readonly>
+            <label>🎖️ الرتبة العسكرية (المسجلة حالياً):</label>
+            <input type="text" id="repRank" readonly>
             
             <label>📍 مكان الاستلام:</label>
             <select id="repLocation">
@@ -142,35 +107,26 @@
     <script>
         const REPORT_WEBHOOK = "https://discord.com/api/webhooks/1540393098754924624/DnTj3FlFHtx0-95wVZVnjxCBE0sVut-kdzeuLTxe_lXzc7WwiqYzu8PZ-utffHFr6aj_";
 
-        window.onload = function() {
-            localStorage.removeItem('azm_discord');
-            document.getElementById('gateway-screen').style.display = 'flex';
-            document.getElementById('mainContent').style.display = 'none';
-        };
-
         function enterGateway() {
-            let discordUser = document.getElementById('gateDiscord').value.trim().toLowerCase();
+            let name = document.getElementById('gateName').value.trim();
+            let rank = document.getElementById('gateRank').value;
 
-            if(discordUser !== "a_n7rk") {
-                alert("عذراً، الدخول مخصص فقط ليوزر الملازم أول أحمد (a_n7rk)!");
+            if(!name || !rank) {
+                alert("يرجى إدخال الاسم واختيار الرتبة أولاً!");
                 return;
             }
 
-            localStorage.setItem('azm_discord', discordUser);
             document.getElementById('gateway-screen').style.display = 'none';
             document.getElementById('mainContent').style.display = 'flex';
-        }
-
-        function toggleSection(btn) {
-            let box = btn.parentElement;
-            box.classList.toggle('active');
+            document.getElementById('repName').value = name;
+            document.getElementById('repRank').value = rank;
         }
 
         async function toggleAttendance() {
             let status = document.getElementById('attendanceStatus');
             let btn = document.getElementById('attendanceBtn');
-            let name = "الملازم أول أحمد";
-            let rank = "ملازم أول";
+            let name = document.getElementById('repName').value;
+            let rank = document.getElementById('repRank').value;
             
             let messageText = "";
 
@@ -198,8 +154,8 @@
         }
         
         async function addReport() {
-            let name = "الملازم أول أحمد";
-            let rank = "ملازم أول";
+            let name = document.getElementById('repName').value;
+            let rank = document.getElementById('repRank').value;
             let location = document.getElementById('repLocation').value;
             let car = document.getElementById('repCar').value;
             let desc = document.getElementById('repDesc').value;
@@ -210,7 +166,6 @@
                 return;
             }
             
-            // تنسيق الرسالة بـ Embed ليطابق الهوية البصرية تماماً وتصل للديسكورد بدقة
             let payload = {
                 username: "قطاع برق الأمني",
                 avatar_url: "https://i.imgur.com/AfFp7pu.png",
@@ -249,7 +204,7 @@
             let entry = document.createElement('div');
             entry.style.borderBottom = "1px dashed #143820";
             entry.style.padding = "8px 0";
-            entry.innerHTML = `📌 <b>[${rank}] ${name}</b> | الموقع: ${location} | الدورية: ${car} ${imageFile ? '<br><span style="color:#00ff66; font-size:12px;">[تم إرفاق صورة الدليل]</span>' : ''}`;
+            entry.innerHTML = `📌 <b>[${rank}] ${name}</b> | الموقع: ${location} | الدورية: ${car}`;
             display.appendChild(entry);
             
             document.getElementById('repLocation').value = "";
