@@ -3,170 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام تقارير برق الأمنية - قطاع العزم</title>
+    <title>قطاع برق الأمني - تحت الصيانة</title>
     <style>
         body {
-            font-family: Tahoma, sans-serif;
-            background-color: #121212;
-            color: #ffffff;
             margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 500px;
-            margin: 0 auto;
-            background: #1e1e1e;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
-        h2 {
+            padding: 0;
+            background-color: #0b110e;
+            color: #ffffff;
+            font-family: Tahoma, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             text-align: center;
-            color: #ffcc00;
         }
-        .form-group {
+        .maintenance-container {
+            background-color: #121814;
+            border: 2px solid #1e4620;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(30, 70, 32, 0.4);
+            max-width: 500px;
+            width: 90%;
+        }
+        .maintenance-container h1 {
+            color: #4CAF50;
+            font-size: 24px;
             margin-bottom: 15px;
         }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input, select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #444;
-            background: #2b2b2b;
-            color: #fff;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            background: #ffcc00;
-            color: #121212;
-            border: none;
-            font-weight: bold;
+        .maintenance-container p {
+            color: #b0bec5;
             font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
+            line-height: 1.6;
+            margin-bottom: 20px;
         }
-        button:hover {
-            background: #e6b800;
-        }
-        #status {
-            text-align: center;
-            margin-top: 15px;
+        .badge {
+            display: inline-block;
+            background-color: #1a241c;
+            color: #81c784;
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: 1px solid #2e7d32;
             font-weight: bold;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>قطاع العزم الأمني - برق</h2>
-    <form id="reportForm">
-        
-        <div class="form-group">
-            <label for="officerName">اسم العسكري:</label>
-            <input type="text" id="officerName" name="officerName" required placeholder="أدخل اسمك الكريم">
-        </div>
-
-        <div class="form-group">
-            <label for="officerRank">الرتبة العسكرية:</label>
-            <select id="officerRank" name="officerRank">
-                <option value="رائد">رائد</option>
-                <option value="نقيب">نقيب</option>
-                <option value="ملازم أول">ملازم أول</option>
-                <option value="رقيب أول">رقيب أول</option>
-                <option value="عريف">عريف</option>
-                <option value="جندي">جندي</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="location">موقع الاستلام:</label>
-            <select id="location" name="location">
-                <option value="المحطة">المحطة</option>
-                <option value="البوابة الرئيسية">البوابة الرئيسية</option>
-                <option value="الاستراحة">الاستراحة</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="patrolVehicle">السيارة العسكرية (نوع الدورية):</label>
-            <select id="patrolVehicle" name="patrolVehicle">
-                <option value="ربع">دورية ربع</option>
-                <option value="إف جي">دورية إف جي (FJ)</option>
-                <option value="جيب صالون">جيب صالون</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="img1">رابط التوثيق الميداني الأول:</label>
-            <input type="url" id="img1" name="img1" placeholder="https://..." required>
-        </div>
-
-        <div class="form-group">
-            <label for="img2">رابط التوثيق الميداني الثاني:</label>
-            <input type="url" id="img2" name="img2" placeholder="https://..." required>
-        </div>
-
-        <div class="form-group">
-            <label for="img3">رابط التوثيق الميداني الثالث:</label>
-            <input type="url" id="img3" name="img3" placeholder="https://..." required>
-        </div>
-
-        <button type="submit">إرسال التقرير لغرفة العمليات</button>
-    </form>
-    <div id="status"></div>
-</div>
-
-<script>
-    const webhookUrl = "https://hook.eu1.make.com/pmhwhe3gwg3p3b25wrxpcnm12d737zrk";
-
-    document.getElementById('reportForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const statusDiv = document.getElementById('status');
-        statusDiv.style.color = "#ffcc00";
-        statusDiv.textContent = "جاري إرسال التقرير للعمليات...";
-
-        const formData = {
-            officerName: document.getElementById('officerName').value,
-            officerRank: document.getElementById('officerRank').value,
-            location: document.getElementById('location').value,
-            patrolVehicle: document.getElementById('patrolVehicle').value,
-            img1: document.getElementById('img1').value,
-            img2: document.getElementById('img2').value,
-            img3: document.getElementById('img3').value
-        };
-
-        try {
-            let response = await fetch(webhookUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            });
-
-            if (response.ok) {
-                statusDiv.style.color = "#00ff66";
-                statusDiv.textContent = "تم رفع التقرير بنجاح وتوجيهه للديسكورد!";
-                document.getElementById('reportForm').reset();
-            } else {
-                statusDiv.style.color = "#ff4444";
-                statusDiv.textContent = "خطأ في الإرسال، تأكد من تفعيل الرابط.";
-            }
-        } catch (error) {
-            statusDiv.style.color = "#ff4444";
-            statusDiv.textContent = "فشل الاتصال بالخادم.";
-        }
-    });
-</script>
+    <div class="maintenance-container">
+        <h1>⚡ قطاع برق الأمني ⚡</h1>
+        <p>الموقع حالياً تحت أعمال التطوير والتحديث الشامل لهيكلة القوات الخاصة لأمن الطرق. نعود لكم قريباً بحلة جديدة بالكامل.</p>
+        <div class="badge">القوات الخاصة لأمن الطرق - عمليات الصيانة</div>
+    </div>
 
 </body>
 </html>
