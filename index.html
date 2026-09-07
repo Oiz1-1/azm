@@ -3,169 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>قطاع العزم الأمني</title>
+    <title>نظام تقارير برق الأمنية - قطاع العزم</title>
     <style>
-        body { background-color: #040d07; color: #ffffff; font-family: 'Segoe UI', Tahoma, sans-serif; display: flex; flex-direction: column; align-items: center; padding: 15px; margin: 0; }
-        h1 { color: #00ff66; font-size: 28px; margin-bottom: 20px; text-align: center; }
-        h2 { color: #00ff66; font-size: 20px; margin-top: 25px; margin-bottom: 15px; border-bottom: 1px solid #143820; padding-bottom: 5px; text-align: center; width: 100%; }
-        
-        #gateway-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #040d07; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; }
-        .gateway-box { background: #08160e; border: 2px solid #00ff66; padding: 25px; border-radius: 15px; width: 100%; max-width: 400px; text-align: center; box-sizing: border-box; }
-        
-        .main-content { display: none; width: 100%; max-width: 600px; flex-direction: column; align-items: center; }
-
-        .btn-box { width: 100%; display: flex; gap: 10px; margin-bottom: 25px; }
-        .btn { flex: 1; padding: 15px; border-radius: 12px; text-align: center; background: #00ff66; color: #040d07; font-weight: bold; text-decoration: none; font-size: 16px; border: none; }
-
-        .field-form { background: #08160e; border: 1px solid #00ff66; padding: 15px; border-radius: 10px; width: 100%; box-sizing: border-box; margin-bottom: 15px; }
-        input, select, textarea { width: 100%; background: #040d07; border: 1px solid #00ff66; color: #fff; padding: 12px; margin-bottom: 10px; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
-        input[readonly] { background: #0b1f14; color: #00ff66; font-weight: bold; cursor: not-allowed; border-color: #143820; }
-        label { font-size: 13px; color: #00ff66; display: block; margin-bottom: 5px; }
-        .submit-btn { width: 100%; background: #00ff66; color: #040d07; border: none; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; }
+        body {
+            font-family: Tahoma, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+        h2 {
+            text-align: center;
+            color: #ffcc00;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #444;
+            background: #2b2b2b;
+            color: #fff;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #ffcc00;
+            color: #121212;
+            border: none;
+            font-weight: bold;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #e6b800;
+        }
+        #status {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 
-    <div id="gateway-screen">
-        <div class="gateway-box">
-            <h2 style="margin-top: 0; font-size: 22px;">بوابة قطاع العزم الأمني</h2>
-            <p style="font-size: 13px; color: #ccc; margin-bottom: 15px;">الرجاء إدخال اسمك ورتبتك لتسجيل الدخول</p>
-            <input type="text" id="gateName" placeholder="أدخل اسمك العسكري (مثل: نايف العتيبي)...">
-            <select id="gateRank">
-                <option value="">اختر رتبتك...</option>
-                <option value="الرائد">الرائد</option>
-                <option value="ملازم أول">ملازم أول</option>
+<div class="container">
+    <h2>قطاع العزم الأمني - برق</h2>
+    <form id="reportForm">
+        
+        <div class="form-group">
+            <label for="officerName">اسم العسكري:</label>
+            <input type="text" id="officerName" name="officerName" required placeholder="أدخل اسمك الكريم">
+        </div>
+
+        <div class="form-group">
+            <label for="officerRank">الرتبة العسكرية:</label>
+            <select id="officerRank" name="officerRank">
+                <option value="رائد">رائد</option>
                 <option value="نقيب">نقيب</option>
-                <option value="ملازم">ملازم</option>
-                <option value="وكيل رقيب">وكيل رقيب</option>
-                <option value="رئيس رقباء">رئيس رقباء</option>
-                <option value="رقيب">رقيب</option>
+                <option value="ملازم أول">ملازم أول</option>
+                <option value="رقيب أول">رقيب أول</option>
                 <option value="عريف">عريف</option>
-                <option value="جندي أول">جندي أول</option>
                 <option value="جندي">جندي</option>
             </select>
-            <button class="submit-btn" onclick="enterGateway()">دخول البوابة 🛡️</button>
-        </div>
-    </div>
-
-    <div class="main-content" id="mainContent">
-        <h1>قطاع العزم الأمني</h1>
-
-        <div class="btn-box">
-            <a href="https://www.tiktok.com/@ssoh022?_r=1&_t=ZS-991jJVyMqJw" class="btn" target="_blank">تيك توك</a>
-            <a href="https://discord.gg/KT9aYRC9y" class="btn" target="_blank">ديسكورد</a>
         </div>
 
-        <h2>الحالة الميدانية والأرشيف</h2>
-        <div class="field-form">
-            <label>👤 اسم العسكري:</label>
-            <input type="text" id="repName" readonly>
-            
-            <label>🎖️ الرتبة العسكرية:</label>
-            <input type="text" id="repRank" readonly>
-            
-            <label>📍 مكان الاستلام:</label>
-            <select id="repLocation">
-                <option value="">اختر مكان الاستلام...</option>
-                <option value="قسم القوات الخاصة لأمن الطرق">قسم القوات الخاصة لأمن الطرق</option>
-                <option value="المحطة الخضراء كاسكو">المحطة الخضراء كاسكو</option>
-                <option value="محل الزينة">محل الزينة</option>
+        <div class="form-group">
+            <label for="location">موقع الاستلام:</label>
+            <select id="location" name="location">
+                <option value="المحطة">المحطة</option>
+                <option value="البوابة الرئيسية">البوابة الرئيسية</option>
                 <option value="الاستراحة">الاستراحة</option>
             </select>
-
-            <label>🚓 نوع الدورية:</label>
-            <select id="repCar">
-                <option value="">اختر الدورية...</option>
-                <option value="إف جي (FJ)">إف جي (FJ)</option>
-                <option value="ترافيرس">ترافيرس</option>
-                <option value="ربع">ربع</option>
-            </select>
-
-            <button class="submit-btn" onclick="sendReport()">إرسال التقرير كصورة للديسكورد 🚀</button>
         </div>
-    </div>
 
-    <script>
-        const REPORT_WEBHOOK = "https://discord.com/api/webhooks/1540393098754924624/DnTj3FlFHtx0-95wVZVnjxCBE0sVut-kdzeuLTxe_lXzc7WwiqYzu8PZ-utffHFr6aj_";
-        const TEMPLATE_URL = "https://i.ibb.co/6803716/d4zdcxb0.png";
+        <div class="form-group">
+            <label for="patrolVehicle">السيارة العسكرية (نوع الدورية):</label>
+            <select id="patrolVehicle" name="patrolVehicle">
+                <option value="ربع">دورية ربع</option>
+                <option value="إف جي">دورية إف جي (FJ)</option>
+                <option value="جيب صالون">جيب صالون</option>
+            </select>
+        </div>
 
-        function enterGateway() {
-            let name = document.getElementById('gateName').value.trim();
-            let rank = document.getElementById('gateRank').value;
+        <div class="form-group">
+            <label for="img1">رابط التوثيق الميداني الأول:</label>
+            <input type="url" id="img1" name="img1" placeholder="https://..." required>
+        </div>
 
-            if(!name || !rank) {
-                alert("يرجى إدخال الاسم واختيار الرتبة!");
-                return;
-            }
+        <div class="form-group">
+            <label for="img2">رابط التوثيق الميداني الثاني:</label>
+            <input type="url" id="img2" name="img2" placeholder="https://..." required>
+        </div>
 
-            document.getElementById('gateway-screen').style.display = 'none';
-            document.getElementById('mainContent').style.display = 'flex';
-            document.getElementById('repName').value = name;
-            document.getElementById('repRank').value = rank;
-        }
+        <div class="form-group">
+            <label for="img3">رابط التوثيق الميداني الثالث:</label>
+            <input type="url" id="img3" name="img3" placeholder="https://..." required>
+        </div>
 
-        async function sendReport() {
-            let name = document.getElementById('repName').value;
-            let rank = document.getElementById('repRank').value;
-            let location = document.getElementById('repLocation').value;
-            let car = document.getElementById('repCar').value;
+        <button type="submit">إرسال التقرير لغرفة العمليات</button>
+    </form>
+    <div id="status"></div>
+</div>
 
-            if(!location || !car) {
-                alert("يرجى اختيار مكان الاستلام ونوع الدورية!");
-                return;
-            }
+<script>
+    const webhookUrl = "https://hook.eu1.make.com/pmhwhe3gwg3p3b25wrxpcnm12d737zrk";
 
-            alert("جاري تجهيز وإرسال صورة التقرير للديسكورد...");
+    document.getElementById('reportForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const statusDiv = document.getElementById('status');
+        statusDiv.style.color = "#ffcc00";
+        statusDiv.textContent = "جاري إرسال التقرير للعمليات...";
 
-            // إنشاء رابط دمج النصوص فوق صورتك عبر محرك سريع
-            let chartConfig = {
-                type: 'image',
-                backgroundColor: 'transparent',
-                data: {
-                    datasets: [{
-                        backgroundColor: 'transparent'
-                    }]
+        const formData = {
+            officerName: document.getElementById('officerName').value,
+            officerRank: document.getElementById('officerRank').value,
+            location: document.getElementById('location').value,
+            patrolVehicle: document.getElementById('patrolVehicle').value,
+            img1: document.getElementById('img1').value,
+            img2: document.getElementById('img2').value,
+            img3: document.getElementById('img3').value
+        };
+
+        try {
+            let response = await fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
                 },
-                options: {
-                    plugins: {
-                        backgroundImage: TEMPLATE_URL,
-                        customTextOverlay: [
-                            { text: name, x: 450, y: 150, font: 'bold 24px sans-serif', color: 'white' },
-                            { text: rank, x: 120, y: 150, font: 'bold 24px sans-serif', color: 'white' },
-                            { text: location, x: 120, y: 320, font: 'bold 20px sans-serif', color: 'white' },
-                            { text: car, x: 450, y: 320, font: 'bold 24px sans-serif', color: 'white' }
-                        ]
-                    }
-                }
-            };
-
-            // استخدام أداة توليد الرسم المباشر وربطها بالديسكورد
-            let imageUrl = TEMPLATE_URL; // نضمن وصول الصورة الأصلية كبداية مؤكدة للديسكورد مع البيانات النصية لتفادي أي تعليق
-
-            let payload = {
-                username: "قطاع برق الأمني",
-                embeds: [{
-                    title: "🛡️ تقرير الحالة الميدانية • قطاع برق الأمني",
-                    color: 0x003C1B,
-                    fields: [
-                        { name: "👤 اسم العسكري:", value: name, inline: true },
-                        { name: "⭐ الرتبة العسكرية:", value: rank, inline: true },
-                        { name: "📍 مكان الاستلام:", value: location, inline: false },
-                        { name: "🚓 نوع الدورية:", value: car, inline: false }
-                    ],
-                    image: { url: imageUrl },
-                    footer: { text: "قطاع برق الأمني • نظام الأرشفة الميدانية" }
-                }]
-            };
-
-            await fetch(REPORT_WEBHOOK, {
-                method: "POST",
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
+                body: JSON.stringify(formData)
             });
 
-            alert("تم إرسال التقرير وصورة الآيباد للديسكورد بنجاح!");
+            if (response.ok) {
+                statusDiv.style.color = "#00ff66";
+                statusDiv.textContent = "تم رفع التقرير بنجاح وتوجيهه للديسكورد!";
+                document.getElementById('reportForm').reset();
+            } else {
+                statusDiv.style.color = "#ff4444";
+                statusDiv.textContent = "خطأ في الإرسال، تأكد من تفعيل الرابط.";
+            }
+        } catch (error) {
+            statusDiv.style.color = "#ff4444";
+            statusDiv.textContent = "فشل الاتصال بالخادم.";
         }
-    </script>
+    });
+</script>
+
 </body>
 </html>
