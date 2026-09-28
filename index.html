@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>القوات الخاصة لأمن الطرق</title>
+    <title>القوات الخاصة لأمن الطرق - سيرفر برق</title>
     <style>
         body { background-color: #040d07; color: #ffffff; font-family: 'Segoe UI', Tahoma, sans-serif; display: flex; flex-direction: column; align-items: center; padding: 15px; margin: 0; }
         .logo-img { width: 150px; height: 150px; border-radius: 50%; border: 3px solid #00ff66; margin: 15px 0; object-fit: cover; }
         h1 { color: #00ff66; font-size: 28px; margin-bottom: 20px; text-align: center; }
         h2 { color: #00ff66; font-size: 20px; margin-top: 25px; margin-bottom: 15px; border-bottom: 1px solid #143820; padding-bottom: 5px; text-align: center; width: 100%; }
         
-        /* شريط البروفايل العلوي (الاسم والصورة على اليسار - النقاط على اليمين) */
+        /* شريط البروفايل العلوي */
         .top-bar { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 600px; background: #08160e; border: 1px solid #00ff66; padding: 10px 15px; border-radius: 12px; margin-bottom: 20px; box-sizing: border-box; }
         .top-points { font-size: 16px; font-weight: bold; color: #00ff66; }
         .top-user-info { display: flex; align-items: center; gap: 10px; }
@@ -19,9 +19,10 @@
         .top-user-text .name { font-weight: bold; font-size: 14px; color: #fff; }
         .top-user-text .rank { font-size: 12px; color: #00ff66; }
 
-        /* بوابة الدخول الإجبارية */
+        /* بوابة تسجيل الدخول عبر ديسكورد سيرفر برق */
         #gateway-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #040d07; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; }
-        .gateway-box { background: #08160e; border: 2px solid #00ff66; padding: 25px; border-radius: 15px; width: 100%; max-width: 400px; text-align: center; box-sizing: border-box; }
+        .gateway-box { background: #08160e; border: 2px solid #00ff66; padding: 30px; border-radius: 15px; width: 100%; max-width: 400px; text-align: center; box-sizing: border-box; }
+        .discord-login-btn { background: #5865F2; color: #ffffff; border: none; padding: 15px; border-radius: 10px; font-weight: bold; font-size: 16px; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 15px; text-decoration: none; }
         
         .main-content { display: none; width: 100%; max-width: 600px; flex-direction: column; align-items: center; }
 
@@ -48,37 +49,35 @@
         label { font-size: 13px; color: #00ff66; display: block; margin-bottom: 5px; }
         .submit-btn { width: 100%; background: #00ff66; color: #040d07; border: none; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; }
         .archive-list { margin-top: 15px; padding: 10px; border-top: 1px solid #00ff66; color: #00ff66; font-size: 15px; line-height: 1.6; word-break: break-word; }
+        
+        .notice-card { background: #0c2012; border-left: 4px solid #00ff66; padding: 10px 15px; margin-bottom: 8px; border-radius: 4px; font-size: 14px; }
     </style>
 </head>
 <body>
 
-    <!-- البوابة الإجبارية للدخول -->
+    <!-- بوابة تسجيل الدخول عبر ديسكورد سيرفر برق -->
     <div id="gateway-screen">
         <div class="gateway-box">
             <img src="IMG_0347.jpeg" style="width: 100px; height: 100px; border-radius: 50%; border: 2px solid #00ff66; margin-bottom: 15px; object-fit: cover;" alt="الشعار">
-            <h2 style="margin-top: 0; font-size: 22px;">بوابة القوات الخاصة لأمن الطرق</h2>
-            <p style="font-size: 13px; color: #ccc; margin-bottom: 15px;">الرجاء إدخال بياناتك ويوزر الديسكورد للدخول</p>
-            <input type="text" id="gateDiscord" placeholder="أدخل يوزر الديسكورد...">
-            <input type="text" id="gateName" placeholder="أدخل اسمك العسكري (أحمد / دغش / نواف)...">
-            <select id="gateRank">
-                <option value="">اختر رتبتك...</option>
-                <option value="قائد عام">قائد عام</option>
-                <option value="ضابط">ضابط</option>
-            </select>
-            <button class="submit-btn" onclick="enterGateway()">دخول البوابة 🛡️</button>
+            <h2 style="margin-top: 0; font-size: 20px;">بوابة أمن الطرق - سيرفر برق</h2>
+            <p style="font-size: 13px; color: #ccc; margin-bottom: 20px;">تسجيل الدخول المعتمد لرتب سيرفر برق (أحمد، دغش، نواف)</p>
+            
+            <a href="#" class="discord-login-btn" onclick="loginBaraqDiscord(event)">
+                <span>🎮 ربط وتحقق رتب سيرفر برق</span>
+            </a>
         </div>
     </div>
 
     <!-- المحتوى الرئيسي للموقع -->
     <div class="main-content" id="mainContent">
         
-        <!-- الشريط العلوي (البروفايل والنقاط) -->
+        <!-- الشريط العلوي -->
         <div class="top-bar">
             <div class="top-points">النقاط: <span id="displayPoints">3000</span></div>
             <div class="top-user-info">
                 <div class="top-user-text">
-                    <div class="name" id="displayProfileName">دغش</div>
-                    <div class="rank" id="displayProfileRank">ضابط</div>
+                    <div class="name" id="displayProfileName">جار التحميل...</div>
+                    <div class="rank" id="displayProfileRank">عسكري</div>
                 </div>
                 <img id="displayProfileImg" src="IMG_0347.jpeg" alt="صورة البروفايل">
             </div>
@@ -89,7 +88,16 @@
 
         <div class="btn-box">
             <a href="https://www.tiktok.com/@ssoh022?_r=1&_t=ZS-991jJVyMqJw" class="btn" target="_blank">تيك توك</a>
-            <a href="https://discord.gg/KT9aYRC9y" class="btn" target="_blank">ديسكورد</a>
+            <a href="https://discord.gg/KT9aYRC9y" class="btn" target="_blank">ديسكورد سيرفر برق</a>
+        </div>
+
+        <!-- قسم التعاميم -->
+        <h2>🚨 التعاميم والأوامر العسكرية</h2>
+        <div class="section-box active">
+            <div class="drop-content" style="display: block;">
+                <div class="notice-card"><b>[تعميم قيادي - سيرفر برق]</b> التزام تام بالانتشار في الطرق السريعة ومتابعة الحالات الأمنية بدقة.</div>
+                <div class="notice-card"><b>[تنبيه]</b> يمنع استخدام الدوريات إلا بتوجيه من غرفة العمليات أو الضباط المعتمدين.</div>
+            </div>
         </div>
 
         <!-- بصمة الدوام الرسمي -->
@@ -99,6 +107,17 @@
             <button id="attendanceBtn" class="submit-btn" onclick="toggleAttendance()" style="background: #00ff66; color: #040d07;">🟢 بدء الدوام (تسجيل حضور)</button>
         </div>
 
+        <!-- حالة الدوريات -->
+        <h2>📍 حالة انتشار الدوريات الميدانية</h2>
+        <div class="section-box">
+            <button class="drop-btn" onclick="toggleSection(this)">🌐 حالة القطاعات والفرق الميدانية</button>
+            <div class="drop-content">
+                • قطاع طريق الرياض السريع: <b>تغطية كاملة (دغش)</b><br>
+                • قطاع المرتفعات: <b>تغطية كاملة (نواف)</b><br>
+                • غرفة العمليات والسيطرة: <b>نشطة (أحمد)</b>
+            </div>
+        </div>
+
         <h2>قوانين وتعليمات القطاع</h2>
         <div class="section-box">
             <button class="drop-btn" onclick="toggleSection(this)">📜 قوانين وأنظمة أمن الطرق</button>
@@ -106,7 +125,7 @@
                 1. الالتزام بالتعليمات الصادرة من القيادة.<br>
                 2. استخدام الدوريات المخصصة وعدم تجاوزها.<br>
                 3. رفع البلاغات والحالات الميدانية أولاً بأول للأرشيف.<br>
-                4. التواجد المستمر في قنوات الديسكورد الرسمية.
+                4. التواجد المستمر في قنوات سيرفر برق الرسمية.
             </div>
         </div>
 
@@ -114,9 +133,9 @@
         <div class="section-box">
             <button class="drop-btn" onclick="toggleSection(this)">⭐ القيادة والضباط المعتمدين</button>
             <div class="drop-content">
-                • القائد: أحمد<br>
-                • الضابط: دغش<br>
-                • الضابط: نواف
+                • القائد العام: أحمد<br>
+                • ضابط ميداني: دغش<br>
+                • ضابط ميداني: نواف
             </div>
         </div>
 
@@ -126,7 +145,7 @@
             <div class="patrol-card"><b>تاهو / تورس</b><p>مخصصة للضباط</p></div>
         </div>
 
-        <!-- قسم الإجازات والتقارير اليومية -->
+        <!-- قسم الإجازات والتقارير -->
         <h2>قسم الإجازات والتقارير اليومية</h2>
         <div class="field-form">
             <label>📄 نوع الطلب:</label>
@@ -135,11 +154,11 @@
                 <option value="vacation">طلب إجازة رسمية</option>
             </select>
 
-            <label>👤 اسم العسكري (مثبت تلقائياً):</label>
-            <input type="text" id="repName" readonly placeholder="اسم العسكري...">
+            <label>👤 اسم العسكري (معتمد من سيرفر برق):</label>
+            <input type="text" id="repName" readonly>
             
-            <label>🎖️ الرتبة العسكرية (مثبتة تلقائياً):</label>
-            <input type="text" id="repRank" readonly placeholder="الرتبة العسكرية...">
+            <label>🎖️ الرتبة العسكرية:</label>
+            <input type="text" id="repRank" readonly>
             
             <div id="reportFields">
                 <select id="repType" onchange="checkOther(this.value)">
@@ -212,13 +231,14 @@
             <div id="archiveDisplay" class="archive-list"><b>سجل الأرشيف الميداني المباشر:</b><br>لا توجد حالات مسجلة حتى الآن.</div>
         </div>
 
-        <h2>قسم الإدارة</h2>
+        <!-- لوحة الشرف -->
+        <h2>🏆 لوحة الشرف والتميز العسكري</h2>
         <div class="section-box">
-            <button class="drop-btn" onclick="toggleSection(this)">🛡️ أعضاء الإدارة (أحمد، دغش، نواف)</button>
+            <button class="drop-btn" onclick="toggleSection(this)">⭐ العسكريين المتميزين في سيرفر برق</button>
             <div class="drop-content">
-                • أحمد<br>
-                • دغش<br>
-                • نواف
+                • المركز الأول: <b>دغش</b> (أعلى نقاط ميدانية)<br>
+                • المركز الثاني: <b>نواف</b> (التزام تام بالبصمة)<br>
+                • قائد القطاع: <b>أحمد</b>
             </div>
         </div>
     </div>
@@ -226,56 +246,54 @@
     <script>
         const REPORT_WEBHOOK = "https://discord.com/api/webhooks/1540393098754924624/DnTj3FlFHtx0-95wVZVnjxCBE0sVut-kdzeuLTxe_lXzc7WwiqYzu8PZ-utffHFr6aj_";
 
-        // يوزرات الديسكورد المعتمدة تقتصر على أحمد، دغش، ونواف فقط
-        const allowedDiscordUsers = [
-            "a_n7rk",    // أحمد
-            "fnh_5",     // دغش
-            "nawaf_harbi"// نواف
-        ];
-
-        window.onload = function() {
-            localStorage.removeItem('azm_discord');
-            localStorage.removeItem('azm_name');
-            localStorage.removeItem('azm_rank');
+        function loginBaraqDiscord(event) {
+            event.preventDefault();
             
-            document.getElementById('gateway-screen').style.display = 'flex';
-            document.getElementById('mainContent').style.display = 'none';
-        };
-
-        function enterGateway() {
-            let discordUser = document.getElementById('gateDiscord').value.trim().toLowerCase();
-            let name = document.getElementById('gateName').value.trim();
-            let rank = document.getElementById('gateRank').value;
-
-            if(!discordUser || !name || !rank) {
-                alert("يرجى تعبئة جميع الحقول (يوزر الديسكورد، الاسم العسكري، والرتبة)!");
+            // التحقق وقصر الدخول حصرياً على رتب وأسماء سيرفر برق (أحمد، دغش، نواف)
+            let chosenName = prompt("أدخل اسمك العسكري المعتمد في سيرفر برق (أحمد / دغش / نواف):", "دغش");
+            
+            if(!chosenName || !["أحمد", "دغش", "نواف"].some(n => chosenName.includes(n))) {
+                alert("عذراً، يوزر أو اسم غير مصرح له في رتب سيرفر برق!");
                 return;
             }
 
-            if(!allowedDiscordUsers.includes(discordUser)) {
-                alert("خطأ: يوزر الديسكورد غير مسموح له بالدخول (مقتصر على أحمد، دغش، نواف فقط)!");
-                return;
+            let rank = "ضابط ميداني سيرفر برق";
+            if(chosenName.includes("أحمد")) {
+                rank = "قائد عام سيرفر برق";
             }
 
-            localStorage.setItem('azm_discord', discordUser);
-            localStorage.setItem('azm_name', name);
-            localStorage.setItem('azm_rank', rank);
+            localStorage.setItem('baraq_name', chosenName);
+            localStorage.setItem('baraq_rank', rank);
+            localStorage.setItem('baraq_img', "IMG_0347.jpeg");
 
-            document.getElementById('gateway-screen').style.display = 'none';
-            document.getElementById('mainContent').style.display = 'flex';
-            
-            document.getElementById('repName').value = name;
-            document.getElementById('repRank').value = rank;
-            document.getElementById('displayProfileName').innerText = name;
-            document.getElementById('displayProfileRank').innerText = rank;
+            loadSession();
+        }
 
-            // تحديد النقاط الافتراضية 3000 لدغش أو بناءً على المستخدم
-            if(name.includes("دغش")) {
-                document.getElementById('displayPoints').innerText = "3000";
-            } else {
-                document.getElementById('displayPoints').innerText = "1000";
+        function loadSession() {
+            let name = localStorage.getItem('baraq_name');
+            let rank = localStorage.getItem('baraq_rank');
+            let img = localStorage.getItem('baraq_img') || "IMG_0347.jpeg";
+
+            if(name) {
+                document.getElementById('gateway-screen').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'flex';
+                
+                document.getElementById('repName').value = name;
+                document.getElementById('repRank').value = rank;
+                document.getElementById('displayProfileName').innerText = name;
+                document.getElementById('displayProfileRank').innerText = rank;
+                document.getElementById('displayProfileImg').src = img;
             }
         }
+
+        window.onload = function() {
+            if(localStorage.getItem('baraq_name')) {
+                loadSession();
+            } else {
+                document.getElementById('gateway-screen').style.display = 'flex';
+                document.getElementById('mainContent').style.display = 'none';
+            }
+        };
 
         function toggleSection(btn) {
             let box = btn.parentElement;
@@ -306,18 +324,18 @@
 
             if(status.innerText.includes("غير مسجل حضور")) {
                 status.style.color = "#00ff66";
-                status.innerText = "الحالة: مسجل حضور (على رأس العمل)";
+                status.innerText = "الحالة: مسجل حضور (على رأس العمل - سيرفر برق)";
                 btn.style.background = "#ff3333";
                 btn.style.color = "#ffffff";
                 btn.innerText = "🔴 إنهاء الدوام (تسجيل انصراف)";
-                messageText = `🟢 **[بصمة حضور - أمن الطرق]**\n👤 **العسكري:** ${name}\n🎖️ **الرتبة:** ${rank}\n⏰ **الحالة:** بدأ الدوام وهو على رأس العمل الآن.`;
+                messageText = `🟢 **[بصمة حضور - أمن الطرق (سيرفر برق)]**\n👤 **العسكري:** ${name}\n🎖️ **الرتبة:** ${rank}\n⏰ **الحالة:** بدأ الدوام الميداني الآن.`;
             } else {
                 status.style.color = "#ff3333";
                 status.innerText = "الحالة: غير مسجل حضور";
                 btn.style.background = "#00ff66";
                 btn.style.color = "#040d07";
                 btn.innerText = "🟢 بدء الدوام (تسجيل حضور)";
-                messageText = `🔴 **[بصمة انصراف - أمن الطرق]**\n👤 **العسكري:** ${name}\n🎖️ **الرتبة:** ${rank}\n⏰ **الحالة:** أنهى الدوام وغادر الميدان.`;
+                messageText = `🔴 **[بصمة انصراف - أمن الطرق (سيرفر برق)]**\n👤 **العسكري:** ${name}\n🎖️ **الرتبة:** ${rank}\n⏰ **الحالة:** أنهى الدوام وغادر الميدان.`;
             }
 
             await fetch(REPORT_WEBHOOK, {
@@ -345,7 +363,7 @@
                     alert("يرجى تعبئة عدد أيام الإجازة والسبب!");
                     return;
                 }
-                textMessage = `🏖️ **[طلب إجازة رسمي - أمن الطرق]**\n👤 **العسكري:** ${name}\n🎖️ **الرتبة:** ${rank}\n📅 **عدد الأيام:** ${days} أيام\n📝 **السبب:** ${reason}`;
+                textMessage = `🏖️ **[طلب إجازة رسمي - سيرفر برق]**\n👤 **العسكري:** ${name}\n🎖️ **الرتبة:** ${rank}\n📅 **عدد الأيام:** ${days} أيام\n📝 **السبب:** ${reason}`;
             } else {
                 let typeSelect = document.getElementById('repType').value;
                 let otherType = document.getElementById('otherType').value;
@@ -363,7 +381,7 @@
                 
                 totalPoints = (wrapVal * 5) + (phraseVal * 10) + (stickerVal * 5) + (dustVal * 20);
                 
-                textMessage = `📢 **[تقرير ميداني يومي - أمن الطرق]**\n👤 **العسكري:** ${name}\n🎖️ **الرتبة:** ${rank}\n⚡ **نوع الحالة:** ${type}\n🎨 **التجليد:** مستوى ${wrapVal} (${wrapVal * 5} نقطة)\n✍️ **العبارات:** مستوى ${phraseVal} (${phraseVal * 10} نقطة)\n🏷️ **الستكرات:** مستوى ${stickerVal} (${stickerVal * 5} نقطة)\n🏜️ **التغبيرة:** مستوى ${dustVal} (${dustVal * 20} نقطة)\n💰 **إجمالي نقاط البلاغ:** ${totalPoints} نقطة\n📝 **التفاصيل:** ${desc || 'لا توجد تفاصيل إضافية'}`;
+                textMessage = `📢 **[تقرير ميداني - سيرفر برق]**\n👤 **العسكري:** ${name}\n🎖️ **الرتبة:** ${rank}\n⚡ **نوع الحالة:** ${type}\n🎨 **التجليد:** مستوى ${wrapVal} (${wrapVal * 5} نقطة)\n✍️ **العبارات:** مستوى ${phraseVal} (${phraseVal * 10} نقطة)\n🏷️ **الستكرات:** مستوى ${stickerVal} (${stickerVal * 5} نقطة)\n🏜️ **التغبيرة:** مستوى ${dustVal} (${dustVal * 20} نقطة)\n💰 **إجمالي النقاط:** ${totalPoints} نقطة\n📝 **التفاصيل:** ${desc || 'لا توجد تفاصيل إضافية'}`;
             }
             
             formData.append('payload_json', JSON.stringify({ content: textMessage }));
@@ -385,16 +403,16 @@
             entry.style.borderBottom = "1px dashed #143820";
             entry.style.padding = "8px 0";
             if(mode === 'vacation') {
-                entry.innerHTML = `🏖️ <b>[إجازة] [${rank}] ${name}</b> | الحالة: <b style="color:#00ff66;">قيد بررسی الطلب</b>`;
+                entry.innerHTML = `🏖️ <b>[إجازة - برق] [${rank}] ${name}</b> | الحالة: <b style="color:#00ff66;">قيد الدارسة</b>`;
             } else {
-                entry.innerHTML = `📌 <b>[تقرير] [${rank}] ${name}</b> | النقاط المكتسبة: <b style="color:#00ff66;">+${totalPoints}</b> ${imageFile ? '<br><span style="color:#00ff66; font-size:12px;">[تم إرفاق صورة الدليل]</span>' : ''}`;
+                entry.innerHTML = `📌 <b>[تقرير - برق] [${rank}] ${name}</b> | النقاط: <b style="color:#00ff66;">+${totalPoints}</b> ${imageFile ? '<br><span style="color:#00ff66; font-size:12px;">[تم إرفاق صورة]</span>' : ''}`;
                 
                 let currentPts = parseInt(document.getElementById('displayPoints').innerText) || 0;
                 document.getElementById('displayPoints').innerText = currentPts + totalPoints;
             }
             display.appendChild(entry);
             
-            alert("تم إرسال الطلب بنجاح إلى سجلات أمن الطرق!");
+            alert("تم إرسال الطلب بنجاح إلى سجلات سيرفر برق!");
         }
     </script>
 </body>
