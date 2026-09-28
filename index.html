@@ -59,19 +59,11 @@
             <h2 style="margin-top: 0; font-size: 22px;">بوابة القوات الخاصة لأمن الطرق</h2>
             <p style="font-size: 13px; color: #ccc; margin-bottom: 15px;">الرجاء إدخال بياناتك ويوزر الديسكورد للدخول</p>
             <input type="text" id="gateDiscord" placeholder="أدخل يوزر الديسكورد...">
-            <input type="text" id="gateName" placeholder="أدخل اسمك العسكري...">
+            <input type="text" id="gateName" placeholder="أدخل اسمك العسكري (أحمد / دغش / نواف)...">
             <select id="gateRank">
                 <option value="">اختر رتبتك...</option>
-                <option value="الرائد">الرائد</option>
-                <option value="اللواء">اللواء</option>
-                <option value="الأمير">الأمير</option>
-                <option value="نقيب">نقيب</option>
-                <option value="ملازم">ملازم</option>
-                <option value="رئيس رقباء">رئيس رقباء</option>
-                <option value="رقيب">رقيب</option>
-                <option value="عريف">عريف</option>
-                <option value="جندي أول">جندي أول</option>
-                <option value="جندي">جندي</option>
+                <option value="قائد عام">قائد عام</option>
+                <option value="ضابط">ضابط</option>
             </select>
             <button class="submit-btn" onclick="enterGateway()">دخول البوابة 🛡️</button>
         </div>
@@ -85,8 +77,8 @@
             <div class="top-points">النقاط: <span id="displayPoints">3000</span></div>
             <div class="top-user-info">
                 <div class="top-user-text">
-                    <div class="name" id="displayProfileName">دغش العتيبي</div>
-                    <div class="rank" id="displayProfileRank">الرتبة العسكرية</div>
+                    <div class="name" id="displayProfileName">دغش</div>
+                    <div class="rank" id="displayProfileRank">ضابط</div>
                 </div>
                 <img id="displayProfileImg" src="IMG_0347.jpeg" alt="صورة البروفايل">
             </div>
@@ -111,30 +103,27 @@
         <div class="section-box">
             <button class="drop-btn" onclick="toggleSection(this)">📜 قوانين وأنظمة أمن الطرق</button>
             <div class="drop-content">
-                1. الالتزام بالرتب العسكرية واحترام القيادة العليا.<br>
-                2. استخدام الدوريات المخصصة لكل رتبة وعدم تجاوزها.<br>
+                1. الالتزام بالتعليمات الصادرة من القيادة.<br>
+                2. استخدام الدوريات المخصصة وعدم تجاوزها.<br>
                 3. رفع البلاغات والحالات الميدانية أولاً بأول للأرشيف.<br>
-                4. التواجد في الديسكورد والالتزام بالتعليمات الصادرة من الضباط.
+                4. التواجد المستمر في قنوات الديسكورد الرسمية.
             </div>
         </div>
 
-        <h2>السلك العسكري</h2>
-        <div class="section-box"><button class="drop-btn" onclick="toggleSection(this)">⭐ القيادة العليا والضباط</button><div class="drop-content">الرائد: أحمد<br>اللواء: سعد<br>الأمير: سعود العتيبي<br>ضابط: دغش العتيبي<br>ضابط: نواف الحربي</div></div>
-        <div class="section-box"><button class="drop-btn" onclick="toggleSection(this)">⭐ النقباء</button><div class="drop-content">نقيب: بسام<br>نقيب: خالد</div></div>
-        <div class="section-box"><button class="drop-btn" onclick="toggleSection(this)">⭐ الضباط الميدانيين</button><div class="drop-content">ملازم: عبد العزيز العتيبي</div></div>
-        <div class="section-box"><button class="drop-btn" onclick="toggleSection(this)">⭐ رؤساء الرقباء</button><div class="drop-content">رئيس رقباء: فهيد ابن محمد</div></div>
-        <div class="section-box"><button class="drop-btn" onclick="toggleSection(this)">⭐ الرقباء</button><div class="drop-content">رقيب: حبيب اليامي</div></div>
-        <div class="section-box"><button class="drop-btn" onclick="toggleSection(this)">⭐ العرافة</button><div class="drop-content">عريف: خالد بن فهد الحربي</div></div>
-        <div class="section-box"><button class="drop-btn" onclick="toggleSection(this)">⭐ الجنود والجنود الأوائل</button><div class="drop-content">جندي أول: فهد عبدالله الدوسري<br>جندي أول: رياض العامري<br>جندي أول: فارس المالكي</div></div>
+        <h2>السلك العسكري والقيادة</h2>
+        <div class="section-box">
+            <button class="drop-btn" onclick="toggleSection(this)">⭐ القيادة والضباط المعتمدين</button>
+            <div class="drop-content">
+                • القائد: أحمد<br>
+                • الضابط: دغش<br>
+                • الضابط: نواف
+            </div>
+        </div>
 
         <h2>قسم الدوريات العسكرية</h2>
         <div class="patrol-grid">
-            <div class="patrol-card"><b>سيارة خاصة + السيارة السرية</b><p>مخصصة للقادات العليا</p></div>
-            <div class="patrol-card"><b>تاهو</b><p>مخصصة للملازم والملازم أول</p></div>
-            <div class="patrol-card"><b>تورس</b><p>مخصصة لرئيس رقباء</p></div>
-            <div class="patrol-card"><b>أف جي (FJ)</b><p>مخصصة للرقيب</p></div>
-            <div class="patrol-card"><b>فورد</b><p>مخصصة للعريف</p></div>
-            <div class="patrol-card"><b>ربع</b><p>مخصصة للجندي والجندي أول</p></div>
+            <div class="patrol-card"><b>سيارة خاصة + السيارة السرية</b><p>مخصصة للقيادة</p></div>
+            <div class="patrol-card"><b>تاهو / تورس</b><p>مخصصة للضباط</p></div>
         </div>
 
         <!-- قسم الإجازات والتقارير اليومية -->
@@ -225,13 +214,11 @@
 
         <h2>قسم الإدارة</h2>
         <div class="section-box">
-            <button class="drop-btn" onclick="toggleSection(this)">🛡️ أعضاء الإدارة والقيادة</button>
+            <button class="drop-btn" onclick="toggleSection(this)">🛡️ أعضاء الإدارة (أحمد، دغش، نواف)</button>
             <div class="drop-content">
-                • الرائد: أحمد<br>
-                • اللواء: سعد<br>
-                • الأمير: سعود العتيبي<br>
-                • ضابط: دغش العتيبي<br>
-                • ضابط: نواف الحربي
+                • أحمد<br>
+                • دغش<br>
+                • نواف
             </div>
         </div>
     </div>
@@ -239,22 +226,11 @@
     <script>
         const REPORT_WEBHOOK = "https://discord.com/api/webhooks/1540393098754924624/DnTj3FlFHtx0-95wVZVnjxCBE0sVut-kdzeuLTxe_lXzc7WwiqYzu8PZ-utffHFr6aj_";
 
-        // قائمة يوزرات ديسكورد المعتمدة (مضافة عليها الضباط الجدد دغش ونواف)
+        // يوزرات الديسكورد المعتمدة تقتصر على أحمد، دغش، ونواف فقط
         const allowedDiscordUsers = [
-            "a_n7rk",                   // الرائد: أحمد
-            "fnh_5",                    // ضابط: دغش العتيبي
-            "nawaf_harbi",              // ضابط: نواف الحربي
-            "moh223314__51587",         // اللواء: سعد
-            "swd00965",                 // الأمير: سعود العتيبي
-            "bassamalharbi0426_84319",  // نقيب: بسام
-            "nl.po",                    // نقيب: خالد
-            "azoz02831",                // ملازم: عبد العزيز العتيبي
-            "soz5021",                  // رئيس رقباء: فهيد ابن محمد
-            "whp_m",                    // رقيب: حبيب اليامي
-            "hrby0004",                 // عريف: خالد بن فهد الحربي
-            "fahad__502",               // جندي أول: فهد عبدالله الدوسري
-            "ahe11233df",               // جندي أول: رياض العامري
-            "frs03062"                  // جندي أول: فارس المالكي
+            "a_n7rk",    // أحمد
+            "fnh_5",     // دغش
+            "nawaf_harbi"// نواف
         ];
 
         window.onload = function() {
@@ -277,7 +253,7 @@
             }
 
             if(!allowedDiscordUsers.includes(discordUser)) {
-                alert("خطأ: يوزر الديسكورد غير مصرح له أو غير تابع لعساكر أمن الطرق!");
+                alert("خطأ: يوزر الديسكورد غير مسموح له بالدخول (مقتصر على أحمد، دغش، نواف فقط)!");
                 return;
             }
 
@@ -288,15 +264,16 @@
             document.getElementById('gateway-screen').style.display = 'none';
             document.getElementById('mainContent').style.display = 'flex';
             
-            // تعبئة بيانات الشريط العلوي (الاسم، الرتبة، والصورة)
             document.getElementById('repName').value = name;
             document.getElementById('repRank').value = rank;
             document.getElementById('displayProfileName').innerText = name;
             document.getElementById('displayProfileRank').innerText = rank;
 
-            // ضبط نقاط دغش الافتراضية بـ 3000 نقطة إذا كان هو المستخدم
+            // تحديد النقاط الافتراضية 3000 لدغش أو بناءً على المستخدم
             if(name.includes("دغش")) {
                 document.getElementById('displayPoints').innerText = "3000";
+            } else {
+                document.getElementById('displayPoints').innerText = "1000";
             }
         }
 
@@ -412,7 +389,6 @@
             } else {
                 entry.innerHTML = `📌 <b>[تقرير] [${rank}] ${name}</b> | النقاط المكتسبة: <b style="color:#00ff66;">+${totalPoints}</b> ${imageFile ? '<br><span style="color:#00ff66; font-size:12px;">[تم إرفاق صورة الدليل]</span>' : ''}`;
                 
-                // تحديث عداد النقاط في الشريط العلوي مباشرة
                 let currentPts = parseInt(document.getElementById('displayPoints').innerText) || 0;
                 document.getElementById('displayPoints').innerText = currentPts + totalPoints;
             }
