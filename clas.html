@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة صف عاشر أساسي 6 الإبداعية</title>
+    <!-- مكتبات الخطوط والأيقونات والتأثيرات -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --success: #4cc9f0;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --whatsapp: #25d366;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #f0f3f8;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* شريط الإعلانات السريعة */
+        .ticker-wrap {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 10px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .ticker {
+            display: inline-block;
+            animation: ticker 25s linear infinite;
+        }
+        .ticker span {
+            margin-right: 50px;
+            font-weight: 600;
+        }
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* القائمة العلوية */
+        header {
+            background: white;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary);
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        /* اللافتة الترحيبية */
+        .hero {
+            background: linear-gradient(rgba(67, 97, 238, 0.85), rgba(63, 55, 201, 0.85)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 120px 20px;
+            position: relative;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        /* العداد التنازلي */
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .countdown-box {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 15px 20px;
+            border-radius: 10px;
+            min-width: 80px;
+            text-align: center;
+        }
+        .countdown-box span {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        /* تنسيق الأقسام العامة */
+        section {
+            padding: 80px 8%;
+            max-width: 1300px;
+            margin: auto;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.2rem;
+            color: var(--dark);
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            display: block;
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* تنسيق جدول الحصص المنظم والواضح */
+        .schedule-container {
+            overflow-x: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .styled-schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+            min-width: 800px;
+        }
+        .styled-schedule-table th, .styled-schedule-table td {
+            border: 1px solid #e0e6ed;
+            padding: 12px 10px;
+            font-size: 0.95rem;
+        }
+        .styled-schedule-table th {
+            background: var(--primary);
+            color: white;
+            font-weight: 700;
+        }
+        .styled-schedule-table tr:nth-child(even) {
+            background-color: #f8faff;
+        }
+        .styled-schedule-table tr:hover {
+            background-color: #eef2ff;
+        }
+        .subject-name {
+            font-weight: bold;
+            color: var(--secondary);
+            display: block;
+        }
+        .teacher-name {
+            font-size: 0.8rem;
+            color: #666;
+            display: block;
+            margin-top: 3px;
+        }
+
+        /* المكتبة والملفات */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        .resource-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+        .resource-card i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        .btn-download {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 20px;
+            background: var(--primary);
+            color: white;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .btn-download:hover {
+            background: var(--secondary);
+        }
+
+        /* الواجبات والمهام */
+        .task-list {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 700px;
+            margin: auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .task-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+        .task-item input {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .task-item.completed span {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        /* معرض الأنشطة (صور واضحة وكبيرة) */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            height: 280px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: #fff;
+            border: 3px solid #fff;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* لوحة الشرف */
+        .leaderboard {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .leader-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            width: 190px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+        .leader-card:hover {
+            transform: translateY(-5px);
+            border: 2px solid gold;
+        }
+        .leader-card i {
+            font-size: 2.5rem;
+            color: gold;
+            margin-bottom: 10px;
+        }
+
+        /* الأسئلة الشائعة */
+        .faq-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .faq-question {
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+        }
+        .faq-answer {
+            margin-top: 10px;
+            color: #666;
+            display: none;
+        }
+
+        /* زر الواتساب العائم */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            background: var(--whatsapp);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: 0.3s;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        /* تذييل الصفحة */
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- شريط الإعلانات -->
+    <div class="ticker-wrap">
+        <div class="ticker">
+            <span>📢 تنبيه هام: موعد تصحيح كتاب النشاط لمادة الرياضيات يوم الأحد القادم</span>
+            <span>⭐ تم تحديث جدول الحصص الأسبوعي لعاشر أساسي 6 بدقة</span>
+            <span>🏆 مبارك لأبطال لوحة الشرف التميز المستمر</span>
+        </div>
+    </div>
+
+    <!-- القائمة العلوية -->
+    <header>
+        <div class="logo">عاشر أساسي 6 🌟</div>
+        <nav>
+            <ul>
+                <li><a href="#home">الرئيسية</a></li>
+                <li><a href="#schedule">الجدول</a></li>
+                <li><a href="#resources">المكتبة</a></li>
+                <li><a href="#assignments">الواجبات</a></li>
+                <li><a href="#activities">الأنشطة</a></li>
+                <li><a href="#leaderboard">لوحة الشرف</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- اللافتة الترحيبية -->
+    <section id="home" class="hero" data-aos="fade-in">
+        <h1 id="typed-title"></h1>
+        <p>البوابة الرسمية لأنشطة وفعاليات وإعلانات الفصل الدراسي (عاشر أساسي 6)</p>
+        <div class="countdown-container">
+            <div class="countdown-box"><span id="days">05</span>أيام</div>
+            <div class="countdown-box"><span id="hours">12</span>ساعة</div>
+            <div class="countdown-box"><span id="mins">30</span>دقيقة</div>
+            <div class="countdown-box"><span id="secs">45</span>ثانية</div>
+        </div>
+    </section>
+
+    <!-- جدول الحصص المنسق والواضح جداً (بناءً على صورتك الرسمية) -->
+    <section id="schedule" data-aos="fade-up">
+        <h2 class="section-title">جدول الحصص الأسبوعي المنظم</h2>
+        <div class="schedule-container">
+            <table class="styled-schedule-table">
+                <thead>
+                    <tr>
+                        <th>اليوم</th>
+                        <th>1<br><span style="font-size:0.75rem">7:15 - 7:45</span></th>
+                        <th>2<br><span style="font-size:0.75rem">7:50 - 8:25</span></th>
+                        <th>3<br><span style="font-size:0.75rem">8:30 - 9:05</span></th>
+                        <th>فسحة 6+7</th>
+                        <th>4<br><span style="font-size:0.75rem">9:10 - 9:45</span></th>
+                        <th>فسحة 8+9+10</th>
+                        <th>5<br><span style="font-size:0.75rem">10:05 - 10:40</span></th>
+                        <th>6<br><span style="font-size:0.75rem">10:45 - 11:20</span></th>
+                        <th>7<br><span style="font-size:0.75rem">11:25 - 12:00</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>الأحد</strong></td>
+                        <td><span class="subject-name">الرياضيات</span><span class="teacher-name">قرشي عبدالرحمن</span></td>
+                        <td><span class="subject-name">الرياضيات</span><span class="teacher-name">قرشي عبدالرحمن</span></td>
+                        <td><span class="subject-name">الدراسات</span><span class="teacher-name">أحمد الكثيري</span></td>
+                        <td rowspan="5" style="background:#f1f5f9; font-weight:bold; color:#555;">فسحة</td>
+                        <td><span class="subject-name">مهارات موسيقية</span><span class="teacher-name">عماد عبدالحليم</span></td>
+                        <td rowspan="5" style="background:#f1f5f9; font-weight:bold; color:#555;">فسحة</td>
+                        <td><span class="subject-name">اللغة العربية</span><span class="teacher-name">أحمد أبوطالب</span></td>
+                        <td><span class="subject-name">الاحياء</span><span class="teacher-name">محمد العامري</span></td>
+                        <td><span class="subject-name">الفنون التشكلية</span><span class="teacher-name">غانم فاضل</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>الاثنين</strong></td>
+                        <td><span class="subject-name">اللغة العربية</span><span class="teacher-name">أحمد أبوطالب</span></td>
+                        <td><span class="subject-name">الرياضيات</span><span class="teacher-name">قرشي عبدالرحمن</span></td>
+                        <td><span class="subject-name">التربية الإسلامية</span><span class="teacher-name">مصطفى أبوالمجد</span></td>
+                        <td><span class="subject-name">اللغة الإنجليزية</span><span class="teacher-name">السيد الشهاب</span></td>
+                        <td><span class="subject-name">الكيمياء</span><span class="teacher-name">بدر محمد</span></td>
+                        <td><span class="subject-name">الفيزياء</span><span class="teacher-name">يوسف</span></td>
+                        <td><span class="subject-name">التربية الإسلامية</span><span class="teacher-name">مصطفى أبوالمجد</span></td>
+                        <td><span class="subject-name">الرياضيات</span><span class="teacher-name">قرشي عبدالرحمن</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>الثلاثاء</strong></td>
+                        <td><span class="subject-name">الرياضيات</span><span class="teacher-name">قرشي عبدالرحمن</span></td>
+                        <td><span class="subject-name">اللغة العربية</span><span class="teacher-name">أحمد أبوطالب</span></td>
+                        <td><span class="subject-name">اللغة الإنجليزية</span><span class="teacher-name">السيد الشهاب</span></td>
+                        <td><span class="subject-name">تقنية المعلومات</span><span class="teacher-name">الجانسة/اليعقوبي</span></td>
+                        <td><span class="subject-name">الدراسات</span><span class="teacher-name">أحمد الكثيري</span></td>
+                        <td><span class="subject-name">اللغة العربية</span><span class="teacher-name">أحمد أبوطالب</span></td>
+                        <td><span class="subject-name">التربية الإسلامية</span><span class="teacher-name">مصطفى أبوالمجد</span></td>
+                        <td><span class="subject-name">الرياضيات</span><span class="teacher-name">قرشي عبدالرحمن</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>الأربعاء</strong></td>
+                        <td><span class="subject-name">الفيزياء</span><span class="teacher-name">يوسف</span></td>
+                        <td><span class="subject-name">الاحياء</span><span class="teacher-name">محمد العامري</span></td>
+                        <td><span class="subject-name">اللغة الإنجليزية</span><span class="teacher-name">السيد الشهاب</span></td>
+                        <td><span class="subject-name">المهارات الحياتية</span><span class="teacher-name">محمد المعشني</span></td>
+                        <td><span class="subject-name">الكيمياء</span><span class="teacher-name">بدر محمد</span></td>
+                        <td><span class="subject-name">خدمة التوجيه</span><span class="teacher-name">محمد العمري</span></td>
+                        <td><span class="subject-name">الرياضيات</span><span class="teacher-name">قرشي عبدالرحمن</span></td>
+                        <td><span class="subject-name">اللغة العربية</span><span class="teacher-name">أحمد أبوطالب</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>الخميس</strong></td>
+                        <td><span class="subject-name">الاحياء</span><span class="teacher-name">محمد العامري</span></td>
+                        <td><span class="subject-name">اللغة العربية</span><span class="teacher-name">أحمد أبوطالب</span></td>
+                        <td><span class="subject-name">اللغة الإنجليزية</span><span class="teacher-name">السيد الشهاب</span></td>
+                        <td><span class="subject-name">الرياضة المدرسية</span><span class="teacher-name">عبدالله مقبل</span></td>
+                        <td><span class="subject-name">التربية الإسلامية</span><span class="teacher-name">مصطفى أبوالمجد</span></td>
+                        <td><span class="subject-name">اللغة الإنجليزية</span><span class="teacher-name">السيد الشهاب</span></td>
+                        <td><span class="subject-name">الرياضيات</span><span class="teacher-name">قرشي عبدالرحمن</span></td>
+                        <td><span class="subject-name">اللغة العربية</span><span class="teacher-name">أحمد أبوطالب</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- المكتبة والملفات -->
+    <section id="resources" data-aos="fade-up">
+        <h2 class="section-title">المكتبة التعليمية والملفات</h2>
+        <div class="resources-grid">
+            <div class="resource-card">
+                <i class="fa-solid fa-calculator"></i>
+                <h3>مملكة الرياضيات</h3>
+                <p>ملخصات وأوراق عمل وأمثلة محلولة</p>
+                <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> تحميل الملف</a>
+            </div>
+            <div class="resource-card">
+                <i class="fa-solid fa-book-open"></i>
+                <h3>لغتي الجميلة</h3>
+                <p>قواعد، نصوص إثرائية، وإملاء</p>
+                <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> تحميل الملف</a>
+            </div>
+            <div class="resource-card">
+                <i class="fa-solid fa-flask"></i>
+                <h3>عالم العلوم والتقنية</h3>
+                <p>تجارب مصورة ومراجعات شاملة</p>
+                <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> تحميل الملف</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- الواجبات والمهام -->
+    <section id="assignments" data-aos="fade-up">
+        <h2 class="section-title">الواجبات والمهام الحالية</h2>
+        <div class="task-list">
+            <div class="task-item" onclick="toggleTask(this)">
+                <input type="checkbox">
+                <span><strong>يوم الأحد:</strong> تصحيح كتاب النشاط لمادة الرياضيات</span>
+            </div>
+            <div class="task-item" onclick="toggleTask(this)">
+                <input type="checkbox">
+                <span>مراجعة دروس الفيزياء والكيمياء الأسبوعية</span>
+            </div>
+            <div class="task-item" onclick="toggleTask(this)">
+                <input type="checkbox">
+                <span>حل التمارين المطلوبة في مادة اللغة الإنجليزية</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- الأنشطة والمعرض (الصور بوضوح عالٍ ومضبوطة تماماً) -->
+    <section id="activities" data-aos="fade-up">
+        <h2 class="section-title">معرض الأنشطة والفعاليات</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="image_3.png" alt="فعاليات الفصل عاشر 6" title="اضغط لتكبير الصورة">
+            </div>
+            <div class="gallery-item">
+                <img src="image_4.png" alt="أنشطة الطلاب والمعلمين" title="اضغط لتكبير الصورة">
+            </div>
+        </div>
+    </section>
+
+    <!-- لوحة الشرف -->
+    <section id="leaderboard" data-aos="fade-up">
+        <h2 class="section-title">لوحة شرف صف عاشر أساسي 6</h2>
+        <div class="leaderboard">
+            <div class="leader-card">
+                <i class="fa-solid fa-trophy"></i>
+                <h3>سالم حافظ</h3>
+            </div>
+            <div class="leader-card">
+                <i class="fa-solid fa-medal"></i>
+                <h3>بتال الكثيري</h3>
+            </div>
+            <div class="leader-card">
+                <i class="fa-solid fa-award"></i>
+                <h3>إياد أسامة</h3>
+            </div>
+            <div class="leader-card">
+                <i class="fa-solid fa-star"></i>
+                <h3>طاهر الذهب</h3>
+            </div>
+            <div class="leader-card">
+                <i class="fa-solid fa-crown"></i>
+                <h3>محمد باعمر</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- الأسئلة الشائعة -->
+    <section data-aos="fade-up">
+        <h2 class="section-title">الأسئلة الشائعة</h2>
+        <div class="faq-box" onclick="toggleFaq(this)">
+            <div class="faq-question">متى يبدأ اليوم الدراسي لعاشر أساسي 6؟ <i class="fa-solid fa-chevron-down"></i></div>
+            <div class="faq-answer">يبدأ الطابور الصباحي والحصة الأولى في تمام الساعة 7:15 صباحاً[span_3](start_span)[span_3](end_span).</div>
+        </div>
+        <div class="faq-box" onclick="toggleFaq(this)">
+            <div class="faq-question">كيف أنضم إلى جروب الواتساب الخاص بالفصل؟ <i class="fa-solid fa-chevron-down"></i></div>
+            <div class="faq-answer">يمكنك النقر مباشرة على زر الواتساب الأخضر العائم في أسفل الشاشة للانضمام إلى مجموعة الفصل[span_4](start_span)[span_4](end_span).</div>
+        </div>
+    </section>
+
+    <!-- زر الواتساب العائم -->
+    <a href="https://chat.whatsapp.com/ضع_رابط_جروب_عاشر_6_هنا" target="_blank" class="whatsapp-float" title="راسلنا عبر جروب الواتساب">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- التذييل -->
+    <footer>
+        <p>جميع الحقوق محفوظة © 2026 - بوابة صف عاشر أساسي 6 الإبداعية</p>
+    </footer>
+
+    <!-- السكربتات والتفاعلات -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        var typed = new Typed('#typed-title', {
+            strings: ["مرحباً بكم في بوابة صف عاشر أساسي 6 🌟", "منصة التعلم والتفاعل الذكية", "نسعد بوجودكم معنا اليوم"],
+            typeSpeed: 50,
+            backSpeed: 30,
+            loop: true
+        });
+
+        function toggleTask(element) {
+            element.classList.toggle('completed');
+            let checkbox = element.querySelector('input');
+            checkbox.checked = !checkbox.checked;
+        }
+
+        function toggleFaq(element) {
+            let answer = element.querySelector('.faq-answer');
+            if (answer.style.display === "block") {
+                answer.style.display = "none";
+            } else {
+                answer.style.display = "block";
+            }
+        }
+
+        let countDate = new Date("Nov 30, 2026 00:00:00").getTime();
+        setInterval(function() {
+            let now = new Date().getTime();
+            let gap = countDate - now;
+
+            let second = 1000;
+            let minute = second * 60;
+            let hour = minute * 60;
+            let day = hour * 24;
+
+            let d = Math.floor(gap / (day));
+            let h = Math.floor((gap % (day)) / (hour));
+            let m = Math.floor((gap % (hour)) / (minute));
+            let s = Math.floor((gap % (minute)) / second);
+
+            document.getElementById('days').innerText = d < 10 ? '0' + d : d;
+            document.getElementById('hours').innerText = h < 10 ? '0' + h : h;
+            document.getElementById('mins').innerText = m < 10 ? '0' + m : m;
+            document.getElementById('secs').innerText = s < 10 ? '0' + s : s;
+        }, 1000);
+    </script>
+</body>
+</html>
