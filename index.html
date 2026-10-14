@@ -3,416 +3,529 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>القوات الخاصة لأمن الطرق - سيرفر برق</title>
+    <title>الجهاز | القوات الخاصة لأمن الطرق</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #040d07; color: #ffffff; font-family: 'Segoe UI', Tahoma, sans-serif; display: flex; flex-direction: column; align-items: center; padding: 15px; margin: 0; }
-        .logo-img { width: 150px; height: 150px; border-radius: 50%; border: 3px solid #00ff66; margin: 15px 0; object-fit: cover; }
-        h1 { color: #00ff66; font-size: 28px; margin-bottom: 20px; text-align: center; }
-        h2 { color: #00ff66; font-size: 20px; margin-top: 25px; margin-bottom: 15px; border-bottom: 1px solid #143820; padding-bottom: 5px; text-align: center; width: 100%; }
-        
-        /* شريط البروفايل العلوي */
-        .top-bar { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 600px; background: #08160e; border: 1px solid #00ff66; padding: 10px 15px; border-radius: 12px; margin-bottom: 20px; box-sizing: border-box; }
-        .top-points { font-size: 16px; font-weight: bold; color: #00ff66; }
-        .top-user-info { display: flex; align-items: center; gap: 10px; }
-        .top-user-info img { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #00ff66; object-fit: cover; }
-        .top-user-text { text-align: left; }
-        .top-user-text .name { font-weight: bold; font-size: 14px; color: #fff; }
-        .top-user-text .rank { font-size: 12px; color: #00ff66; }
+        :root {
+            --bg-color: #0b0f19;
+            --panel-bg: rgba(15, 23, 42, 0.85);
+            --primary-blue: #00f0ff;
+            --dark-blue: #0066ff;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --danger: #ef4444;
+            --border-glow: rgba(0, 240, 255, 0.3);
+        }
 
-        /* بوابة تسجيل الدخول عبر ديسكورد سيرفر برق */
-        #gateway-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #040d07; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; }
-        .gateway-box { background: #08160e; border: 2px solid #00ff66; padding: 30px; border-radius: 15px; width: 100%; max-width: 400px; text-align: center; box-sizing: border-box; }
-        .discord-login-btn { background: #5865F2; color: #ffffff; border: none; padding: 15px; border-radius: 10px; font-weight: bold; font-size: 16px; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 15px; text-decoration: none; }
-        
-        .main-content { display: none; width: 100%; max-width: 600px; flex-direction: column; align-items: center; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
 
-        .btn-box { width: 100%; display: flex; gap: 10px; margin-bottom: 25px; }
-        .btn { flex: 1; padding: 15px; border-radius: 12px; text-align: center; background: #00ff66; color: #040d07; font-weight: bold; text-decoration: none; font-size: 16px; border: none; }
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(0, 102, 255, 0.15) 0%, transparent 50%),
+                linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8));
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
 
-        .section-box { width: 100%; margin-bottom: 10px; box-sizing: border-box; }
-        .drop-btn { width: 100%; background: #08160e; border: 1px solid #00ff66; color: #fff; padding: 18px 20px; border-radius: 10px; text-align: right; font-size: 17px; font-weight: bold; cursor: pointer; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; }
-        .drop-btn::after { content: '▼'; font-size: 12px; color: #00ff66; transition: transform 0.3s; }
-        .section-box.active .drop-btn::after { transform: rotate(180deg); }
-        
-        .drop-content { display: none; background: #0c2012; padding: 15px; border-radius: 0 0 10px 10px; border: 1px solid #00ff66; border-top: none; font-size: 16px; color: #ddd; line-height: 1.8; box-sizing: border-box; width: 100%; }
-        .section-box.active .drop-content { display: block; }
+        /* شاشة تسجيل الدخول */
+        #auth-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            animation: fadeIn 0.8s ease-in-out;
+        }
 
-        .patrol-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; box-sizing: border-box; }
-        .patrol-card { background: #08160e; border: 1px solid #143820; padding: 15px; border-radius: 10px; text-align: center; }
-        .patrol-card b { color: #00ff66; font-size: 15px; }
-        .patrol-card p { font-size: 13px; color: #ccc; margin-top: 5px; }
+        .auth-card {
+            background: var(--panel-bg);
+            border: 2px solid var(--primary-blue);
+            box-shadow: 0 0 25px var(--border-glow);
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            width: 100%;
+            max-width: 420px;
+            backdrop-filter: blur(12px);
+        }
 
-        .field-form { background: #08160e; border: 1px solid #00ff66; padding: 15px; border-radius: 10px; width: 100%; box-sizing: border-box; margin-bottom: 15px; }
-        input, select, textarea { width: 100%; background: #040d07; border: 1px solid #00ff66; color: #fff; padding: 12px; margin-bottom: 10px; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
-        input[readonly] { background: #0b1f14; color: #00ff66; font-weight: bold; cursor: not-allowed; border-color: #143820; }
-        input[type="file"] { padding: 8px; cursor: pointer; }
-        label { font-size: 13px; color: #00ff66; display: block; margin-bottom: 5px; }
-        .submit-btn { width: 100%; background: #00ff66; color: #040d07; border: none; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; }
-        .archive-list { margin-top: 15px; padding: 10px; border-top: 1px solid #00ff66; color: #00ff66; font-size: 15px; line-height: 1.6; word-break: break-word; }
-        
-        .notice-card { background: #0c2012; border-left: 4px solid #00ff66; padding: 10px 15px; margin-bottom: 8px; border-radius: 4px; font-size: 14px; }
+        .auth-card h1 {
+            color: var(--primary-blue);
+            font-size: 28px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(0,240,255,0.5);
+        }
+
+        .auth-card p {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            color: var(--primary-blue);
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary-blue);
+            outline: none;
+            box-shadow: 0 0 10px rgba(0,240,255,0.3);
+        }
+
+        .btn-tactical {
+            background: linear-gradient(135deg, var(--dark-blue), var(--primary-blue));
+            color: #000;
+            font-weight: 700;
+            padding: 12px;
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+            box-shadow: 0 0 15px rgba(0,240,255,0.4);
+        }
+
+        .btn-tactical:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(0,240,255,0.7);
+        }
+
+        /* لوحة التحكم الرئيسية */
+        #dashboard {
+            display: none;
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        header {
+            background: rgba(11, 15, 25, 0.95);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-area h2 {
+            font-size: 22px;
+            color: var(--primary-blue);
+            letter-spacing: 1px;
+        }
+
+        .user-badge {
+            background: rgba(0, 240, 255, 0.1);
+            border: 1px solid var(--primary-blue);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: var(--primary-blue);
+        }
+
+        /* محتوى المنصة */
+        .main-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .card-panel {
+            background: var(--panel-bg);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 14px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+        }
+
+        /* القائمة المنسدلة التكتيكية */
+        .dropdown-container {
+            margin-bottom: 25px;
+        }
+
+        .dropdown-container label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+
+        .select-tactical {
+            width: 100%;
+            padding: 14px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--primary-blue);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .select-tactical:focus {
+            outline: none;
+            box-shadow: 0 0 15px var(--border-glow);
+        }
+
+        /* أقسام النماذج مع تأثيرات الانيميشن */
+        .form-section {
+            display: none;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: all 0.4s ease;
+        }
+
+        .form-section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .form-section h3 {
+            margin-bottom: 20px;
+            color: var(--primary-blue);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+            padding-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .form-row {
+            margin-bottom: 18px;
+        }
+
+        .form-row label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .form-row input, .form-row textarea, .form-row select {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 15px;
+        }
+
+        .form-row input:focus, .form-row textarea:focus {
+            border-color: var(--primary-blue);
+            outline: none;
+        }
+
+        /* رسائل التنبيه والنجاح */
+        #alert-box {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+            display: none;
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid #10b981;
+            color: #34d399;
+        }
+
+        .alert-error {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid var(--danger);
+            color: #f87171;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
 
-    <!-- بوابة تسجيل الدخول عبر ديسكورد سيرفر برق -->
-    <div id="gateway-screen">
-        <div class="gateway-box">
-            <img src="IMG_0347.jpeg" style="width: 100px; height: 100px; border-radius: 50%; border: 2px solid #00ff66; margin-bottom: 15px; object-fit: cover;" alt="الشعار">
-            <h2 style="margin-top: 0; font-size: 20px;">بوابة أمن الطرق - سيرفر برق</h2>
-            <p style="font-size: 13px; color: #ccc; margin-bottom: 20px;">تسجيل الدخول المعتمد لرتب سيرفر برق (أحمد، دغش، نواف)</p>
-            
-            <a href="#" class="discord-login-btn" onclick="loginBaraqDiscord(event)">
-                <span>🎮 ربط وتحقق رتب سيرفر برق</span>
-            </a>
+    <!-- شاشة تسجيل الدخول الإجباري -->
+    <div id="auth-screen">
+        <div class="auth-card">
+            <h1>قوات أمن الطرق</h1>
+            <p>منصة "الجهاز" - يرجى إدخال اسم المستخدم للتحقق من الصلاحيات</p>
+            <div class="input-group">
+                <label>اسم المستخدم (Discord Username)</label>
+                <input type="text" id="username-input" placeholder="مثال: .0_iz أو rk.1k">
+            </div>
+            <button class="btn-tactical" onclick="login()">تسجيل الدخول</button>
+            <div id="login-error" style="color: var(--danger); font-size: 13px; margin-top: 10px; display: none;">اسم المستخدم غير مسجل في النظام!</div>
         </div>
     </div>
 
-    <!-- المحتوى الرئيسي للموقع -->
-    <div class="main-content" id="mainContent">
-        
-        <!-- الشريط العلوي -->
-        <div class="top-bar">
-            <div class="top-points">النقاط: <span id="displayPoints">3000</span></div>
-            <div class="top-user-info">
-                <div class="top-user-text">
-                    <div class="name" id="displayProfileName">جار التحميل...</div>
-                    <div class="rank" id="displayProfileRank">عسكري</div>
+    <!-- لوحة التحكم الرئيسية -->
+    <div id="dashboard">
+        <header>
+            <div class="logo-area">
+                <h2>الجهاز | أمن الطرق</h2>
+            </div>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <div class="user-badge" id="user-info-badge">الرتبة: -</div>
+                <button onclick="logout()" style="background: transparent; border: 1px solid var(--danger); color: var(--danger); padding: 5px 12px; border-radius: 6px; cursor: pointer; font-size: 13px;">خروج</button>
+            </div>
+        </header>
+
+        <div class="main-container">
+            <div class="card-panel">
+                <!-- القائمة المنسدلة التكتيكية -->
+                <div class="dropdown-container">
+                    <label>اختر القسم المطلوب:</label>
+                    <select id="section-select" class="select-tactical" onchange="switchSection()">
+                        <option value="" disabled selected>-- اختر القسم لتسجيل التقرير --</option>
+                        <option value="duty">1. قسم الاستلام</option>
+                        <option value="training">2. قسم التدريب</option>
+                        <option value="media">3. قسم المشاركات الإعلامية</option>
+                        <option value="tasks">4. قسم المهام الجانبية</option>
+                        <option value="suggestions">5. قسم اقتراحات القطاع</option>
+                    </select>
                 </div>
-                <img id="displayProfileImg" src="IMG_0347.jpeg" alt="صورة البروفايل">
-            </div>
-        </div>
 
-        <img src="IMG_0347.jpeg" class="logo-img" alt="الشعار">
-        <h1>القوات الخاصة لأمن الطرق</h1>
+                <!-- 1. قسم الاستلام -->
+                <div id="section-duty" class="form-section">
+                    <h3>تسجيل استلام ضابط</h3>
+                    <div class="form-row"><label>الرتبة والاسم:</label><input type="text" id="duty-name" placeholder="أدخل رتبتك واهتمامك"></div>
+                    <div class="form-row"><label>وقت بداية الاستلام:</label><input type="text" id="duty-start" placeholder="مثال: 08:00 مساءً"></div>
+                    <div class="form-row"><label>وقت نهاية الاستلام:</label><input type="text" id="duty-end" placeholder="مثال: 12:00 مساءً"></div>
+                    <div class="form-row"><label>ملاحظات الميدان:</label><textarea id="duty-notes" rows="3" placeholder="أدخل تفاصيل التواجد الأمني..."></textarea></div>
+                    <button class="btn-tactical" onclick="sendReport('duty')">إرسال إلى ديوان العمليات</button>
+                </div>
 
-        <div class="btn-box">
-            <a href="https://www.tiktok.com/@ssoh022?_r=1&_t=ZS-991jJVyMqJw" class="btn" target="_blank">تيك توك</a>
-            <a href="https://discord.gg/KT9aYRC9y" class="btn" target="_blank">ديسكورد سيرفر برق</a>
-        </div>
+                <!-- 2. قسم التدريب -->
+                <div id="section-training" class="form-section">
+                    <h3>تسجيل دفعة التدريب</h3>
+                    <div class="form-row"><label>المسؤول عن التدريب:</label><input type="text" id="train-admin" placeholder="اسم المدرب ورتبته"></div>
+                    <div class="form-row"><label>عنوان أو نوع التدريب:</label><input type="text" id="train-title" placeholder="مثال: دورة المطاردات والسيطرة"></div>
+                    <div class="form-row"><label>أسماء العناصر الحاضرين:</label><textarea id="train-attendees" rows="3" placeholder="أدخل الأسماء..."></textarea></div>
+                    <button class="btn-tactical" onclick="sendReport('training')">إرسال تقرير التدريب</button>
+                </div>
 
-        <!-- قسم التعاميم -->
-        <h2>🚨 التعاميم والأوامر العسكرية</h2>
-        <div class="section-box active">
-            <div class="drop-content" style="display: block;">
-                <div class="notice-card"><b>[تعميم قيادي - سيرفر برق]</b> التزام تام بالانتشار في الطرق السريعة ومتابعة الحالات الأمنية بدقة.</div>
-                <div class="notice-card"><b>[تنبيه]</b> يمنع استخدام الدوريات إلا بتوجيه من غرفة العمليات أو الضباط المعتمدين.</div>
-            </div>
-        </div>
+                <!-- 3. قسم المشاركات الإعلامية -->
+                <div id="section-media" class="form-section">
+                    <h3>تسجيل مشاركة إعلامية</h3>
+                    <div class="form-row"><label>اسم الضابط:</label><input type="text" id="media-name" placeholder="اسمك الكريم ورتبتك"></div>
+                    <div class="form-row"><label>رابط التغطية أو الميديا:</label><input type="text" id="media-link" placeholder="رابط الصورة أو الفيديو"></div>
+                    <div class="form-row"><label>وصف التغطية:</label><textarea id="media-desc" rows="2" placeholder="تفاصيل الفعالية أو التغطية..."></textarea></div>
+                    <button class="btn-tactical" onclick="sendReport('media')">إرسال التغطية</button>
+                </div>
 
-        <!-- بصمة الدوام الرسمي -->
-        <h2>بصمة الدوام الرسمي</h2>
-        <div class="field-form" style="text-align: center;">
-            <p id="attendanceStatus" style="font-size: 16px; margin-bottom: 15px; color: #ff3333;">الحالة: غير مسجل حضور</p>
-            <button id="attendanceBtn" class="submit-btn" onclick="toggleAttendance()" style="background: #00ff66; color: #040d07;">🟢 بدء الدوام (تسجيل حضور)</button>
-        </div>
+                <!-- 4. قسم المهام الجانبية -->
+                <div id="section-tasks" class="form-section">
+                    <h3>تسجيل مهام جانبية</h3>
+                    <div class="form-row"><label>اسم الضابط:</label><input type="text" id="task-name" placeholder="أدخل اسمك"></div>
+                    <div class="form-row"><label>طبيعة المهمة:</label><input type="text" id="task-desc" placeholder="مثال: تأمين طريق الساحل"></div>
+                    <div class="form-row"><label>النتائج والإنجاز:</label><textarea id="task-result" rows="2" placeholder="ما تم إنجازه..."></textarea></div>
+                    <button class="btn-tactical" onclick="sendReport('tasks')">إرسال المهمة</button>
+                </div>
 
-        <!-- حالة الدوريات -->
-        <h2>📍 حالة انتشار الدوريات الميدانية</h2>
-        <div class="section-box">
-            <button class="drop-btn" onclick="toggleSection(this)">🌐 حالة القطاعات والفرق الميدانية</button>
-            <div class="drop-content">
-                • قطاع طريق الرياض السريع: <b>تغطية كاملة (دغش)</b><br>
-                • قطاع المرتفعات: <b>تغطية كاملة (نواف)</b><br>
-                • غرفة العمليات والسيطرة: <b>نشطة (أحمد)</b>
-            </div>
-        </div>
+                <!-- 5. قسم الاقتراحات -->
+                <div id="section-suggestions" class="form-section">
+                    <h3>قسم اقتراحات القطاع</h3>
+                    <div class="form-row"><label>اسم الضابط / القائد:</label><input type="text" id="sug-name" placeholder="اسمك"></div>
+                    <div class="form-row"><label>نص الاقتراح للتطوير:</label><textarea id="sug-content" rows="4" placeholder="اكتب مقترحك لتطوير أمن الطرق..."></textarea></div>
+                    <button class="btn-tactical" onclick="sendReport('suggestions')">رفع المقترح للقيادة</button>
+                </div>
 
-        <h2>قوانين وتعليمات القطاع</h2>
-        <div class="section-box">
-            <button class="drop-btn" onclick="toggleSection(this)">📜 قوانين وأنظمة أمن الطرق</button>
-            <div class="drop-content">
-                1. الالتزام بالتعليمات الصادرة من القيادة.<br>
-                2. استخدام الدوريات المخصصة وعدم تجاوزها.<br>
-                3. رفع البلاغات والحالات الميدانية أولاً بأول للأرشيف.<br>
-                4. التواجد المستمر في قنوات سيرفر برق الرسمية.
-            </div>
-        </div>
-
-        <h2>السلك العسكري والقيادة</h2>
-        <div class="section-box">
-            <button class="drop-btn" onclick="toggleSection(this)">⭐ القيادة والضباط المعتمدين</button>
-            <div class="drop-content">
-                • القائد العام: أحمد<br>
-                • ضابط ميداني: دغش<br>
-                • ضابط ميداني: نواف
-            </div>
-        </div>
-
-        <h2>قسم الدوريات العسكرية</h2>
-        <div class="patrol-grid">
-            <div class="patrol-card"><b>سيارة خاصة + السيارة السرية</b><p>مخصصة للقيادة</p></div>
-            <div class="patrol-card"><b>تاهو / تورس</b><p>مخصصة للضباط</p></div>
-        </div>
-
-        <!-- قسم الإجازات والتقارير -->
-        <h2>قسم الإجازات والتقارير اليومية</h2>
-        <div class="field-form">
-            <label>📄 نوع الطلب:</label>
-            <select id="reportOrVacation" onchange="switchFormMode(this.value)">
-                <option value="report">تقرير ميداني يومي</option>
-                <option value="vacation">طلب إجازة رسمية</option>
-            </select>
-
-            <label>👤 اسم العسكري (معتمد من سيرفر برق):</label>
-            <input type="text" id="repName" readonly>
-            
-            <label>🎖️ الرتبة العسكرية:</label>
-            <input type="text" id="repRank" readonly>
-            
-            <div id="reportFields">
-                <select id="repType" onchange="checkOther(this.value)">
-                    <option value="">اختر نوع الحالة...</option>
-                    <option value="مطاردة">مطاردة</option>
-                    <option value="استيقاف مروري">استيقاف مروري</option>
-                    <option value="تهريب">تهريب</option>
-                    <option value="أخرى">أخرى (اكتب الحالة...)</option>
-                </select>
-                <input type="text" id="otherType" placeholder="اكتب نوع الحالة هنا..." style="display:none;">
-
-                <label>🎨 مستوى التجليد (الضرب × 5 نقاط):</label>
-                <select id="repWrap">
-                    <option value="0">بدون (0)</option>
-                    <option value="1">1 (5 نقاط)</option>
-                    <option value="2">2 (10 نقاط)</option>
-                    <option value="3">3 (15 نقاط)</option>
-                    <option value="4">4 (20 نقاط)</option>
-                    <option value="5">5 (25 نقاط)</option>
-                    <option value="6">6 (30 نقاط)</option>
-                </select>
-
-                <label>✍️ العبارات (الضرب × 10 نقاط):</label>
-                <select id="repPhrases">
-                    <option value="0">بدون (0)</option>
-                    <option value="1">1 (10 نقاط)</option>
-                    <option value="2">2 (20 نقاط)</option>
-                    <option value="3">3 (30 نقاط)</option>
-                    <option value="4">4 (40 نقاط)</option>
-                    <option value="5">5 (50 نقاط)</option>
-                    <option value="6">6 (60 نقاط)</option>
-                </select>
-
-                <label>🏷️ الستكرات (الضرب × 5 نقاط):</label>
-                <select id="repStickers">
-                    <option value="0">بدون (0)</option>
-                    <option value="1">1 (5 نقاط)</option>
-                    <option value="2">2 (10 نقاط)</option>
-                    <option value="3">3 (15 نقاط)</option>
-                    <option value="4">4 (20 نقاط)</option>
-                    <option value="5">5 (25 نقاط)</option>
-                    <option value="6">6 (30 نقاط)</option>
-                </select>
-
-                <label>🏜️ التغبيرة (الضرب × 20 نقطة):</label>
-                <select id="repDust">
-                    <option value="0">بدون (0)</option>
-                    <option value="1">1 (20 نقاط)</option>
-                    <option value="2">2 (40 نقاط)</option>
-                    <option value="3">3 (60 نقاط)</option>
-                    <option value="4">4 (80 نقاط)</option>
-                    <option value="5">5 (100 نقاط)</option>
-                    <option value="6">6 (120 نقاط)</option>
-                </select>
-            </div>
-
-            <div id="vacationFields" style="display:none;">
-                <label>📅 مدة الإجازة (بالأيام):</label>
-                <input type="number" id="vacDays" placeholder="عدد الأيام...">
-                <label>📝 سبب الإجازة:</label>
-                <textarea id="vacReason" rows="2" placeholder="اكتب سبب طلب الإجازة..."></textarea>
-            </div>
-
-            <label>📷 إرفاق صورة (اختياري):</label>
-            <input type="file" id="repImageFile" accept="image/*">
-            
-            <textarea id="repDesc" rows="2" placeholder="اكتب تفاصيل إضافية..."></textarea>
-            <button class="submit-btn" onclick="submitForm()">إرسال الطلب وحساب النقاط</button>
-            
-            <div id="archiveDisplay" class="archive-list"><b>سجل الأرشيف الميداني المباشر:</b><br>لا توجد حالات مسجلة حتى الآن.</div>
-        </div>
-
-        <!-- لوحة الشرف -->
-        <h2>🏆 لوحة الشرف والتميز العسكري</h2>
-        <div class="section-box">
-            <button class="drop-btn" onclick="toggleSection(this)">⭐ العسكريين المتميزين في سيرفر برق</button>
-            <div class="drop-content">
-                • المركز الأول: <b>دغش</b> (أعلى نقاط ميدانية)<br>
-                • المركز الثاني: <b>نواف</b> (التزام تام بالبصمة)<br>
-                • قائد القطاع: <b>أحمد</b>
+                <!-- رسالة الحالة -->
+                <div id="alert-box"></div>
             </div>
         </div>
     </div>
 
     <script>
-        const REPORT_WEBHOOK = "https://discord.com/api/webhooks/1540393098754924624/DnTj3FlFHtx0-95wVZVnjxCBE0sVut-kdzeuLTxe_lXzc7WwiqYzu8PZ-utffHFr6aj_";
-
-        function loginBaraqDiscord(event) {
-            event.preventDefault();
-            
-            // التحقق وقصر الدخول حصرياً على رتب وأسماء سيرفر برق (أحمد، دغش، نواف)
-            let chosenName = prompt("أدخل اسمك العسكري المعتمد في سيرفر برق (أحمد / دغش / نواف):", "دغش");
-            
-            if(!chosenName || !["أحمد", "دغش", "نواف"].some(n => chosenName.includes(n))) {
-                alert("عذراً، يوزر أو اسم غير مصرح له في رتب سيرفر برق!");
-                return;
-            }
-
-            let rank = "ضابط ميداني سيرفر برق";
-            if(chosenName.includes("أحمد")) {
-                rank = "قائد عام سيرفر برق";
-            }
-
-            localStorage.setItem('baraq_name', chosenName);
-            localStorage.setItem('baraq_rank', rank);
-            localStorage.setItem('baraq_img', "IMG_0347.jpeg");
-
-            loadSession();
-        }
-
-        function loadSession() {
-            let name = localStorage.getItem('baraq_name');
-            let rank = localStorage.getItem('baraq_rank');
-            let img = localStorage.getItem('baraq_img') || "IMG_0347.jpeg";
-
-            if(name) {
-                document.getElementById('gateway-screen').style.display = 'none';
-                document.getElementById('mainContent').style.display = 'flex';
-                
-                document.getElementById('repName').value = name;
-                document.getElementById('repRank').value = rank;
-                document.getElementById('displayProfileName').innerText = name;
-                document.getElementById('displayProfileRank').innerText = rank;
-                document.getElementById('displayProfileImg').src = img;
-            }
-        }
-
-        window.onload = function() {
-            if(localStorage.getItem('baraq_name')) {
-                loadSession();
-            } else {
-                document.getElementById('gateway-screen').style.display = 'flex';
-                document.getElementById('mainContent').style.display = 'none';
-            }
+        // قاعدة بيانات اليوزرات والصلاحيات المعتمدة لديك
+        const usersDatabase = {
+            ".0_iz": { name: ".0_iz", role: "رائد / درع 2", type: "admin" },
+            "vm5q": { name: "vm5q", role: "فريق أول ركن / قيادة 1", type: "admin" },
+            "3vtw": { name: "3vtw", role: "فريق أول / قيادة 2", type: "admin" },
+            "rk.1k": { name: "rk.1k", role: "ملازم / ميم 1", type: "officer" },
+            "n.xr1": { name: "n.xr1", role: "ملازم / ميم 5", type: "officer" }
         };
 
-        function toggleSection(btn) {
-            let box = btn.parentElement;
-            box.classList.toggle('active');
-        }
+        // الروابط (Webhooks) المعتمدة لكل روم
+        const webhooks = {
+            duty: "https://discord.com/api/webhooks/1559947331325919293/LxfHJp6VIUanaLz2l0N-QX60-ToEevufmcOm3S6oBxXkdqjupDna_sYBIHSF0ObUT8Kc",
+            training: "https://discord.com/api/webhooks/1559947657625997313/usip6Diz2IALuEhuiGfj20eLdPh8AwHZwkVjKGy1zv1GaDjo6z92kUiec47ssmN1kd63",
+            media: "https://discord.com/api/webhooks/1559947819253506168/qxjQLaAyUZOHGfOX5VZEl9M0YWR1fl0KzlRS_FshEf3MXtuk4AVHeLDJgHehpDrJCMvS",
+            tasks: "https://discord.com/api/webhooks/1559949385251430430/4BplGPOkY2LMdUzgmLQ0Ui9hyxFEPBHH2Sn3Y2X8Ba6JuLr6rzn09jEXmnKX8rC", // مؤقتاً على اللوج العام
+            suggestions: "https://discord.com/api/webhooks/1559949385251430430/4BplGPOkY2LMdUzgmLQ0Ui9hyxFEPBHH2Sn3Y2X8Ba6JuLr6rzn09jEXmnKX8rC", // مؤقتاً على اللوج العام
+            log: "https://discord.com/api/webhooks/1559949385251430430/4BplGPOkY2LMdUzgmLQ0Ui9hyxFEPBHH2Sn3Y2X8Ba6JuLr6rzn09jEXmnKX8rC"
+        };
 
-        function checkOther(val) {
-            document.getElementById('otherType').style.display = (val === 'أخرى') ? 'block' : 'none';
-        }
+        let currentUser = null;
 
-        function switchFormMode(mode) {
-            if(mode === 'vacation') {
-                document.getElementById('reportFields').style.display = 'none';
-                document.getElementById('vacationFields').style.display = 'block';
+        function login() {
+            const inputVal = document.getElementById('username-input').value.trim();
+            const errorDiv = document.getElementById('login-error');
+
+            if(usersDatabase[inputVal]) {
+                currentUser = usersDatabase[inputVal];
+                document.getElementById('auth-screen').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+                document.getElementById('user-info-badge').innerText = `المستخدم: ${currentUser.name} (${currentUser.role})`;
+                errorDiv.style.display = 'none';
             } else {
-                document.getElementById('reportFields').style.display = 'block';
-                document.getElementById('vacationFields').style.display = 'none';
+                errorDiv.style.display = 'block';
             }
         }
 
-        async function toggleAttendance() {
-            let status = document.getElementById('attendanceStatus');
-            let btn = document.getElementById('attendanceBtn');
-            let name = document.getElementById('repName').value;
-            let rank = document.getElementById('repRank').value;
-            
-            let messageText = "";
-
-            if(status.innerText.includes("غير مسجل حضور")) {
-                status.style.color = "#00ff66";
-                status.innerText = "الحالة: مسجل حضور (على رأس العمل - سيرفر برق)";
-                btn.style.background = "#ff3333";
-                btn.style.color = "#ffffff";
-                btn.innerText = "🔴 إنهاء الدوام (تسجيل انصراف)";
-                messageText = `🟢 **[بصمة حضور - أمن الطرق (سيرفر برق)]**\n👤 **العسكري:** ${name}\n🎖️ **الرتبة:** ${rank}\n⏰ **الحالة:** بدأ الدوام الميداني الآن.`;
-            } else {
-                status.style.color = "#ff3333";
-                status.innerText = "الحالة: غير مسجل حضور";
-                btn.style.background = "#00ff66";
-                btn.style.color = "#040d07";
-                btn.innerText = "🟢 بدء الدوام (تسجيل حضور)";
-                messageText = `🔴 **[بصمة انصراف - أمن الطرق (سيرفر برق)]**\n👤 **العسكري:** ${name}\n🎖️ **الرتبة:** ${rank}\n⏰ **الحالة:** أنهى الدوام وغادر الميدان.`;
-            }
-
-            await fetch(REPORT_WEBHOOK, {
-                method: "POST",
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ content: messageText })
-            });
+        function logout() {
+            currentUser = null;
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('auth-screen').style.display = 'flex';
+            document.getElementById('username-input').value = '';
         }
-        
-        async function submitForm() {
-            let name = document.getElementById('repName').value;
-            let rank = document.getElementById('repRank').value;
-            let mode = document.getElementById('reportOrVacation').value;
-            let desc = document.getElementById('repDesc').value;
-            let imageFile = document.getElementById('repImageFile').files[0];
+
+        // تأثير الحركة والانتقال السلس بين الأقسام
+        function switchSection() {
+            const selectedVal = document.getElementById('section-select').value;
+            const sections = document.querySelectorAll('.form-section');
             
-            let formData = new FormData();
-            let textMessage = "";
-            let totalPoints = 0;
-
-            if(mode === 'vacation') {
-                let days = document.getElementById('vacDays').value;
-                let reason = document.getElementById('vacReason').value;
-                if(!days || !reason) {
-                    alert("يرجى تعبئة عدد أيام الإجازة والسبب!");
-                    return;
-                }
-                textMessage = `🏖️ **[طلب إجازة رسمي - سيرفر برق]**\n👤 **العسكري:** ${name}\n🎖️ **الرتبة:** ${rank}\n📅 **عدد الأيام:** ${days} أيام\n📝 **السبب:** ${reason}`;
-            } else {
-                let typeSelect = document.getElementById('repType').value;
-                let otherType = document.getElementById('otherType').value;
-                let type = (typeSelect === 'أخرى') ? otherType : typeSelect;
-                
-                if(!type) {
-                    alert("يرجى اختيار نوع الحالة!");
-                    return;
-                }
-
-                let wrapVal = parseInt(document.getElementById('repWrap').value) || 0;
-                let phraseVal = parseInt(document.getElementById('repPhrases').value) || 0;
-                let stickerVal = parseInt(document.getElementById('repStickers').value) || 0;
-                let dustVal = parseInt(document.getElementById('repDust').value) || 0;
-                
-                totalPoints = (wrapVal * 5) + (phraseVal * 10) + (stickerVal * 5) + (dustVal * 20);
-                
-                textMessage = `📢 **[تقرير ميداني - سيرفر برق]**\n👤 **العسكري:** ${name}\n🎖️ **الرتبة:** ${rank}\n⚡ **نوع الحالة:** ${type}\n🎨 **التجليد:** مستوى ${wrapVal} (${wrapVal * 5} نقطة)\n✍️ **العبارات:** مستوى ${phraseVal} (${phraseVal * 10} نقطة)\n🏷️ **الستكرات:** مستوى ${stickerVal} (${stickerVal * 5} نقطة)\n🏜️ **التغبيرة:** مستوى ${dustVal} (${dustVal * 20} نقطة)\n💰 **إجمالي النقاط:** ${totalPoints} نقطة\n📝 **التفاصيل:** ${desc || 'لا توجد تفاصيل إضافية'}`;
-            }
-            
-            formData.append('payload_json', JSON.stringify({ content: textMessage }));
-            if(imageFile) {
-                formData.append('file', imageFile);
-            }
-
-            await fetch(REPORT_WEBHOOK, {
-                method: "POST",
-                body: formData
+            sections.forEach(sec => {
+                sec.classList.remove('active');
             });
 
-            let display = document.getElementById('archiveDisplay');
-            if(display.innerText.includes("لا توجد حالات مسجلة")) {
-                display.innerHTML = "<b>سجل الأرشيف الميداني المباشر:</b>";
+            if(selectedVal) {
+                const targetSec = document.getElementById(`section-${selectedVal}`);
+                if(targetSec) {
+                    setTimeout(() => {
+                        targetSec.classList.add('active');
+                    }, 50);
+                }
             }
-            
-            let entry = document.createElement('div');
-            entry.style.borderBottom = "1px dashed #143820";
-            entry.style.padding = "8px 0";
-            if(mode === 'vacation') {
-                entry.innerHTML = `🏖️ <b>[إجازة - برق] [${rank}] ${name}</b> | الحالة: <b style="color:#00ff66;">قيد الدارسة</b>`;
-            } else {
-                entry.innerHTML = `📌 <b>[تقرير - برق] [${rank}] ${name}</b> | النقاط: <b style="color:#00ff66;">+${totalPoints}</b> ${imageFile ? '<br><span style="color:#00ff66; font-size:12px;">[تم إرفاق صورة]</span>' : ''}`;
-                
-                let currentPts = parseInt(document.getElementById('displayPoints').innerText) || 0;
-                document.getElementById('displayPoints').innerText = currentPts + totalPoints;
+        }
+
+        // إرسال البيانات للديسكورد عبر الـ Webhook
+        async function sendReport(type) {
+            let content = "";
+            let title = "";
+
+            if(type === 'duty') {
+                title = "📌 [تسجيل استلام ضابط]";
+                const name = document.getElementById('duty-name').value;
+                const start = document.getElementById('duty-start').value;
+                const end = document.getElementById('duty-end').value;
+                const notes = document.getElementById('duty-notes').value;
+                if(!name || !start) { showAlert("يرجى تعبئة الحقول الأساسية", "error"); return; }
+                content = `**الضابط:** ${name}\n**وقت البداية:** ${start}\n**وقت النهاية:** ${end}\n**الملاحظات:** ${notes}`;
+            } else if(type === 'training') {
+                title = "🎖️ [تقرير تدريب عسكري]";
+                const admin = document.getElementById('train-admin').value;
+                const tTitle = document.getElementById('train-title').value;
+                const attendees = document.getElementById('train-attendees').value;
+                if(!admin || !tTitle) { showAlert("يرجى تعبئة الحقول الأساسية", "error"); return; }
+                content = `**المدرب المسؤول:** ${admin}\n**عنوان التدريب:** ${tTitle}\n**الحاضرون:**\n${attendees}`;
+            } else if(type === 'media') {
+                title = "📸 [مشاركة إعلامية جديدة]";
+                const name = document.getElementById('media-name').value;
+                const link = document.getElementById('media-link').value;
+                const desc = document.getElementById('media-desc').value;
+                if(!name || !link) { showAlert("يرجى تعبئة الحقول الأساسية", "error"); return; }
+                content = `**المرسل:** ${name}\n**الوصف:** ${desc}\n**الرابط:** ${link}`;
+            } else if(type === 'tasks') {
+                title = "⚡ [إنجاز مهمة جانبية]";
+                const name = document.getElementById('task-name').value;
+                const desc = document.getElementById('task-desc').value;
+                const result = document.getElementById('task-result').value;
+                if(!name || !desc) { showAlert("يرجى تعبئة الحقول الأساسية", "error"); return; }
+                content = `**المنفذ:** ${name}\n**المهمة:** ${desc}\n**النتيجة:** ${result}`;
+            } else if(type === 'suggestions') {
+                title = "💡 [مقترح جديد للقطاع]";
+                const name = document.getElementById('sug-name').value;
+                const contentText = document.getElementById('sug-content').value;
+                if(!name || !contentText) { showAlert("يرجى تعبئة الحقول الأساسية", "error"); return; }
+                content = `**المقترح من:** ${name}\n**نص المقترح:**\n${contentText}`;
             }
-            display.appendChild(entry);
-            
-            alert("تم إرسال الطلب بنجاح إلى سجلات سيرفر برق!");
+
+            const payload = {
+                embeds: [{
+                    title: title,
+                    description: content,
+                    color: 30927, // لون أزرق تكتيكي
+                    footer: { text: `بواسطة: ${currentUser.name} (${currentUser.role})` },
+                    timestamp: new Date().toISOString()
+                }]
+            };
+
+            try {
+                // إرسال للروم الخاص بالقسم
+                await fetch(webhooks[type], {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                // إرسال نسخة للوج العام
+                await fetch(webhooks.log, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        embeds: [{
+                            title: `🔔 [لوج الجهاز] - تم تسجيل نشاط جديد`,
+                            description: `تم إرسال بلاغ جديد في قسم (**${type}**) بواسطة العضو: **${currentUser.name}**`,
+                            color: 16776960,
+                            timestamp: new Date().toISOString()
+                        }]
+                    })
+                });
+
+                showAlert("تم إرسال التقرير بنجاح إلى رومات الديسكورد!", "success");
+            } catch (err) {
+                showAlert("حدث خطأ أثناء الإرسال، تأكد من الاتصال.", "error");
+            }
+        }
+
+        function showAlert(msg, status) {
+            const box = document.getElementById('alert-box');
+            box.style.display = 'block';
+            box.className = status === 'success' ? 'alert-success' : 'alert-error';
+            box.innerText = msg;
+            setTimeout(() => { box.style.display = 'none'; }, 4000);
         }
     </script>
 </body>
