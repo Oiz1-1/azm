@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الجهاز | القوات الخاصة لأمن الطرق</title>
+    <title>منصة الجهاز | القوات الخاصة لأمن الطرق</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0b0f19;
-            --panel-bg: rgba(15, 23, 42, 0.85);
+            --bg-color: #07090e;
+            --panel-bg: rgba(13, 18, 30, 0.9);
             --primary-blue: #00f0ff;
-            --dark-blue: #0066ff;
-            --text-main: #f1f5f9;
+            --dark-blue: #0055ff;
+            --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --danger: #ef4444;
-            --border-glow: rgba(0, 240, 255, 0.3);
+            --success: #10b981;
+            --border-glow: rgba(0, 240, 255, 0.25);
         }
 
         * {
@@ -27,8 +28,8 @@
         body {
             background-color: var(--bg-color);
             background-image: 
-                radial-gradient(circle at 50% 0%, rgba(0, 102, 255, 0.15) 0%, transparent 50%),
-                linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8));
+                radial-gradient(circle at 50% 0%, rgba(0, 85, 255, 0.12) 0%, transparent 60%),
+                linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85));
             color: var(--text-main);
             min-height: 100vh;
             overflow-x: hidden;
@@ -46,26 +47,26 @@
         .auth-card {
             background: var(--panel-bg);
             border: 2px solid var(--primary-blue);
-            box-shadow: 0 0 25px var(--border-glow);
+            box-shadow: 0 0 30px var(--border-glow);
             padding: 40px;
             border-radius: 16px;
             text-align: center;
             width: 100%;
-            max-width: 420px;
-            backdrop-filter: blur(12px);
+            max-width: 440px;
+            backdrop-filter: blur(15px);
         }
 
         .auth-card h1 {
             color: var(--primary-blue);
-            font-size: 28px;
-            margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(0,240,255,0.5);
+            font-size: 26px;
+            margin-bottom: 8px;
+            text-shadow: 0 0 12px rgba(0,240,255,0.4);
         }
 
         .auth-card p {
             color: var(--text-muted);
             margin-bottom: 25px;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .input-group {
@@ -83,24 +84,24 @@
         .input-group input {
             width: 100%;
             padding: 12px 15px;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
             border: 1px solid #1e293b;
             border-radius: 8px;
             color: #fff;
-            font-size: 16px;
+            font-size: 15px;
             transition: all 0.3s;
         }
 
         .input-group input:focus {
             border-color: var(--primary-blue);
             outline: none;
-            box-shadow: 0 0 10px rgba(0,240,255,0.3);
+            box-shadow: 0 0 12px rgba(0,240,255,0.3);
         }
 
         .btn-tactical {
             background: linear-gradient(135deg, var(--dark-blue), var(--primary-blue));
             color: #000;
-            font-weight: 700;
+            font-weight: 800;
             padding: 12px;
             width: 100%;
             border: none;
@@ -108,106 +109,178 @@
             cursor: pointer;
             font-size: 16px;
             transition: all 0.3s;
-            box-shadow: 0 0 15px rgba(0,240,255,0.4);
+            box-shadow: 0 0 15px rgba(0,240,255,0.3);
         }
 
         .btn-tactical:hover {
             transform: translateY(-2px);
-            box-shadow: 0 0 25px rgba(0,240,255,0.7);
+            box-shadow: 0 0 25px rgba(0,240,255,0.6);
         }
 
         /* لوحة التحكم الرئيسية */
         #dashboard {
             display: none;
-            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: fadeIn 0.5s ease-in-out;
         }
 
         header {
-            background: rgba(11, 15, 25, 0.95);
+            background: rgba(7, 9, 14, 0.95);
             border-bottom: 1px solid rgba(0, 240, 255, 0.2);
-            padding: 15px 30px;
+            padding: 12px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: sticky;
             top: 0;
             z-index: 1000;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
         }
 
-        .logo-area {
+        .logo-area h2 {
+            font-size: 20px;
+            color: var(--primary-blue);
+            letter-spacing: 0.5px;
+        }
+
+        /* تفاصيل الشريط العلوي العسكري المنظم */
+        .user-nav-profile {
             display: flex;
             align-items: center;
             gap: 15px;
         }
 
-        .logo-area h2 {
-            font-size: 22px;
-            color: var(--primary-blue);
-            letter-spacing: 1px;
+        .profile-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 240, 255, 0.05);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            padding: 6px 14px;
+            border-radius: 30px;
         }
 
-        .user-badge {
-            background: rgba(0, 240, 255, 0.1);
+        .profile-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--dark-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            color: #fff;
             border: 1px solid var(--primary-blue);
-            padding: 6px 15px;
-            border-radius: 20px;
+        }
+
+        .profile-details {
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+        }
+
+        .profile-callsign {
             font-size: 13px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .profile-rank {
+            font-size: 11px;
             color: var(--primary-blue);
         }
 
-        /* محتوى المنصة */
+        .btn-logout {
+            background: transparent;
+            border: 1px solid var(--danger);
+            color: var(--danger);
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .btn-logout:hover {
+            background: var(--danger);
+            color: #fff;
+        }
+
+        /* حاوية المحتوى والقائمة المنسدلة في المنتصف فوق */
         .main-container {
-            max-width: 900px;
-            margin: 40px auto;
+            max-width: 850px;
+            margin: 30px auto;
             padding: 0 20px;
         }
 
-        .card-panel {
+        /* واجهة الصفحة الرئيسية (Landing Page) */
+        .landing-view {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--panel-bg);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 14px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .landing-view h3 {
+            color: var(--primary-blue);
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .landing-view p {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* القائمة المنسدلة التكتيكية العلوية في المنتصف */
+        .top-dropdown-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        .dropdown-tactical-box {
+            width: 100%;
+            max-width: 450px;
+            position: relative;
+        }
+
+        .select-tactical {
+            width: 100%;
+            padding: 14px 20px;
+            background: rgba(13, 18, 30, 0.95);
+            border: 2px solid var(--primary-blue);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .select-tactical:focus {
+            outline: none;
+            box-shadow: 0 0 25px var(--border-glow);
+        }
+
+        /* صناديق الأقسام مع أنيميشن الحركة الانسيابي */
+        .form-section {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             background: var(--panel-bg);
             border: 1px solid rgba(0, 240, 255, 0.2);
             border-radius: 14px;
             padding: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            backdrop-filter: blur(10px);
-            transition: all 0.4s ease;
-        }
-
-        /* القائمة المنسدلة التكتيكية */
-        .dropdown-container {
-            margin-bottom: 25px;
-        }
-
-        .dropdown-container label {
-            display: block;
-            margin-bottom: 10px;
-            color: var(--primary-blue);
-            font-weight: 600;
-        }
-
-        .select-tactical {
-            width: 100%;
-            padding: 14px;
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid var(--primary-blue);
-            border-radius: 8px;
-            color: #fff;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .select-tactical:focus {
-            outline: none;
-            box-shadow: 0 0 15px var(--border-glow);
-        }
-
-        /* أقسام النماذج مع تأثيرات الانيميشن */
-        .form-section {
-            display: none;
-            opacity: 0;
-            transform: translateY(15px);
-            transition: all 0.4s ease;
+            backdrop-filter: blur(12px);
         }
 
         .form-section.active {
@@ -238,19 +311,60 @@
         .form-row input, .form-row textarea, .form-row select {
             width: 100%;
             padding: 12px;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.5);
             border: 1px solid #1e293b;
             border-radius: 8px;
             color: #fff;
             font-size: 15px;
+            transition: border-color 0.3s;
         }
 
-        .form-row input:focus, .form-row textarea:focus {
+        .form-row input:focus, .form-row textarea:focus, .form-row select:focus {
             border-color: var(--primary-blue);
             outline: none;
         }
 
-        /* رسائل التنبيه والنجاح */
+        .form-row input[readonly] {
+            background: rgba(0, 240, 255, 0.05);
+            color: var(--primary-blue);
+            font-weight: 700;
+            border-color: rgba(0, 240, 255, 0.3);
+        }
+
+        /* لوج القيادة الخاص */
+        #admin-log-panel {
+            margin-top: 30px;
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px dashed var(--primary-blue);
+            padding: 20px;
+            border-radius: 12px;
+            display: none;
+        }
+
+        #admin-log-panel h4 {
+            color: var(--primary-blue);
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .log-list {
+            max-height: 180px;
+            overflow-y: auto;
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .log-item {
+            background: rgba(0,0,0,0.4);
+            padding: 8px 12px;
+            border-radius: 6px;
+            border-right: 3px solid var(--primary-blue);
+        }
+
+        /* تنبيهات الحالة */
         #alert-box {
             margin-top: 15px;
             padding: 12px;
@@ -262,7 +376,7 @@
 
         .alert-success {
             background: rgba(16, 185, 129, 0.2);
-            border: 1px solid #10b981;
+            border: 1px solid var(--success);
             color: #34d399;
         }
 
@@ -276,26 +390,21 @@
             from { opacity: 0; }
             to { opacity: 1; }
         }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
     </style>
 </head>
 <body>
 
-    <!-- شاشة تسجيل الدخول الإجباري -->
+    <!-- شاشة تسجيل الدخول الإجباري ونظام ديسكورد -->
     <div id="auth-screen">
         <div class="auth-card">
             <h1>قوات أمن الطرق</h1>
-            <p>منصة "الجهاز" - يرجى إدخال اسم المستخدم للتحقق من الصلاحيات</p>
+            <p>منصة "الجهاز" التكتيكية - يرجى تسجيل الدخول للتحقق من الهوية</p>
             <div class="input-group">
-                <label>اسم المستخدم (Discord Username)</label>
-                <input type="text" id="username-input" placeholder="مثال: .0_iz أو rk.1k">
+                <label>معرف ديسكورد (Discord Username)</label>
+                <input type="text" id="username-input" placeholder="أدخل يوزرك المسجل...">
             </div>
-            <button class="btn-tactical" onclick="login()">تسجيل الدخول</button>
-            <div id="login-error" style="color: var(--danger); font-size: 13px; margin-top: 10px; display: none;">اسم المستخدم غير مسجل في النظام!</div>
+            <button class="btn-tactical" onclick="login()">ربط حساب ديسكورد ودخول</button>
+            <div id="login-error" style="color: var(--danger); font-size: 13px; margin-top: 10px; display: none;">اسم المستخدم غير مسجل في قاعدة بيانات القطاع!</div>
         </div>
     </div>
 
@@ -305,19 +414,30 @@
             <div class="logo-area">
                 <h2>الجهاز | أمن الطرق</h2>
             </div>
-            <div style="display: flex; gap: 15px; align-items: center;">
-                <div class="user-badge" id="user-info-badge">الرتبة: -</div>
-                <button onclick="logout()" style="background: transparent; border: 1px solid var(--danger); color: var(--danger); padding: 5px 12px; border-radius: 6px; cursor: pointer; font-size: 13px;">خروج</button>
+            <div class="user-nav-profile">
+                <div class="profile-box">
+                    <div class="profile-avatar" id="user-avatar-initial">ق</div>
+                    <div class="profile-details">
+                        <span class="profile-callsign" id="header-username">-</span>
+                        <span class="profile-rank" id="header-rank">-</span>
+                    </div>
+                </div>
+                <button class="btn-logout" onclick="logout()">تسجيل خروج</button>
             </div>
         </header>
 
         <div class="main-container">
-            <div class="card-panel">
-                <!-- القائمة المنسدلة التكتيكية -->
-                <div class="dropdown-container">
-                    <label>اختر القسم المطلوب:</label>
+            <!-- صفحة ترحيبية أساسية -->
+            <div class="landing-view" id="landing-welcome">
+                <h3>مرحباً بك في لوحة عمليات القطاع</h3>
+                <p>قم باختيار القسم المطلوب من القائمة المنسدلة في الأعلى لتسجيل التقارير والعمليات الميدانية مباشرة إلى غرف العمليات والروماـت المخصصة.</p>
+            </div>
+
+            <!-- القائمة المنسدلة التكتيكية في المنتصف فوق -->
+            <div class="top-dropdown-wrapper">
+                <div class="dropdown-tactical-box">
                     <select id="section-select" class="select-tactical" onchange="switchSection()">
-                        <option value="" disabled selected>-- اختر القسم لتسجيل التقرير --</option>
+                        <option value="" disabled selected>-- 📋 اختر القسم المطلوب لتسجيل التقرير --</option>
                         <option value="duty">1. قسم الاستلام</option>
                         <option value="training">2. قسم التدريب</option>
                         <option value="media">3. قسم المشاركات الإعلامية</option>
@@ -325,60 +445,93 @@
                         <option value="suggestions">5. قسم اقتراحات القطاع</option>
                     </select>
                 </div>
-
-                <!-- 1. قسم الاستلام -->
-                <div id="section-duty" class="form-section">
-                    <h3>تسجيل استلام ضابط</h3>
-                    <div class="form-row"><label>الرتبة والاسم:</label><input type="text" id="duty-name" placeholder="أدخل رتبتك واهتمامك"></div>
-                    <div class="form-row"><label>وقت بداية الاستلام:</label><input type="text" id="duty-start" placeholder="مثال: 08:00 مساءً"></div>
-                    <div class="form-row"><label>وقت نهاية الاستلام:</label><input type="text" id="duty-end" placeholder="مثال: 12:00 مساءً"></div>
-                    <div class="form-row"><label>ملاحظات الميدان:</label><textarea id="duty-notes" rows="3" placeholder="أدخل تفاصيل التواجد الأمني..."></textarea></div>
-                    <button class="btn-tactical" onclick="sendReport('duty')">إرسال إلى ديوان العمليات</button>
-                </div>
-
-                <!-- 2. قسم التدريب -->
-                <div id="section-training" class="form-section">
-                    <h3>تسجيل دفعة التدريب</h3>
-                    <div class="form-row"><label>المسؤول عن التدريب:</label><input type="text" id="train-admin" placeholder="اسم المدرب ورتبته"></div>
-                    <div class="form-row"><label>عنوان أو نوع التدريب:</label><input type="text" id="train-title" placeholder="مثال: دورة المطاردات والسيطرة"></div>
-                    <div class="form-row"><label>أسماء العناصر الحاضرين:</label><textarea id="train-attendees" rows="3" placeholder="أدخل الأسماء..."></textarea></div>
-                    <button class="btn-tactical" onclick="sendReport('training')">إرسال تقرير التدريب</button>
-                </div>
-
-                <!-- 3. قسم المشاركات الإعلامية -->
-                <div id="section-media" class="form-section">
-                    <h3>تسجيل مشاركة إعلامية</h3>
-                    <div class="form-row"><label>اسم الضابط:</label><input type="text" id="media-name" placeholder="اسمك الكريم ورتبتك"></div>
-                    <div class="form-row"><label>رابط التغطية أو الميديا:</label><input type="text" id="media-link" placeholder="رابط الصورة أو الفيديو"></div>
-                    <div class="form-row"><label>وصف التغطية:</label><textarea id="media-desc" rows="2" placeholder="تفاصيل الفعالية أو التغطية..."></textarea></div>
-                    <button class="btn-tactical" onclick="sendReport('media')">إرسال التغطية</button>
-                </div>
-
-                <!-- 4. قسم المهام الجانبية -->
-                <div id="section-tasks" class="form-section">
-                    <h3>تسجيل مهام جانبية</h3>
-                    <div class="form-row"><label>اسم الضابط:</label><input type="text" id="task-name" placeholder="أدخل اسمك"></div>
-                    <div class="form-row"><label>طبيعة المهمة:</label><input type="text" id="task-desc" placeholder="مثال: تأمين طريق الساحل"></div>
-                    <div class="form-row"><label>النتائج والإنجاز:</label><textarea id="task-result" rows="2" placeholder="ما تم إنجازه..."></textarea></div>
-                    <button class="btn-tactical" onclick="sendReport('tasks')">إرسال المهمة</button>
-                </div>
-
-                <!-- 5. قسم الاقتراحات -->
-                <div id="section-suggestions" class="form-section">
-                    <h3>قسم اقتراحات القطاع</h3>
-                    <div class="form-row"><label>اسم الضابط / القائد:</label><input type="text" id="sug-name" placeholder="اسمك"></div>
-                    <div class="form-row"><label>نص الاقتراح للتطوير:</label><textarea id="sug-content" rows="4" placeholder="اكتب مقترحك لتطوير أمن الطرق..."></textarea></div>
-                    <button class="btn-tactical" onclick="sendReport('suggestions')">رفع المقترح للقيادة</button>
-                </div>
-
-                <!-- رسالة الحالة -->
-                <div id="alert-box"></div>
             </div>
+
+            <!-- 1. قسم الاستلام -->
+            <div id="section-duty" class="form-section">
+                <h3>📌 تسجيل استلام ضابط</h3>
+                <div class="form-row"><label>اسم المسؤول عن الاستلام (تلقائي):</label><input type="text" id="duty-name" readonly></div>
+                <div class="form-row"><label>عدد الأفراد المتواجدين:</label><input type="number" id="duty-count" placeholder="مثال: 6"></div>
+                <div class="form-row"><label>مدة الاستلام:</label><input type="text" id="duty-duration" placeholder="مثال: ساعتان"></div>
+                <div class="form-row"><label>أفضل فرد:</label><input type="text" id="duty-best" placeholder="اسم الفرد المميز"></div>
+                <div class="form-row"><label>أسوأ فرد:</label><input type="text" id="duty-worst" placeholder="اسم الفرد المقصر"></div>
+                <div class="form-row"><label>وصف الاستلام:</label><textarea id="duty-desc" rows="3" placeholder="تفاصيل وحالة الميدان..."></textarea></div>
+                
+                <!-- رفع صورتين للاستلام -->
+                <div class="form-row">
+                    <label>رفع صور إثبات الاستلام (صورتين):</label>
+                    <input type="file" id="duty-images" multiple accept="image/*">
+                </div>
+
+                <button class="btn-tactical" onclick="sendReport('duty')">إرسال تقرير الاستلام إلى الروم</button>
+            </div>
+
+            <!-- 2. قسم التدريب -->
+            <div id="section-training" class="form-section">
+                <h3>🎖️ قسم التدريب</h3>
+                <div class="form-row"><label>اسم المسؤول (تلقائي):</label><input type="text" id="train-name" readonly></div>
+                <div class="form-row"><label>مدة التدريب:</label><input type="text" id="train-duration" placeholder="مثال: 45 دقيقة"></div>
+                <div class="form-row"><label>عدد الدفعة:</label><input type="number" id="train-batch" placeholder="عدد المتدربين"></div>
+                <div class="form-row"><label>الأشخاص الذين نجحوا:</label><textarea id="train-success" rows="2" placeholder="أسماء الناجحين..."></textarea></div>
+                <div class="form-row"><label>الأشخاص الذين فشلوا:</label><textarea id="train-fail" rows="2" placeholder="أسماء الراسبين..."></textarea></div>
+                <div class="form-row"><label>المدربون المشاركون:</label><input type="text" id="train-trainers" placeholder="أسماء المدربين"></div>
+                <button class="btn-tactical" onclick="sendReport('training')">إرسال تقرير التدريب إلى الروم</button>
+            </div>
+
+            <!-- 3. قسم المشاركات الإعلامية -->
+            <div id="section-media" class="form-section">
+                <h3>📸 قسم المشاركات الإعلامية</h3>
+                <div class="form-row"><label>اسم المشارك (تلقائي):</label><input type="text" id="media-name" readonly></div>
+                <div class="form-row">
+                    <label>نوع المشاركة:</label>
+                    <select id="media-type" style="width:100%; padding:12px; background:rgba(0,0,0,0.5); border:1px solid #1e293b; border-radius:8px; color:#fff;">
+                        <option value="صورة">صورة</option>
+                        <option value="فيديو">فيديو</option>
+                    </select>
+                </div>
+                <div class="form-row"><label>فكرة المشاركة:</label><input type="text" id="media-idea" placeholder="شرح موجز لفكرة العمل..."></div>
+                <div class="form-row">
+                    <label>رفع المشاركة (مباشرة من ألبوم الجهاز):</label>
+                    <input type="file" id="media-file" accept="image/*,video/*">
+                </div>
+                <div class="form-row"><label>أشياء تبيها تنضاف في مشاركتك:</label><textarea id="media-notes" rows="2" placeholder="ملاحظات أو إضافات مقترحة..."></textarea></div>
+                <button class="btn-tactical" onclick="sendReport('media')">إرسال المشاركة إلى الروم</button>
+            </div>
+
+            <!-- 4. قسم المهام الجانبية -->
+            <div id="section-tasks" class="form-section">
+                <h3>⚡ قسم المهام الجانبية</h3>
+                <div class="form-row"><label>اسم الضابط (تلقائي):</label><input type="text" id="task-name" readonly></div>
+                <div class="form-row"><label>نوع المهمة:</label><input type="text" id="task-type" placeholder="طبيعة المهمة المنجزة"></div>
+                <div class="form-row"><label>سبب المهمة:</label><input type="text" id="task-reason" placeholder="دواعي وأسباب التنفيذ"></div>
+                <div class="form-row"><label>نتيجة المهمة:</label><textarea id="task-result" rows="2" placeholder="النتائج والإنجازات الميدانية..."></textarea></div>
+                <button class="btn-tactical" onclick="sendReport('tasks')">إرسال تقرير المهمة إلى الروم</button>
+            </div>
+
+            <!-- 5. قسم اقتراحات القطاع -->
+            <div id="section-suggestions" class="form-section">
+                <h3>💡 قسم اقتراحات القطاع</h3>
+                <div class="form-row"><label>اسم الضابط (تلقائي):</label><input type="text" id="sug-name" readonly></div>
+                <div class="form-row"><label>وش اقتراحك؟</label><textarea id="sug-content" rows="3" placeholder="تفاصيل الاقتراح التطويري..."></textarea></div>
+                <div class="form-row"><label>سبب اقتراحك:</label><textarea id="sug-reason" rows="2" placeholder="الهدف والجدوى من المقترح..."></textarea></div>
+                <button class="btn-tactical" onclick="sendReport('suggestions')">رفع المقترح إلى الروم</button>
+            </div>
+
+            <!-- لوج القيادة العام (يظهر فقط للقادة) -->
+            <div id="admin-log-panel">
+                <h4>🔒 سجلات العمليات واللوج العام (صلاحية القيادة فقط)</h4>
+                <div class="log-list" id="admin-log-container">
+                    <div class="log-item">النظام جاهز، بانتظار تسجيل النشاطات والتقارير الميدانية...</div>
+                </div>
+            </div>
+
+            <!-- رسالة الحالة -->
+            <div id="alert-box"></div>
         </div>
     </div>
 
     <script>
-        // قاعدة بيانات اليوزرات والصلاحيات المعتمدة لديك
+        // قاعدة بيانات المستخدمين والصلاحيات المعتمدة
         const usersDatabase = {
             ".0_iz": { name: ".0_iz", role: "رائد / درع 2", type: "admin" },
             "vm5q": { name: "vm5q", role: "فريق أول ركن / قيادة 1", type: "admin" },
@@ -387,14 +540,13 @@
             "n.xr1": { name: "n.xr1", role: "ملازم / ميم 5", type: "officer" }
         };
 
-        // الروابط (Webhooks) المعتمدة لكل روم
+        // روابط الـ Webhooks الدقيقة لكل روم
         const webhooks = {
-            duty: "https://discord.com/api/webhooks/1559947331325919293/LxfHJp6VIUanaLz2l0N-QX60-ToEevufmcOm3S6oBxXkdqjupDna_sYBIHSF0ObUT8Kc",
-            training: "https://discord.com/api/webhooks/1559947657625997313/usip6Diz2IALuEhuiGfj20eLdPh8AwHZwkVjKGy1zv1GaDjo6z92kUiec47ssmN1kd63",
-            media: "https://discord.com/api/webhooks/1559947819253506168/qxjQLaAyUZOHGfOX5VZEl9M0YWR1fl0KzlRS_FshEf3MXtuk4AVHeLDJgHehpDrJCMvS",
-            tasks: "https://discord.com/api/webhooks/1559949385251430430/4BplGPOkY2LMdUzgmLQ0Ui9hyxFEPBHH2Sn3Y2X8Ba6JuLr6rzn09jEXmnKX8rC", // مؤقتاً على اللوج العام
-            suggestions: "https://discord.com/api/webhooks/1559949385251430430/4BplGPOkY2LMdUzgmLQ0Ui9hyxFEPBHH2Sn3Y2X8Ba6JuLr6rzn09jEXmnKX8rC", // مؤقتاً على اللوج العام
-            log: "https://discord.com/api/webhooks/1559949385251430430/4BplGPOkY2LMdUzgmLQ0Ui9hyxFEPBHH2Sn3Y2X8Ba6JuLr6rzn09jEXmnKX8rC"
+            duty: "https://discord.com/api/webhooks/1559947331325919293/LxfHJp6VIUanaLz2l0N-QX60-ToEevufmcOm3S6oBxXkdqjupDna_sYBIHSF0ObUT8Kc",       // #استلامات-الضباط
+            training: "https://discord.com/api/webhooks/1559947657625997313/usip6Diz2IALuEhuiGfj20eLdPh8AwHZwkVjKGy1zv1GaDjo6z92kUiec47ssmN1kd63", // #تدريبات-الضباط
+            media: "https://discord.com/api/webhooks/1559947819253506168/qxjQLaAyUZOHGfOX5VZEl9M0YWR1fl0KzlRS_FshEf3MXtuk4AVHeLDJgHehpDrJCMvS",   // #المشاركات-الإعلاميه
+            suggestions: "https://discord.com/api/webhooks/1559948254483972116/p4T92nZ_z1WkgcMrpJlihlBIJ6H1Y-9RfM7a-xypvr2JyRGRKi0koP9lsvdz1M3Igw", // #الأقتراحات
+            tasks: "https://discord.com/api/webhooks/1559948085097013268/YfjGKMqwkPEDEMrjxxAYGdGhsj9O_NZmr8sWbZvpfbqhOBU93G6pIAhWuZ7EfkoEfH"     // #المهام-الجانبيه
         };
 
         let currentUser = null;
@@ -405,9 +557,28 @@
 
             if(usersDatabase[inputVal]) {
                 currentUser = usersDatabase[inputVal];
+                
+                // إخفاء شاشة الدخول وإظهار لوحة التحكم
                 document.getElementById('auth-screen').style.display = 'none';
                 document.getElementById('dashboard').style.display = 'block';
-                document.getElementById('user-info-badge').innerText = `المستخدم: ${currentUser.name} (${currentUser.role})`;
+                
+                // تعبئة بيانات الشريط العلوي المنظم
+                document.getElementById('header-username').innerText = currentUser.name;
+                document.getElementById('header-rank').innerText = currentUser.role;
+                document.getElementById('user-avatar-initial').innerText = currentUser.name.charAt(0).toUpperCase();
+
+                // التعبئة التلقائية لأسماء الضباط في جميع النماذج
+                document.getElementById('duty-name').value = `${currentUser.name} (${currentUser.role})`;
+                document.getElementById('train-name').value = `${currentUser.name} (${currentUser.role})`;
+                document.getElementById('media-name').value = `${currentUser.name} (${currentUser.role})`;
+                document.getElementById('task-name').value = `${currentUser.name} (${currentUser.role})`;
+                document.getElementById('sug-name').value = `${currentUser.name} (${currentUser.role})`;
+
+                // إظهار لوج القيادة فقط إذا كان المستخدم من القيادة
+                if(currentUser.type === 'admin') {
+                    document.getElementById('admin-log-panel').style.display = 'block';
+                }
+
                 errorDiv.style.display = 'none';
             } else {
                 errorDiv.style.display = 'block';
@@ -419,16 +590,20 @@
             document.getElementById('dashboard').style.display = 'none';
             document.getElementById('auth-screen').style.display = 'flex';
             document.getElementById('username-input').value = '';
+            document.getElementById('admin-log-panel').style.display = 'none';
+            document.getElementById('section-select').value = "";
+            document.getElementById('landing-welcome').style.display = 'block';
+            document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));
         }
 
-        // تأثير الحركة والانتقال السلس بين الأقسام
+        // الحركة وانتقال الأقسام عبر القائمة المنسدلة في المنتصف فوق
         function switchSection() {
             const selectedVal = document.getElementById('section-select').value;
             const sections = document.querySelectorAll('.form-section');
+            const landing = document.getElementById('landing-welcome');
             
-            sections.forEach(sec => {
-                sec.classList.remove('active');
-            });
+            landing.style.display = 'none';
+            sections.forEach(sec => sec.classList.remove('active'));
 
             if(selectedVal) {
                 const targetSec = document.getElementById(`section-${selectedVal}`);
@@ -440,46 +615,53 @@
             }
         }
 
-        // إرسال البيانات للديسكورد عبر الـ Webhook
+        // إرسال البيانات للديسكورد عبر الـ Webhook الخاص بكل روم
         async function sendReport(type) {
             let content = "";
             let title = "";
 
             if(type === 'duty') {
-                title = "📌 [تسجيل استلام ضابط]";
-                const name = document.getElementById('duty-name').value;
-                const start = document.getElementById('duty-start').value;
-                const end = document.getElementById('duty-end').value;
-                const notes = document.getElementById('duty-notes').value;
-                if(!name || !start) { showAlert("يرجى تعبئة الحقول الأساسية", "error"); return; }
-                content = `**الضابط:** ${name}\n**وقت البداية:** ${start}\n**وقت النهاية:** ${end}\n**الملاحظات:** ${notes}`;
+                title = "📌 [تقرير استلام ضابط]";
+                const count = document.getElementById('duty-count').value;
+                const duration = document.getElementById('duty-duration').value;
+                const best = document.getElementById('duty-best').value;
+                const worst = document.getElementById('duty-worst').value;
+                const desc = document.getElementById('duty-desc').value;
+                if(!duration || !count) { showAlert("يرجى تعبئة الحقول الأساسية للاستلام", "error"); return; }
+                content = `**المسؤول:** ${currentUser.name} (${currentUser.role})\n**عدد الأفراد:** ${count}\n**مدة الاستلام:** ${duration}\n**أفضل فرد:** ${best || 'لا يوجد'}\n**أسوأ فرد:** ${worst || 'لا يوجد'}\n**الوصف:** ${desc || 'بدون وصف'}`;
+            
             } else if(type === 'training') {
-                title = "🎖️ [تقرير تدريب عسكري]";
-                const admin = document.getElementById('train-admin').value;
-                const tTitle = document.getElementById('train-title').value;
-                const attendees = document.getElementById('train-attendees').value;
-                if(!admin || !tTitle) { showAlert("يرجى تعبئة الحقول الأساسية", "error"); return; }
-                content = `**المدرب المسؤول:** ${admin}\n**عنوان التدريب:** ${tTitle}\n**الحاضرون:**\n${attendees}`;
+                title = "🎖️ [تقرير دفعة تدريب]";
+                const duration = document.getElementById('train-duration').value;
+                const batch = document.getElementById('train-batch').value;
+                const success = document.getElementById('train-success').value;
+                const fail = document.getElementById('train-fail').value;
+                const trainers = document.getElementById('train-trainers').value;
+                if(!duration || !batch) { showAlert("يرجى تعبئة الحقول الأساسية للتدريب", "error"); return; }
+                content = `**المدرب المسؤول:** ${currentUser.name} (${currentUser.role})\n**مدة التدريب:** ${duration}\n**عدد الدفعة:** ${batch}\n**الناجحون:** ${success || 'لا يوجد'}\n**الفاشلون:** ${fail || 'لا يوجد'}\n**المدربون:** ${trainers || 'غير محدد'}`;
+            
             } else if(type === 'media') {
                 title = "📸 [مشاركة إعلامية جديدة]";
-                const name = document.getElementById('media-name').value;
-                const link = document.getElementById('media-link').value;
-                const desc = document.getElementById('media-desc').value;
-                if(!name || !link) { showAlert("يرجى تعبئة الحقول الأساسية", "error"); return; }
-                content = `**المرسل:** ${name}\n**الوصف:** ${desc}\n**الرابط:** ${link}`;
+                const mType = document.getElementById('media-type').value;
+                const idea = document.getElementById('media-idea').value;
+                const notes = document.getElementById('media-notes').value;
+                if(!idea) { showAlert("يرجى إدخال فكرة المشاركة", "error"); return; }
+                content = `**المشارَك:** ${currentUser.name} (${currentUser.role})\n**نوع المشاركة:** ${mType}\n**الفكرة:** ${idea}\n**ملاحظات وإضافات:** ${notes || 'لا توجد'}`;
+            
             } else if(type === 'tasks') {
-                title = "⚡ [إنجاز مهمة جانبية]";
-                const name = document.getElementById('task-name').value;
-                const desc = document.getElementById('task-desc').value;
+                title = "⚡ [تسجيل مهمة جانبية]";
+                const tType = document.getElementById('task-type').value;
+                const reason = document.getElementById('task-reason').value;
                 const result = document.getElementById('task-result').value;
-                if(!name || !desc) { showAlert("يرجى تعبئة الحقول الأساسية", "error"); return; }
-                content = `**المنفذ:** ${name}\n**المهمة:** ${desc}\n**النتيجة:** ${result}`;
+                if(!tType || !reason) { showAlert("يرجى تعبئة الحقول الأساسية للمهمة", "error"); return; }
+                content = `**الضابط المنفذ:** ${currentUser.name} (${currentUser.role})\n**نوع المهمة:** ${tType}\n**السبب:** ${reason}\n**النتيجة:** ${result || 'قيد المعالجة'}`;
+            
             } else if(type === 'suggestions') {
                 title = "💡 [مقترح جديد للقطاع]";
-                const name = document.getElementById('sug-name').value;
                 const contentText = document.getElementById('sug-content').value;
-                if(!name || !contentText) { showAlert("يرجى تعبئة الحقول الأساسية", "error"); return; }
-                content = `**المقترح من:** ${name}\n**نص المقترح:**\n${contentText}`;
+                const reason = document.getElementById('sug-reason').value;
+                if(!contentText || !reason) { showAlert("يرجى إدخال نص الاقتراح وسببه", "error"); return; }
+                content = `**المقترح من:** ${currentUser.name} (${currentUser.role})\n**نص الاقتراح:**\n${contentText}\n**السبب:**\n${reason}`;
             }
 
             const payload = {
@@ -487,36 +669,31 @@
                     title: title,
                     description: content,
                     color: 30927, // لون أزرق تكتيكي
-                    footer: { text: `بواسطة: ${currentUser.name} (${currentUser.role})` },
+                    footer: { text: `القوات الخاصة لأمن الطرق - نظام الجهاز` },
                     timestamp: new Date().toISOString()
                 }]
             };
 
             try {
-                // إرسال للروم الخاص بالقسم
+                // إرسال للروم الخاص بالقسم المحدد
                 await fetch(webhooks[type], {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
 
-                // إرسال نسخة للوج العام
-                await fetch(webhooks.log, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        embeds: [{
-                            title: `🔔 [لوج الجهاز] - تم تسجيل نشاط جديد`,
-                            description: `تم إرسال بلاغ جديد في قسم (**${type}**) بواسطة العضو: **${currentUser.name}**`,
-                            color: 16776960,
-                            timestamp: new Date().toISOString()
-                        }]
-                    })
-                });
+                // تحديث اللوج العام في واجهة القيادة إذا كان متاحاً
+                if(currentUser.type === 'admin') {
+                    const logContainer = document.getElementById('admin-log-container');
+                    const newLog = document.createElement('div');
+                    newLog.className = 'log-item';
+                    newLog.innerText = `[${new Date().toLocaleTimeString()}] تم إرسال تقرير (${type}) بنجاح بواسطة القائد/الضابط: ${currentUser.name}`;
+                    logContainer.prepend(newLog);
+                }
 
-                showAlert("تم إرسال التقرير بنجاح إلى رومات الديسكورد!", "success");
+                showAlert("تم إرسال التقرير بنجاح إلى روم ديسكورد المخصص!", "success");
             } catch (err) {
-                showAlert("حدث خطأ أثناء الإرسال، تأكد من الاتصال.", "error");
+                showAlert("حدث خطأ أثناء الإرسال، تأكد من الاتصال بالشبكة.", "error");
             }
         }
 
