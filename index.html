@@ -7,15 +7,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #07090e;
-            --panel-bg: rgba(13, 18, 30, 0.9);
+            --bg-color: #05070a;
+            --panel-bg: rgba(10, 15, 26, 0.95);
             --primary-blue: #00f0ff;
             --dark-blue: #0055ff;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --danger: #ef4444;
             --success: #10b981;
-            --border-glow: rgba(0, 240, 255, 0.25);
+            --border-glow: rgba(0, 240, 255, 0.3);
         }
 
         * {
@@ -28,103 +28,207 @@
         body {
             background-color: var(--bg-color);
             background-image: 
-                radial-gradient(circle at 50% 0%, rgba(0, 85, 255, 0.12) 0%, transparent 60%),
-                linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85));
+                radial-gradient(circle at 50% 10%, rgba(0, 85, 255, 0.18) 0%, transparent 60%),
+                radial-gradient(circle at 50% 90%, rgba(0, 240, 255, 0.08) 0%, transparent 50%),
+                linear-gradient(rgba(5, 7, 10, 0.9), rgba(5, 7, 10, 0.9));
             color: var(--text-main);
             min-height: 100vh;
             overflow-x: hidden;
         }
 
-        /* شاشة تسجيل الدخول */
+        /* 1. البوابة التكتيكية الفخمة */
         #auth-screen {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             animation: fadeIn 0.8s ease-in-out;
+            position: relative;
         }
 
         .auth-card {
             background: var(--panel-bg);
             border: 2px solid var(--primary-blue);
-            box-shadow: 0 0 30px var(--border-glow);
-            padding: 40px;
-            border-radius: 16px;
+            box-shadow: 0 0 40px var(--border-glow);
+            padding: 45px 35px;
+            border-radius: 20px;
             text-align: center;
-            width: 100%;
-            max-width: 440px;
-            backdrop-filter: blur(15px);
+            width: 90%;
+            max-width: 460px;
+            backdrop-filter: blur(20px);
+            position: relative;
+            z-index: 2;
+        }
+
+        .auth-logo-badge {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 15px auto;
+            border-radius: 50%;
+            border: 2px solid var(--primary-blue);
+            box-shadow: 0 0 20px var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 85, 255, 0.2);
+            font-size: 38px;
         }
 
         .auth-card h1 {
             color: var(--primary-blue);
-            font-size: 26px;
-            margin-bottom: 8px;
-            text-shadow: 0 0 12px rgba(0,240,255,0.4);
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 6px;
+            text-shadow: 0 0 15px rgba(0,240,255,0.4);
         }
 
         .auth-card p {
             color: var(--text-muted);
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             font-size: 13px;
         }
 
-        .input-group {
-            margin-bottom: 20px;
+        .btn-discord-login {
+            background: linear-gradient(135deg, #5865F2, #3b429f);
+            color: #fff;
+            font-weight: 800;
+            padding: 14px 20px;
+            width: 100%;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(88, 101, 242, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-discord-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(88, 101, 242, 0.7);
+        }
+
+        /* نافذة توثيق ديسكورد والربط (Discord Modal) */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .discord-modal {
+            background: #1e1f22;
+            border: 1px solid #313338;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 420px;
+            padding: 25px;
+            color: #dbdee1;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
             text-align: right;
         }
 
-        .input-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 13px;
-            color: var(--primary-blue);
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid #2b2d31;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
         }
 
-        .input-group input {
-            width: 100%;
-            padding: 12px 15px;
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid #1e293b;
-            border-radius: 8px;
+        .modal-header h3 {
             color: #fff;
-            font-size: 15px;
-            transition: all 0.3s;
-        }
-
-        .input-group input:focus {
-            border-color: var(--primary-blue);
-            outline: none;
-            box-shadow: 0 0 12px rgba(0,240,255,0.3);
-        }
-
-        .btn-tactical {
-            background: linear-gradient(135deg, var(--dark-blue), var(--primary-blue));
-            color: #000;
-            font-weight: 800;
-            padding: 12px;
-            width: 100%;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
             font-size: 16px;
-            transition: all 0.3s;
-            box-shadow: 0 0 15px rgba(0,240,255,0.3);
         }
 
-        .btn-tactical:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 25px rgba(0,240,255,0.6);
+        .modal-body {
+            font-size: 13px;
+            color: #b5bac1;
+            line-height: 1.6;
+            margin-bottom: 20px;
         }
 
-        /* لوحة التحكم الرئيسية */
+        .modal-body ul {
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .modal-body ul li {
+            position: relative;
+            padding-right: 20px;
+            margin-bottom: 6px;
+            color: #3ba55d;
+        }
+
+        .modal-body ul li::before {
+            content: "✓";
+            position: absolute;
+            right: 0;
+            font-weight: bold;
+        }
+
+        .modal-inputs {
+            margin-bottom: 20px;
+        }
+
+        .modal-inputs input {
+            width: 100%;
+            padding: 10px;
+            background: #111214;
+            border: 1px solid #313338;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-authorize {
+            background: #5865F2;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            flex: 1;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-authorize:hover {
+            background: #4752C4;
+        }
+
+        .btn-cancel {
+            background: transparent;
+            color: #fff;
+            border: 1px solid #4e5058;
+            padding: 10px;
+            border-radius: 6px;
+            flex: 1;
+            cursor: pointer;
+        }
+
+        /* 2. لوحة التحكم الرئيسية */
         #dashboard {
             display: none;
             animation: fadeIn 0.5s ease-in-out;
         }
 
         header {
-            background: rgba(7, 9, 14, 0.95);
+            background: rgba(5, 7, 10, 0.95);
             border-bottom: 1px solid rgba(0, 240, 255, 0.2);
             padding: 12px 30px;
             display: flex;
@@ -133,16 +237,16 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(15px);
         }
 
         .logo-area h2 {
-            font-size: 20px;
+            font-size: 19px;
             color: var(--primary-blue);
             letter-spacing: 0.5px;
+            font-weight: 900;
         }
 
-        /* تفاصيل الشريط العلوي العسكري المنظم */
         .user-nav-profile {
             display: flex;
             align-items: center;
@@ -154,7 +258,7 @@
             align-items: center;
             gap: 10px;
             background: rgba(0, 240, 255, 0.05);
-            border: 1px solid rgba(0, 240, 255, 0.2);
+            border: 1px solid rgba(0, 240, 255, 0.25);
             padding: 6px 14px;
             border-radius: 30px;
         }
@@ -206,79 +310,128 @@
             color: #fff;
         }
 
-        /* حاوية المحتوى والقائمة المنسدلة في المنتصف فوق */
         .main-container {
-            max-width: 850px;
+            max-width: 800px;
             margin: 30px auto;
             padding: 0 20px;
         }
 
-        /* واجهة الصفحة الرئيسية (Landing Page) */
         .landing-view {
             text-align: center;
-            padding: 40px 20px;
+            padding: 35px 20px;
             background: var(--panel-bg);
             border: 1px solid rgba(0, 240, 255, 0.2);
-            border-radius: 14px;
+            border-radius: 16px;
             margin-bottom: 25px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
 
         .landing-view h3 {
             color: var(--primary-blue);
-            font-size: 24px;
-            margin-bottom: 10px;
+            font-size: 22px;
+            margin-bottom: 8px;
         }
 
         .landing-view p {
             color: var(--text-muted);
-            font-size: 14px;
+            font-size: 13.5px;
             line-height: 1.6;
         }
 
-        /* القائمة المنسدلة التكتيكية العلوية في المنتصف */
+        /* 3. القائمة المنسدلة التكتيكية المخصصة (Custom Dropdown) */
         .top-dropdown-wrapper {
             display: flex;
             justify-content: center;
             margin-bottom: 25px;
-        }
-
-        .dropdown-tactical-box {
-            width: 100%;
-            max-width: 450px;
             position: relative;
         }
 
-        .select-tactical {
+        .custom-dropdown-container {
+            width: 100%;
+            max-width: 480px;
+            position: relative;
+        }
+
+        .dropdown-trigger {
             width: 100%;
             padding: 14px 20px;
-            background: rgba(13, 18, 30, 0.95);
+            background: rgba(10, 15, 26, 0.95);
             border: 2px solid var(--primary-blue);
-            border-radius: 10px;
+            border-radius: 12px;
             color: #fff;
             font-size: 15px;
             font-weight: 700;
             cursor: pointer;
-            text-align: center;
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
+            transition: all 0.3s ease;
         }
 
-        .select-tactical:focus {
-            outline: none;
+        .dropdown-trigger:hover {
             box-shadow: 0 0 25px var(--border-glow);
+            border-color: #fff;
         }
 
-        /* صناديق الأقسام مع أنيميشن الحركة الانسيابي */
+        .dropdown-arrow {
+            transition: transform 0.3s ease;
+            font-size: 12px;
+            color: var(--primary-blue);
+        }
+
+        .custom-dropdown-menu {
+            position: absolute;
+            top: 110%;
+            right: 0; left: 0;
+            background: rgba(8, 12, 20, 0.98);
+            border: 1px solid var(--primary-blue);
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+            display: none;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 500;
+            backdrop-filter: blur(15px);
+        }
+
+        .custom-dropdown-menu.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            padding: 14px 20px;
+            color: var(--text-main);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+
+        .dropdown-item:hover {
+            background: rgba(0, 240, 255, 0.12);
+            color: var(--primary-blue);
+            padding-right: 25px;
+        }
+
+        /* 4. صناديق النماذج والأقسام */
         .form-section {
             display: none;
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(15px);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
             background: var(--panel-bg);
             border: 1px solid rgba(0, 240, 255, 0.2);
-            border-radius: 14px;
-            padding: 30px;
+            border-radius: 16px;
+            padding: 28px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             backdrop-filter: blur(12px);
         }
@@ -294,28 +447,28 @@
             color: var(--primary-blue);
             border-bottom: 1px solid rgba(0, 240, 255, 0.2);
             padding-bottom: 10px;
-            font-size: 18px;
+            font-size: 17px;
         }
 
         .form-row {
-            margin-bottom: 18px;
+            margin-bottom: 16px;
         }
 
         .form-row label {
             display: block;
             margin-bottom: 6px;
-            font-size: 14px;
+            font-size: 13.5px;
             color: var(--text-muted);
         }
 
         .form-row input, .form-row textarea, .form-row select {
             width: 100%;
             padding: 12px;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
             border: 1px solid #1e293b;
             border-radius: 8px;
             color: #fff;
-            font-size: 15px;
+            font-size: 14px;
             transition: border-color 0.3s;
         }
 
@@ -331,10 +484,30 @@
             border-color: rgba(0, 240, 255, 0.3);
         }
 
-        /* لوج القيادة الخاص */
+        .btn-tactical {
+            background: linear-gradient(135deg, var(--dark-blue), var(--primary-blue));
+            color: #000;
+            font-weight: 800;
+            padding: 12px;
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: all 0.3s;
+            box-shadow: 0 0 15px rgba(0,240,255,0.3);
+            margin-top: 10px;
+        }
+
+        .btn-tactical:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(0,240,255,0.6);
+        }
+
+        /* 5. لوج القيادة الخاص */
         #admin-log-panel {
             margin-top: 30px;
-            background: rgba(15, 23, 42, 0.95);
+            background: rgba(10, 15, 26, 0.95);
             border: 1px dashed var(--primary-blue);
             padding: 20px;
             border-radius: 12px;
@@ -344,13 +517,13 @@
         #admin-log-panel h4 {
             color: var(--primary-blue);
             margin-bottom: 12px;
-            font-size: 16px;
+            font-size: 15px;
         }
 
         .log-list {
             max-height: 180px;
             overflow-y: auto;
-            font-size: 13px;
+            font-size: 12.5px;
             color: var(--text-muted);
             display: flex;
             flex-direction: column;
@@ -370,7 +543,7 @@
             padding: 12px;
             border-radius: 8px;
             text-align: center;
-            font-size: 14px;
+            font-size: 13.5px;
             display: none;
         }
 
@@ -394,21 +567,45 @@
 </head>
 <body>
 
-    <!-- شاشة تسجيل الدخول الإجباري ونظام ديسكورد -->
+    <!-- 1. شاشة البوابة التكتيكية -->
     <div id="auth-screen">
         <div class="auth-card">
-            <h1>قوات أمن الطرق</h1>
-            <p>منصة "الجهاز" التكتيكية - يرجى تسجيل الدخول للتحقق من الهوية</p>
-            <div class="input-group">
-                <label>معرف ديسكورد (Discord Username)</label>
-                <input type="text" id="username-input" placeholder="أدخل يوزرك المسجل...">
-            </div>
-            <button class="btn-tactical" onclick="login()">ربط حساب ديسكورد ودخول</button>
-            <div id="login-error" style="color: var(--danger); font-size: 13px; margin-top: 10px; display: none;">اسم المستخدم غير مسجل في قاعدة بيانات القطاع!</div>
+            <div class="auth-logo-badge">🛡️</div>
+            <h1>القوات الخاصة لأمن الطرق</h1>
+            <p>منصة "الجهاز" الميدانية - يرجى توثيق الهوية عبر ديسكورد</p>
+            <button class="btn-discord-login" onclick="openDiscordModal()">
+                <span>تسجيل الدخول وربط الحساب عبر Discord</span>
+            </button>
+            <div id="login-error" style="color: var(--danger); font-size: 13px; margin-top: 15px; display: none;">اسم المستخدم غير مصرح له بوجوب الصلاحيات!</div>
         </div>
     </div>
 
-    <!-- لوحة التحكم الرئيسية -->
+    <!-- نافذة توثيق ديسكورد للتأكيد والربط -->
+    <div class="modal-overlay" id="discord-modal-overlay">
+        <div class="discord-modal">
+            <div class="modal-header">
+                <span style="font-size:22px;">🤖</span>
+                <h3>Discord Authorization Request</h3>
+            </div>
+            <div class="modal-body">
+                <p>هل توافق على ربط حسابك في الديسكورد بموقع <strong>الجهاز (أمن الطرق)</strong> للتحقق وتأكيد الهوية والرتبة الميدانية؟</p>
+                <ul>
+                    <li>سحب اسم المستخدم والتأكد من الصلاحيات.</li>
+                    <li>تثبيت الهوية والرتبة تلقائياً في التقارير.</li>
+                </ul>
+            </div>
+            <div class="modal-inputs">
+                <label style="display:block; font-size:12px; margin-bottom:5px; color:#94a3b8;">أدخل يوزر الديسكورد الخاص بك للتحقق:</label>
+                <input type="text" id="discord-username-input" placeholder="مثال: .0_iz أو rk.1k">
+            </div>
+            <div class="modal-actions">
+                <button class="btn-authorize" onclick="confirmAuthorize()">موافق والربط الآن</button>
+                <button class="btn-cancel" onclick="closeDiscordModal()">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. لوحة التحكم الرئيسية -->
     <div id="dashboard">
         <header>
             <div class="logo-area">
@@ -427,23 +624,26 @@
         </header>
 
         <div class="main-container">
-            <!-- صفحة ترحيبية أساسية -->
+            <!-- الواجهة الرئيسية الترحيبية -->
             <div class="landing-view" id="landing-welcome">
                 <h3>مرحباً بك في لوحة عمليات القطاع</h3>
-                <p>قم باختيار القسم المطلوب من القائمة المنسدلة في الأعلى لتسجيل التقارير والعمليات الميدانية مباشرة إلى غرف العمليات والروماـت المخصصة.</p>
+                <p>قم باختيار القسم المطلوب من القائمة المنسدلة في الأعلى لتسجيل التقارير الميدانية مباشرة إلى غرف العمليات والروماـت المخصصة.</p>
             </div>
 
-            <!-- القائمة المنسدلة التكتيكية في المنتصف فوق -->
+            <!-- 3. القائمة المنسدلة التكتيكية المخصصة في المنتصف فوق -->
             <div class="top-dropdown-wrapper">
-                <div class="dropdown-tactical-box">
-                    <select id="section-select" class="select-tactical" onchange="switchSection()">
-                        <option value="" disabled selected>-- 📋 اختر القسم المطلوب لتسجيل التقرير --</option>
-                        <option value="duty">1. قسم الاستلام</option>
-                        <option value="training">2. قسم التدريب</option>
-                        <option value="media">3. قسم المشاركات الإعلامية</option>
-                        <option value="tasks">4. قسم المهام الجانبية</option>
-                        <option value="suggestions">5. قسم اقتراحات القطاع</option>
-                    </select>
+                <div class="custom-dropdown-container">
+                    <div class="dropdown-trigger" onclick="toggleDropdown()">
+                        <span id="selected-dropdown-text">📋 اختر القسم المطلوب لتسجيل التقرير</span>
+                        <span class="dropdown-arrow" id="dropdown-arrow">▼</span>
+                    </div>
+                    <div class="custom-dropdown-menu" id="custom-dropdown-menu">
+                        <div class="dropdown-item" onclick="selectSection('duty', '1. قسم الاستلام')">📌 1. قسم الاستلام</div>
+                        <div class="dropdown-item" onclick="selectSection('training', '2. قسم التدريب')">🎖️ 2. قسم التدريب</div>
+                        <div class="dropdown-item" onclick="selectSection('media', '3. قسم المشاركات الإعلامية')">📸 3. قسم المشاركات الإعلامية</div>
+                        <div class="dropdown-item" onclick="selectSection('tasks', '4. قسم المهام الجانبية')">⚡ 4. قسم المهام الجانبية</div>
+                        <div class="dropdown-item" onclick="selectSection('suggestions', '5. قسم اقتراحات القطاع')">💡 5. قسم اقتراحات القطاع</div>
+                    </div>
                 </div>
             </div>
 
@@ -456,13 +656,6 @@
                 <div class="form-row"><label>أفضل فرد:</label><input type="text" id="duty-best" placeholder="اسم الفرد المميز"></div>
                 <div class="form-row"><label>أسوأ فرد:</label><input type="text" id="duty-worst" placeholder="اسم الفرد المقصر"></div>
                 <div class="form-row"><label>وصف الاستلام:</label><textarea id="duty-desc" rows="3" placeholder="تفاصيل وحالة الميدان..."></textarea></div>
-                
-                <!-- رفع صورتين للاستلام -->
-                <div class="form-row">
-                    <label>رفع صور إثبات الاستلام (صورتين):</label>
-                    <input type="file" id="duty-images" multiple accept="image/*">
-                </div>
-
                 <button class="btn-tactical" onclick="sendReport('duty')">إرسال تقرير الاستلام إلى الروم</button>
             </div>
 
@@ -484,7 +677,7 @@
                 <div class="form-row"><label>اسم المشارك (تلقائي):</label><input type="text" id="media-name" readonly></div>
                 <div class="form-row">
                     <label>نوع المشاركة:</label>
-                    <select id="media-type" style="width:100%; padding:12px; background:rgba(0,0,0,0.5); border:1px solid #1e293b; border-radius:8px; color:#fff;">
+                    <select id="media-type" style="width:100%; padding:12px; background:rgba(0,0,0,0.6); border:1px solid #1e293b; border-radius:8px; color:#fff;">
                         <option value="صورة">صورة</option>
                         <option value="فيديو">فيديو</option>
                     </select>
@@ -517,15 +710,15 @@
                 <button class="btn-tactical" onclick="sendReport('suggestions')">رفع المقترح إلى الروم</button>
             </div>
 
-            <!-- لوج القيادة العام (يظهر فقط للقادة) -->
+            <!-- لوج القيادة الخاص (يظهر فقط للقادة) -->
             <div id="admin-log-panel">
                 <h4>🔒 سجلات العمليات واللوج العام (صلاحية القيادة فقط)</h4>
                 <div class="log-list" id="admin-log-container">
-                    <div class="log-item">النظام جاهز، بانتظار تسجيل النشاطات والتقارير الميدانية...</div>
+                    <div class="log-item">النظام جاهز ومربوط بدقة مع روبوتات الديسكورد...</div>
                 </div>
             </div>
 
-            <!-- رسالة الحالة -->
+            <!-- رسالة الحالة والتنبيهات -->
             <div id="alert-box"></div>
         </div>
     </div>
@@ -540,7 +733,7 @@
             "n.xr1": { name: "n.xr1", role: "ملازم / ميم 5", type: "officer" }
         };
 
-        // روابط الـ Webhooks الدقيقة لكل روم
+        // روابط الـ Webhooks المطلقة لجميع الرومات
         const webhooks = {
             duty: "https://discord.com/api/webhooks/1559947331325919293/LxfHJp6VIUanaLz2l0N-QX60-ToEevufmcOm3S6oBxXkdqjupDna_sYBIHSF0ObUT8Kc",       // #استلامات-الضباط
             training: "https://discord.com/api/webhooks/1559947657625997313/usip6Diz2IALuEhuiGfj20eLdPh8AwHZwkVjKGy1zv1GaDjo6z92kUiec47ssmN1kd63", // #تدريبات-الضباط
@@ -551,37 +744,47 @@
 
         let currentUser = null;
 
-        function login() {
-            const inputVal = document.getElementById('username-input').value.trim();
+        // فتح وإغلاق نافذة التوثيق
+        function openDiscordModal() {
+            document.getElementById('discord-modal-overlay').style.display = 'flex';
+        }
+
+        function closeDiscordModal() {
+            document.getElementById('discord-modal-overlay').style.display = 'none';
+        }
+
+        function confirmAuthorize() {
+            const inputVal = document.getElementById('discord-username-input').value.trim();
             const errorDiv = document.getElementById('login-error');
 
             if(usersDatabase[inputVal]) {
                 currentUser = usersDatabase[inputVal];
+                closeDiscordModal();
                 
-                // إخفاء شاشة الدخول وإظهار لوحة التحكم
+                // إخفاء شاشة الدخول وإظهار اللوحة
                 document.getElementById('auth-screen').style.display = 'none';
                 document.getElementById('dashboard').style.display = 'block';
                 
-                // تعبئة بيانات الشريط العلوي المنظم
+                // تعبئة البيانات في الشريط العلوي
                 document.getElementById('header-username').innerText = currentUser.name;
                 document.getElementById('header-rank').innerText = currentUser.role;
                 document.getElementById('user-avatar-initial').innerText = currentUser.name.charAt(0).toUpperCase();
 
-                // التعبئة التلقائية لأسماء الضباط في جميع النماذج
+                // تعبئة الاسم تلقائياً في كل الأقسام
                 document.getElementById('duty-name').value = `${currentUser.name} (${currentUser.role})`;
                 document.getElementById('train-name').value = `${currentUser.name} (${currentUser.role})`;
                 document.getElementById('media-name').value = `${currentUser.name} (${currentUser.role})`;
                 document.getElementById('task-name').value = `${currentUser.name} (${currentUser.role})`;
                 document.getElementById('sug-name').value = `${currentUser.name} (${currentUser.role})`;
 
-                // إظهار لوج القيادة فقط إذا كان المستخدم من القيادة
+                // إظهار اللوج للقيادة فقط
                 if(currentUser.type === 'admin') {
                     document.getElementById('admin-log-panel').style.display = 'block';
                 }
 
                 errorDiv.style.display = 'none';
             } else {
-                errorDiv.style.display = 'block';
+                alert("تعذر الربط: اسم ديسكورد غير مسجل في قاعدة بيانات الجهاز!");
             }
         }
 
@@ -589,36 +792,43 @@
             currentUser = null;
             document.getElementById('dashboard').style.display = 'none';
             document.getElementById('auth-screen').style.display = 'flex';
-            document.getElementById('username-input').value = '';
+            document.getElementById('discord-username-input').value = '';
             document.getElementById('admin-log-panel').style.display = 'none';
-            document.getElementById('section-select').value = "";
             document.getElementById('landing-welcome').style.display = 'block';
+            document.getElementById('selected-dropdown-text').innerText = "📋 اختر القسم المطلوب لتسجيل التقرير";
             document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));
         }
 
-        // الحركة وانتقال الأقسام عبر القائمة المنسدلة في المنتصف فوق
-        function switchSection() {
-            const selectedVal = document.getElementById('section-select').value;
-            const sections = document.querySelectorAll('.form-section');
+        // القائمة المنسدلة التكتيكية المخصصة
+        function toggleDropdown() {
+            const menu = document.getElementById('custom-dropdown-menu');
+            const arrow = document.getElementById('dropdown-arrow');
+            menu.classList.toggle('show');
+            arrow.style.transform = menu.classList.contains('show') ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+
+        function selectSection(type, labelText) {
+            document.getElementById('selected-dropdown-text').innerText = labelText;
+            toggleDropdown();
+
             const landing = document.getElementById('landing-welcome');
+            const sections = document.querySelectorAll('.form-section');
             
             landing.style.display = 'none';
             sections.forEach(sec => sec.classList.remove('active'));
 
-            if(selectedVal) {
-                const targetSec = document.getElementById(`section-${selectedVal}`);
-                if(targetSec) {
-                    setTimeout(() => {
-                        targetSec.classList.add('active');
-                    }, 50);
-                }
+            const targetSec = document.getElementById(`section-${type}`);
+            if(targetSec) {
+                setTimeout(() => {
+                    targetSec.classList.add('active');
+                }, 50);
             }
         }
 
-        // إرسال البيانات للديسكورد عبر الـ Webhook الخاص بكل روم
+        // إرسال البيانات وضمان عدم تعليق أي Webhook
         async function sendReport(type) {
-            let content = "";
             let title = "";
+            let fields = [];
 
             if(type === 'duty') {
                 title = "📌 [تقرير استلام ضابط]";
@@ -627,8 +837,17 @@
                 const best = document.getElementById('duty-best').value;
                 const worst = document.getElementById('duty-worst').value;
                 const desc = document.getElementById('duty-desc').value;
+                
                 if(!duration || !count) { showAlert("يرجى تعبئة الحقول الأساسية للاستلام", "error"); return; }
-                content = `**المسؤول:** ${currentUser.name} (${currentUser.role})\n**عدد الأفراد:** ${count}\n**مدة الاستلام:** ${duration}\n**أفضل فرد:** ${best || 'لا يوجد'}\n**أسوأ فرد:** ${worst || 'لا يوجد'}\n**الوصف:** ${desc || 'بدون وصف'}`;
+                
+                fields = [
+                    { name: "المسؤول عن الاستلام", value: `${currentUser.name} (${currentUser.role})`, inline: true },
+                    { name: "عدد الأفراد المتواجدين", value: `${count}`, inline: true },
+                    { name: "مدة الاستلام", value: `${duration}`, inline: true },
+                    { name: "أفضل فرد", value: best || "لا يوجد", inline: true },
+                    { name: "أسوأ فرد", value: worst || "لا يوجد", inline: true },
+                    { name: "وصف الاستلام", value: desc || "لا يوجد وصف إضافي", inline: false }
+                ];
             
             } else if(type === 'training') {
                 title = "🎖️ [تقرير دفعة تدريب]";
@@ -637,63 +856,93 @@
                 const success = document.getElementById('train-success').value;
                 const fail = document.getElementById('train-fail').value;
                 const trainers = document.getElementById('train-trainers').value;
+
                 if(!duration || !batch) { showAlert("يرجى تعبئة الحقول الأساسية للتدريب", "error"); return; }
-                content = `**المدرب المسؤول:** ${currentUser.name} (${currentUser.role})\n**مدة التدريب:** ${duration}\n**عدد الدفعة:** ${batch}\n**الناجحون:** ${success || 'لا يوجد'}\n**الفاشلون:** ${fail || 'لا يوجد'}\n**المدربون:** ${trainers || 'غير محدد'}`;
+
+                fields = [
+                    { name: "المدرب المسؤول", value: `${currentUser.name} (${currentUser.role})`, inline: true },
+                    { name: "مدة التدريب", value: `${duration}`, inline: true },
+                    { name: "عدد الدفعة", value: `${batch}`, inline: true },
+                    { name: "الناجحون", value: success || "لا يوجد", inline: false },
+                    { name: "الفاشلون", value: fail || "لا يوجد", inline: false },
+                    { name: "المدربون المشاركون", value: trainers || "غير محدد", inline: false }
+                ];
             
             } else if(type === 'media') {
                 title = "📸 [مشاركة إعلامية جديدة]";
                 const mType = document.getElementById('media-type').value;
                 const idea = document.getElementById('media-idea').value;
                 const notes = document.getElementById('media-notes').value;
+
                 if(!idea) { showAlert("يرجى إدخال فكرة المشاركة", "error"); return; }
-                content = `**المشارَك:** ${currentUser.name} (${currentUser.role})\n**نوع المشاركة:** ${mType}\n**الفكرة:** ${idea}\n**ملاحظات وإضافات:** ${notes || 'لا توجد'}`;
+
+                fields = [
+                    { name: "اسم المشارك", value: `${currentUser.name} (${currentUser.role})`, inline: true },
+                    { name: "نوع المشاركة", value: `${mType}`, inline: true },
+                    { name: "فكرة المشاركة", value: `${idea}`, inline: false },
+                    { name: "ملاحظات إضافية", value: notes || "لا توجد", inline: false }
+                ];
             
             } else if(type === 'tasks') {
                 title = "⚡ [تسجيل مهمة جانبية]";
                 const tType = document.getElementById('task-type').value;
                 const reason = document.getElementById('task-reason').value;
                 const result = document.getElementById('task-result').value;
+
                 if(!tType || !reason) { showAlert("يرجى تعبئة الحقول الأساسية للمهمة", "error"); return; }
-                content = `**الضابط المنفذ:** ${currentUser.name} (${currentUser.role})\n**نوع المهمة:** ${tType}\n**السبب:** ${reason}\n**النتيجة:** ${result || 'قيد المعالجة'}`;
+
+                fields = [
+                    { name: "الضابط المنفذ", value: `${currentUser.name} (${currentUser.role})`, inline: true },
+                    { name: "نوع المهمة", value: `${tType}`, inline: true },
+                    { name: "سبب المهمة", value: `${reason}`, inline: false },
+                    { name: "نتيجة المهمة", value: result || "قيد المعالجة", inline: false }
+                ];
             
             } else if(type === 'suggestions') {
                 title = "💡 [مقترح جديد للقطاع]";
                 const contentText = document.getElementById('sug-content').value;
                 const reason = document.getElementById('sug-reason').value;
+
                 if(!contentText || !reason) { showAlert("يرجى إدخال نص الاقتراح وسببه", "error"); return; }
-                content = `**المقترح من:** ${currentUser.name} (${currentUser.role})\n**نص الاقتراح:**\n${contentText}\n**السبب:**\n${reason}`;
+
+                fields = [
+                    { name: "المقترح من الضابط", value: `${currentUser.name} (${currentUser.role})`, inline: false },
+                    { name: "نص الاقتراح", value: contentText, inline: false },
+                    { name: "سبب الاقتراح", value: reason, inline: false }
+                ];
             }
 
             const payload = {
                 embeds: [{
                     title: title,
-                    description: content,
-                    color: 30927, // لون أزرق تكتيكي
-                    footer: { text: `القوات الخاصة لأمن الطرق - نظام الجهاز` },
+                    fields: fields,
+                    color: 65535, // أزرق سماوي تكتيكي
+                    footer: { text: "القوات الخاصة لأمن الطرق - نظام الجهاز الميداني" },
                     timestamp: new Date().toISOString()
                 }]
             };
 
             try {
-                // إرسال للروم الخاص بالقسم المحدد
-                await fetch(webhooks[type], {
+                const response = await fetch(webhooks[type], {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
 
-                // تحديث اللوج العام في واجهة القيادة إذا كان متاحاً
-                if(currentUser.type === 'admin') {
-                    const logContainer = document.getElementById('admin-log-container');
-                    const newLog = document.createElement('div');
-                    newLog.className = 'log-item';
-                    newLog.innerText = `[${new Date().toLocaleTimeString()}] تم إرسال تقرير (${type}) بنجاح بواسطة القائد/الضابط: ${currentUser.name}`;
-                    logContainer.prepend(newLog);
+                if(response.ok || response.status === 204) {
+                    if(currentUser.type === 'admin') {
+                        const logContainer = document.getElementById('admin-log-container');
+                        const newLog = document.createElement('div');
+                        newLog.className = 'log-item';
+                        newLog.innerText = `[${new Date().toLocaleTimeString()}] تم إرسال تقرير (${type}) بنجاح عبر الضابط/القائد: ${currentUser.name}`;
+                        logContainer.prepend(newLog);
+                    }
+                    showAlert("تم إرسال التقرير بنجاح إلى روم ديسكورد المخصص!", "success");
+                } else {
+                    showAlert("تعذر الوصول لـ Webhook الروم، تحقق من الرابط.", "error");
                 }
-
-                showAlert("تم إرسال التقرير بنجاح إلى روم ديسكورد المخصص!", "success");
             } catch (err) {
-                showAlert("حدث خطأ أثناء الإرسال، تأكد من الاتصال بالشبكة.", "error");
+                showAlert("حدث خطأ أثناء الاتصال بالشبكة.", "error");
             }
         }
 
